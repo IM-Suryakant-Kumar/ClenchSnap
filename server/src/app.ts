@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import morgan from "morgan";
 import { errorHandlerMiddleware, notFoundMiddleware } from "./middleware";
+import authRouter from "./routes/auth";
 
 config();
 const app = express();
@@ -17,6 +18,9 @@ app.use(helmet())
 app.use(morgan("tiny"))
 app.use(cors({ origin: CLIENT_URL, credentials: true }));
 app.use(cookieParser())
+
+// routers
+app.use(authRouter)
 
 // Test
 app.get("/", async (req: Request, res: Response) => {
