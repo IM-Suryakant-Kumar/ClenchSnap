@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import express, { Request, Response } from "express";
-import notFoundMiddleware from "./middleware/not-found";
+import { errorHandlerMiddleware, notFoundMiddleware } from "./middleware";
 
 config()
 const app = express();
@@ -12,6 +12,7 @@ app.get("/", async (req: Request, res: Response) => {
 })
 
 app.use(notFoundMiddleware)
+app.use(errorHandlerMiddleware)
 const PORT = process.env.PORT || 4000;
 const start = () => {
 	try {
