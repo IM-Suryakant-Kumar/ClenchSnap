@@ -9,6 +9,6 @@ export type User = {
 };
 
 export default interface IUser extends User, Document {
-    comparePassword: (candidatePassword: string) => boolean;
-    createJWTToken: () => string;
+	comparePassword: (candidatePassword: string) => Promise<boolean>;
+	createJWTToken: () => string;
 }
