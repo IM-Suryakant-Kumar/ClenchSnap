@@ -9,7 +9,7 @@ import authRouter from "./routes/auth";
 
 config();
 const app = express();
-const CLIENT_URL: string = process.env.CLIENT_URL || "http://localhost:5173";
+const CLIENT_URL: string = process.env.CLIENT_URL;
 
 // middlewares
 app.use(express.json());

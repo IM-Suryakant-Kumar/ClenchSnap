@@ -23,9 +23,9 @@ UserSchema.methods.comparePassword = async function (candidatePassword: string) 
 	return await bcrypt.compare(candidatePassword, this.password);
 };
 
-UserSchema.methods.CreateJWTToken = function () {
-	const JWT_SECRET: string = process.env.JWT_SECRET || "something";
-	const JWT_LIFETIME: string = process.env.JWT_LIFETIME || "5d";
+UserSchema.methods.createJWTToken = function () {
+	const JWT_SECRET: string = process.env.JWT_SECRET;
+	const JWT_LIFETIME: string = process.env.JWT_LIFETIME;
 	return jwt.sign({ _id: this._id }, JWT_SECRET, { expiresIn: JWT_LIFETIME });
 };
 
