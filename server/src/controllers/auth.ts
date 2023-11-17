@@ -1,7 +1,7 @@
+import { StatusCodes } from "http-status-codes";
 import { Request, Response } from "express";
 import { BadRequestError, UnauthenticatedError, UnauthorizedError } from "../errors";
 import User from "../models/User";
-import { StatusCodes } from "http-status-codes";
 import sendToken from "../utils/sendToken";
 
 interface IReq extends Request {
