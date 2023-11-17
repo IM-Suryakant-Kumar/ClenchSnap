@@ -5,6 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import morgan from "morgan";
+import fileUpload = require("express-fileupload");
 import { errorHandlerMiddleware, notFoundMiddleware } from "./middleware";
 import authRouter from "./routes/auth";
 import connectDB from "./db";
@@ -13,9 +14,11 @@ config();
 const app = express();
 const CLIENT_URL: string = process.env.CLIENT_URL;
 
+
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(fileUpload({ useTempFiles: true }));
 app.use(helmet());
 app.use(morgan("tiny"));
 app.use(cors({ origin: CLIENT_URL, credentials: true }));
