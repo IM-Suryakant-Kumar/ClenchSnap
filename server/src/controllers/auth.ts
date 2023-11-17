@@ -19,9 +19,6 @@ export const createUser = async (req: Request, res: Response) => {
 		body: { name, email, avatar, password },
 	} = req as IReq;
 
-	if (!(name && email && avatar && password))
-		throw new BadRequestError("Please provide all values");
-
 	const user = await User.create({ name, email, avatar, password });
 	sendToken(user, StatusCodes.CREATED, res, "Successfully registered");
 };

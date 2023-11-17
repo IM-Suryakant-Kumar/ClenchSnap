@@ -1,3 +1,4 @@
+import "express-async-errors";
 import { config } from "dotenv";
 import express, { Request, Response } from "express";
 import cors from "cors";
@@ -37,7 +38,7 @@ const start = async () => {
 		await connectDB(MONGO_URL);
 		app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`));
 	} catch (error) {
-		// console.log(error);
+		console.log(error);
 	}
 };
 start();
