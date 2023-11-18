@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import { BadRequestError, UnauthenticatedError, UnauthorizedError } from "../errors";
 import User from "../models/User";
 import sendToken from "../utils/sendToken";
-import cloudinary from "../utils/config";
 
 interface IReq extends Request {
 	body: {
@@ -17,16 +16,8 @@ interface IReq extends Request {
 // Create User
 export const createUser = async (req: Request, res: Response) => {
 	const {
-		body: { name, email, password },
-		files,
+		body: { name, email, avatar, password },
 	} = req as IReq;
-
-	let avatar: string;
-	const file: any = files.avatar;
-	cloudinary.uploader.upload(file.tempFilePath, (err: any, result: any) => {
-        console.log(result.url)
-		avatar = result.url;
-	});
 
 	const user = await User.create({ name, email, avatar, password });
 	sendToken(user, StatusCodes.CREATED, res, "Successfully registered");
