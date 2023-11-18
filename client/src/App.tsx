@@ -4,12 +4,13 @@ import {
 	createBrowserRouter,
 	createRoutesFromElements,
 } from "react-router-dom";
+import Layout from "./components/Layout";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route
 			path="/"
-			element={<h1>Layout route</h1>}
+			element={<Layout />}
 		>
 			<Route
 				index
@@ -17,7 +18,7 @@ const router = createBrowserRouter(
 			/>
 			<Route
 				path="*"
-				element={<h1 className="flex">PAGE NOT FOUND - 404</h1>}
+				element={<h1>PAGE NOT FOUND - 404!</h1>}
 			/>
 		</Route>,
 	),
