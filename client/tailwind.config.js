@@ -9,7 +9,6 @@ export default {
 			colors: {
 				"primary-cl": "#ebf2fa",
 				"secondary-cl": "#cae9ff",
-				"font-cl": "#0d1b2a",
 				"logo-cl": "#3a86ff",
 			},
 		},
