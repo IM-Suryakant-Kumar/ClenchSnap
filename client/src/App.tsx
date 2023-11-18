@@ -5,6 +5,7 @@ import {
 	createRoutesFromElements,
 } from "react-router-dom";
 import Layout from "./components/Layout";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -18,7 +19,7 @@ const router = createBrowserRouter(
 			/>
 			<Route
 				path="*"
-				element={<h1>PAGE NOT FOUND - 404!</h1>}
+				element={<NotFound />}
 			/>
 		</Route>,
 	),
