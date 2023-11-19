@@ -22,7 +22,6 @@ export const createUser = async (req: Request, res: Response) => {
 	const user = await User.create({ name, email, avatar, password });
 	sendToken(user, StatusCodes.CREATED, res, "Successfully registered");
 };
-
 // Login user
 export const login = async (req: Request, res: Response) => {
 	const {
@@ -39,7 +38,17 @@ export const login = async (req: Request, res: Response) => {
 
 	sendToken(user, StatusCodes.CREATED, res, "Successfully logged in");
 };
+// guest login
+export const guestLogin = async (req: Request, res: Response) => {
 
+	const user = await User.findOne({ email: "clench@gmail.com" });
+	if (!user) throw new UnauthenticatedError("Invalid Credentials!");
+
+	const isPasswordCorrect = await user.comparePassword("secret");
+	if (!isPasswordCorrect) throw new UnauthorizedError("Invalid credentials!");
+
+	sendToken(user, StatusCodes.CREATED, res, "Successfully logged in");
+};
 // Logout user
 export const logout = async (req: Request, res: Response) => {
 	res.cookie("token", null, { maxAge: 0, httpOnly: true })
