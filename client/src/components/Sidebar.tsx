@@ -12,7 +12,7 @@ const Sidebar = () => {
 			<div className="h-full flex justify-around items-center text-logo-cl sm:flex-col sm:items-stretch sm:justify-stretch">
 				<NavLink
 					to="/"
-					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3rem] sm:rounded-none"
+					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
 				>
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
 						<MdOutlineHome />
@@ -23,7 +23,7 @@ const Sidebar = () => {
 				</NavLink>
 				<NavLink
 					to="/explore"
-					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3rem] sm:rounded-none"
+					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
 				>
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
 						<MdOutlineExplore />
@@ -34,7 +34,7 @@ const Sidebar = () => {
 				</NavLink>
 				<NavLink
 					to="/profile"
-					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3rem] sm:rounded-none"
+					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
 				>
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
 						<MdOutlinePersonOutline />
@@ -45,7 +45,7 @@ const Sidebar = () => {
 				</NavLink>
 				<NavLink
 					to="/settings"
-					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3rem] sm:rounded-none"
+					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
 				>
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
 						<MdOutlineSettings />

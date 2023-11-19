@@ -4,7 +4,7 @@ import { MdSearch } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
-    const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	return (
 		<header className="h-[6rem] w-full sm:h-[4rem] bg-secondary-cl px-1 fixed top-0">
@@ -21,7 +21,10 @@ const Navbar = () => {
 						</span>
 					</Link>
 				</div>
-				<div className="w-[25%] sm:w-[10%] sm:order-3 flex items-center justify-end pr-[1em] text-[1.5rem] sm:text-[1.8rem] cursor-pointer" onClick={() => navigate("/settings")}>
+				<div
+					className="w-[25%] sm:w-[10%] sm:order-3 flex items-center justify-end pr-[1em] text-[1.5rem] sm:text-[1.8rem] cursor-pointer"
+					onClick={() => navigate("/settings")}
+				>
 					<CgProfile color="#3a86ff" />
 				</div>
 				<div className="w-[100%] sm:w-[56%] flex items-center justify-center sm:justify-end sm:order-2">
