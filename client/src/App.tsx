@@ -7,6 +7,7 @@ import {
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
 import Login, { loader as loginLoader, action as loginAction } from "./pages/Login";
+import Signup, { loader as signupLoader, action as signupAction } from "./pages/Signup";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -23,6 +24,12 @@ const router = createBrowserRouter(
 				element={<Login />}
 				loader={loginLoader}
                 action={loginAction}
+			/>
+			<Route
+				path="signup"
+				element={<Signup />}
+				loader={signupLoader}
+                action={signupAction}
 			/>
 			<Route
 				path="*"
