@@ -4,11 +4,13 @@ import {
 	redirect,
 	useActionData,
 	useLoaderData,
+	useNavigate,
 	useNavigation,
+	useSearchParams,
 } from "react-router-dom";
 import { getLoggedInUser } from "../utils/userApi";
 import IRes from "../types/response";
-import { login } from "../utils/authApi";
+import { guestLogin, login } from "../utils/authApi";
 import { ILogCred } from "../types/user";
 import { Link } from "react-router-dom";
 
@@ -33,6 +35,14 @@ const Login = () => {
 	const message = useLoaderData() as string;
 	const errorMessage = useActionData() as string;
 	const navigation = useNavigation();
+	const [searchParams] = useSearchParams();
+	const navigate = useNavigate();
+
+	const handleGuestLogin = async () => {
+		const pathname = searchParams.get("redirectTo") || "/";
+		const data = await guestLogin();
+		data.success && navigate(pathname, { replace: true });
+	};
 
 	return (
 		<div className="min-h-screen flex justify-center items-center">
@@ -78,7 +88,7 @@ const Login = () => {
 				<button
 					type="button"
 					className="w-full h-[2rem] bg-blue-400 text-primary-cl rounded-md -mt-[0.5em]"
-					disabled={navigation.state === "submitting"}
+					onClick={handleGuestLogin}
 				>
 					Guest Login
 				</button>

@@ -8,11 +8,13 @@ interface IReq extends Request {
 	user: IUser;
 }
 
-export const authenticateUser = async (req: Request, res: Response, next: NextFunction) => {
-	let {
-		cookies: { token },
-		user,
-	} = req as IReq;
+export const authenticateUser = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	const newReq = req as IReq;
+	let { token } = newReq.cookies;
 
 	// check header
 	const authHeader = req.headers.authorization;
@@ -25,7 +27,7 @@ export const authenticateUser = async (req: Request, res: Response, next: NextFu
 
 	const { _id } = jwt.verify(token, JWT_SECRET) as { _id: string };
 
-	user = await User.findById(_id);
+	newReq.user = await User.findById(_id);
 	next();
 };
 
@@ -35,7 +37,8 @@ export const authorizedUser = (...roles: string[]) => {
 			user: { role },
 		} = req as IReq;
 
-		if (!roles.includes(role)) throw new UnauthorizedError("Unauthorized to access this route");
+		if (!roles.includes(role))
+			throw new UnauthorizedError("Unauthorized to access this route");
 		next();
 	};
 };

@@ -53,5 +53,5 @@ export const guestLogin = async (req: Request, res: Response) => {
 export const logout = async (req: Request, res: Response) => {
 	res.cookie("token", null, { maxAge: 0, httpOnly: true })
 		.status(StatusCodes.OK)
-		.json({ success: true, message: "logged out successfully!" });
+		.json({ success: true, message: "Logged out successfully!" });
 };

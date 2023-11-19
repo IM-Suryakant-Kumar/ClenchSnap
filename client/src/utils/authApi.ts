@@ -1,9 +1,11 @@
+import { toast } from "react-toastify";
 import { IError } from "../types/response";
 import { ILogCred, IRegCred } from "../types/user";
 import axios from "./axios";
 import {
 	AddTokenToLocalStorage,
 	getTokenFromLocalStorage,
+    removeTokenFromLocalStorage,
 } from "./handleToken";
 
 // login
@@ -11,6 +13,7 @@ export const login = async (logCred: ILogCred) => {
 	try {
 		const { data } = await axios.post("/login", logCred);
 		AddTokenToLocalStorage(data.token);
+		toast.success(data.message);
 		return data;
 	} catch (error) {
 		const {
@@ -25,6 +28,7 @@ export const guestLogin = async () => {
 	try {
 		const { data } = await axios.get("/guest-login");
 		AddTokenToLocalStorage(data.token);
+        toast.success(data.message);
 		return data;
 	} catch (error) {
 		const {
@@ -39,6 +43,7 @@ export const signup = async (regCred: IRegCred) => {
 	try {
 		const { data } = await axios.post("/register", regCred);
 		AddTokenToLocalStorage(data.token);
+        toast.success(data.message);
 		return data;
 	} catch (error) {
 		const {
@@ -54,6 +59,8 @@ export const logout = async () => {
 		const { data } = await axios.get("/logout", {
 			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
 		});
+        removeTokenFromLocalStorage()
+        toast.success(data.message);
 		return data;
 	} catch (error) {
 		const {
