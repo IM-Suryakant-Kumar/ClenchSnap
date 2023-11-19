@@ -17,7 +17,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	return data.success
 		? redirect("/")
 		: new URL(request.url).searchParams.get("message");
-	return null;
 };
 
 export const action = async ({ request }: LoaderFunctionArgs) => {
