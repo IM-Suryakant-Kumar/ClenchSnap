@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Fira+Mono:wght@400;500;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Fira+Mono:wght@400;500;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,8 +6,21 @@
 
 @layer base {
 	html {
-		font-family: 'Josefin Sans', sans-serif;
-        background-color: #ebf2fa;
-        color: #0d1b2a;
+		font-family: "Josefin Sans", sans-serif;
+		background-color: #ebf2fa;
+		color: #1b263b;
 	}
+}
+
+a.active {
+	border: 1px solid;
+}
+
+@media screen and (min-width: 640px) {
+    a.active {
+        border: none;
+        border-radius: 0 0.5em 0.5em 0;
+        background-color: #3a86ff;
+        color: #ebf2fa;
+    }
 }
