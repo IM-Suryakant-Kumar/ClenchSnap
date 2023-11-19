@@ -5,8 +5,8 @@ import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
 	return (
-		<header className="h-[6rem] sm:h-[4rem] bg-secondary-cl px-1 relative">
-			<nav className="h-full flex flex-wrap">
+		<header className="h-[6rem] w-full sm:h-[4rem] bg-secondary-cl px-1 fixed top-0">
+			<nav className="h-full flex flex-wrap ">
 				<div className="w-[75%] sm:w-[34%] flex items-center gap-[0.3125em] sm:gap-2 py-1">
 					<img
 						className="w-7 h-7 sm:h-9 sm:w-9"
