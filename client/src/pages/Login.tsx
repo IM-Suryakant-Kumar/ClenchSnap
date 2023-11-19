@@ -1,44 +1,97 @@
-import { Form, LoaderFunctionArgs, useNavigation } from "react-router-dom";
+import {
+	Form,
+	LoaderFunctionArgs,
+	redirect,
+	useActionData,
+	useLoaderData,
+	useNavigation,
+} from "react-router-dom";
+import { getLoggedInUser } from "../utils/userApi";
+import IRes from "../types/response";
+import { login } from "../utils/authApi";
+import { ILogCred } from "../types/user";
+import { Link } from "react-router-dom";
 
-export const loader = () => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+	const data = (await getLoggedInUser()) as IRes;
+	return data.success
+		? redirect("/")
+		: new URL(request.url).searchParams.get("message");
 	return null;
 };
 
 export const action = async ({ request }: LoaderFunctionArgs) => {
 	const formData = await request.formData();
-	const loginCred = Object.fromEntries(formData);
+	const email = formData.get("email");
+	const password = formData.get("password");
+	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
 
-	console.log(loginCred);
-	return null;
+	const data = (await login({ email, password } as ILogCred)) as IRes;
+	return data.success ? redirect(pathname) : data.message;
 };
 
 const Login = () => {
+	const message = useLoaderData() as string;
+	const errorMessage = useActionData() as string;
 	const navigation = useNavigation();
 
 	return (
 		<div className="min-h-screen flex justify-center items-center">
 			<Form
-                className="h-[20rem] bg-white flex flex-col"
+				className="w-[90%] max-w-[24rem] bg-secondary-cl flex flex-col gap-[1em] py-[2em] px-[1em] rounded-md"
 				method="post"
 				replace
 			>
+				<h1 className="text-2xl font-semibold font-cinzel text-center text-logo-cl mb-[1em]">
+					Log In
+				</h1>
+				{/* messages */}
+				{message && (
+					<span className="text-red-500 text-center text-sm">
+						{message}
+					</span>
+				)}
+				{errorMessage && (
+					<span className="text-red-500 text-center text-sm">
+						{errorMessage}
+					</span>
+				)}
 				<input
-                    className=""
+					className="outline-none border-b-2 border-logo-cl bg-inherit"
 					type="email"
 					name="email"
 					placeholder="email"
 				/>
 				<input
-                    className=""
+					className="outline-none border-b-2 border-logo-cl bg-inherit"
 					type="password"
 					name="password"
 					placeholder="password"
 				/>
-				<button disabled={navigation.state === "submitting"}>
+				<button
+					className="w-full h-[2rem] bg-logo-cl text-primary-cl rounded-md mt-[2em]"
+					disabled={navigation.state === "submitting"}
+				>
 					{navigation.state === "submitting"
 						? "Logging in..."
 						: "Log in"}
 				</button>
+				<button
+					type="button"
+					className="w-full h-[2rem] bg-blue-400 text-primary-cl rounded-md -mt-[0.5em]"
+					disabled={navigation.state === "submitting"}
+				>
+					Guest Login
+				</button>
+				<span className="text-sm text-gray-400 text-center mt-[1em]">
+					Don't have an account?&nbsp;
+					<Link
+						to="/signup"
+						className="text-logo-cl"
+					>
+						Create now
+					</Link>{" "}
+				</span>
 			</Form>
 		</div>
 	);

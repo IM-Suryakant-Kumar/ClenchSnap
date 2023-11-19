@@ -51,9 +51,8 @@ export const signup = async (regCred: IRegCred) => {
 // logout
 export const logout = async () => {
 	try {
-		const token = getTokenFromLocalStorage();
 		const { data } = await axios.get("/logout", {
-			headers: { Authorization: `Bearer ${token}` },
+			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
 		});
 		return data;
 	} catch (error) {
