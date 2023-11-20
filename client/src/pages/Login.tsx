@@ -1,19 +1,21 @@
-import { useNavigate, useNavigation, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts";
-import { IAuthContext } from "../contexts/Auth";
+import { useAuth, useLoading } from "../contexts";
 
 const Login = () => {
-	const navigation = useNavigation();
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
-	const { authState, loginUser, loginGuestUser } = useAuth() as IAuthContext;
-
-	console.log(navigation.state);
+	const { authState, loginUser, loginGuestUser } = useAuth();
+	const {
+		loadingState: { loading },
+	} = useLoading();
 
 	const message = searchParams.get("message");
 	const errorMessage = authState.errorMessage;
 	const pathname = searchParams.get("redirectTo") || "/";
+
+	// check user
+	authState.user && navigate(pathname, { replace: true });
 
 	const handleGuestLogin = async () => {
 		await loginGuestUser();
@@ -65,11 +67,9 @@ const Login = () => {
 				/>
 				<button
 					className="w-full h-[2rem] bg-logo-cl text-sm text-primary-cl rounded-md mt-[2em]"
-					disabled={navigation.state === "submitting"}
+					disabled={loading}
 				>
-					{navigation.state === "submitting"
-						? "Logging in..."
-						: "Log in"}
+					{loading ? "Logging in..." : "Log in"}
 				</button>
 				<button
 					type="button"

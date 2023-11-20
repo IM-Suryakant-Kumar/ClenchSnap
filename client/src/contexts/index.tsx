@@ -8,11 +8,11 @@ type Props = {
 
 const MainContextProvider: React.FC<Props> = ({ children }) => {
 	return (
-		<AuthContextProvider>
-			<UserContextProvider>
-				<LoadingContextProvider>{children}</LoadingContextProvider>
-			</UserContextProvider>
-		</AuthContextProvider>
+		<LoadingContextProvider>
+			<AuthContextProvider>
+				<UserContextProvider>{children}</UserContextProvider>
+			</AuthContextProvider>
+		</LoadingContextProvider>
 	);
 };
 

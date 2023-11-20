@@ -1,11 +1,9 @@
-import { useNavigate, useNavigation, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { IRegCred } from "../types/user";
 import { Link } from "react-router-dom";
 import { useAuth, useLoading } from "../contexts";
-import { IAuthContext } from "../contexts/Auth";
 
 const Signup = () => {
-	const navigation = useNavigation();
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
 	const { authState, registerUser } = useAuth();
