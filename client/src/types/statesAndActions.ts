@@ -2,14 +2,13 @@ import IUser from "./user";
 
 // auth
 export interface IAuthIntialState {
-    user?: IUser;
-    token: string;
-    message: string;
-    errorMessage?: string
+	user?: IUser | null;
+	message: string | null;
+	errorMessage?: string | null;
 }
 export interface IAuthAction {
-    type: string,
-    payload: IAuthIntialState
+	type: string;
+	payload: IAuthIntialState;
 }
 // user
 export interface IUserInitialState {
