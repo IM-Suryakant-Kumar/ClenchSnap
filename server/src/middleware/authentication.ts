@@ -22,6 +22,8 @@ export const authenticateUser = async (
 		throw new UnauthenticatedError("Authentication failed!");
 
 	!token && (token = authHeader.split(" ")[1]);
+	if (token === "null")
+		throw new UnauthenticatedError("Authentication failed!");
 
 	const JWT_SECRET: string = process.env.JWT_SECRET;
 
