@@ -3,7 +3,6 @@ import IUser from "./user";
 // auth
 export interface IAuthIntialState {
 	user?: IUser | null;
-	message: string | null;
 	errorMessage?: string | null;
 }
 export interface IAuthAction {

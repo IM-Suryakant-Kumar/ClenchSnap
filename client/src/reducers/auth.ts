@@ -2,25 +2,28 @@ import { IAuthAction, IAuthIntialState } from "../types/statesAndActions";
 
 export const authInitialState: IAuthIntialState = {
 	user: null,
-	message: null,
 	errorMessage: null,
 };
 
 export const authReducer = (state: IAuthIntialState, action: IAuthAction) => {
 	switch (action.type) {
         case "REGISTER": {
-            const { message } = action.payload
-            return {...state, message}
+            const { errorMessage } = action.payload
+            return {...state, errorMessage}
         }
         case "LOGIN": {
-            const { message } = action.payload
-            return {...state, message}
+            const { errorMessage } = action.payload
+            return {...state, errorMessage}
         }
         case "GUEST_LOGIN": {
-            const { message } = action.payload
-            return {...state, message}
+            const { errorMessage } = action.payload
+            return {...state, errorMessage}
         }
-        case "GET_LOGGED_IN_USER": {
+        case "LOGOUT": {
+            const { errorMessage } = action.payload
+            return {...state, errorMessage}
+        }
+        case "GET_PROFILE": {
             const { user } = action.payload
             return {...state, user}
         }
