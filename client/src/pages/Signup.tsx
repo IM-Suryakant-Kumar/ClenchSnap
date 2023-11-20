@@ -8,14 +8,14 @@ const Signup = () => {
 	const [searchParams] = useSearchParams();
 	const { authState, registerUser } = useAuth();
 	const {
-		loadingState: { loading },
+		loadingState: { submitting },
 	} = useLoading();
 
 	const errorMessage = authState.errorMessage;
 	const pathname = searchParams.get("redirectTo") || "/";
 
 	// check user
-	!authState.user && navigate(pathname, { replace: true });
+	authState.user && navigate(pathname, { replace: true });
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -63,9 +63,9 @@ const Signup = () => {
 				/>
 				<button
 					className="w-full h-[2rem] bg-logo-cl text-sm text-primary-cl rounded-md mt-[2em]"
-					disabled={loading}
+					disabled={submitting}
 				>
-					{loading ? "Signing up..." : "Sign up"}
+					{submitting ? "Signing up..." : "Sign up"}
 				</button>
 				<span className="text-sm text-gray-400 text-center mt-[1em]">
 					Already have an account?&nbsp;

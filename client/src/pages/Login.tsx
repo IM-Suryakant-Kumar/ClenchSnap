@@ -67,16 +67,16 @@ const Login = () => {
 				/>
 				<button
 					className="w-full h-[2rem] bg-logo-cl text-sm text-primary-cl rounded-md mt-[2em]"
-					disabled={loading}
+					disabled={submitting}
 				>
-					{loading ? "Logging in..." : "Log in"}
+					{submitting ? "Logging in..." : "Log in"}
 				</button>
 				<button
 					type="button"
 					className="w-full h-[2rem] bg-blue-400 text-sm text-primary-cl rounded-md -mt-[0.5em]"
 					onClick={handleGuestLogin}
 				>
-					Guest Login
+					{loading ? "Guest Logging in..." : "Guest Login"}
 				</button>
 				<span className="text-sm text-gray-400 text-center mt-[1em]">
 					Don't have an account?&nbsp;
