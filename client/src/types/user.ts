@@ -12,6 +12,6 @@ export interface ILogCred {
 export interface IRegCred {
     name: string;
     email: string;
-    avatar: string;
+    avatar?: string;
     password: string;
 }

@@ -1,6 +1,10 @@
 import { StatusCodes } from "http-status-codes";
 import { Request, Response } from "express";
-import { BadRequestError, UnauthenticatedError, UnauthorizedError } from "../errors";
+import {
+	BadRequestError,
+	UnauthenticatedError,
+	UnauthorizedError,
+} from "../errors";
 import User from "../models/User";
 import sendToken from "../utils/sendToken";
 
@@ -19,6 +23,9 @@ export const createUser = async (req: Request, res: Response) => {
 		body: { name, email, avatar, password },
 	} = req as IReq;
 
+	if (!(name && email && password))
+		throw new BadRequestError("Please provide all values");
+
 	const user = await User.create({ name, email, avatar, password });
 	sendToken(user, StatusCodes.CREATED, res, "Successfully registered");
 };
@@ -28,7 +35,8 @@ export const login = async (req: Request, res: Response) => {
 		body: { email, password },
 	} = req as IReq;
 
-	if (!(email && password)) throw new BadRequestError("Please provide all values");
+	if (!(email && password))
+		throw new BadRequestError("Please provide all values");
 
 	const user = await User.findOne({ email });
 	if (!user) throw new UnauthenticatedError("Invalid Credentials!");
@@ -40,7 +48,6 @@ export const login = async (req: Request, res: Response) => {
 };
 // guest login
 export const guestLogin = async (req: Request, res: Response) => {
-
 	const user = await User.findOne({ email: "clench@gmail.com" });
 	if (!user) throw new UnauthenticatedError("Invalid Credentials!");
 

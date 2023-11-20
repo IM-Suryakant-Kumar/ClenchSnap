@@ -38,8 +38,10 @@ const Login = () => {
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
 
+	// pathname
+	const pathname = searchParams.get("redirectTo") || "/";
+
 	const handleGuestLogin = async () => {
-		const pathname = searchParams.get("redirectTo") || "/";
 		const data = await guestLogin();
 		data.success && navigate(pathname, { replace: true });
 	};
@@ -78,7 +80,7 @@ const Login = () => {
 					placeholder="password"
 				/>
 				<button
-					className="w-full h-[2rem] bg-logo-cl text-primary-cl rounded-md mt-[2em]"
+					className="w-full h-[2rem] bg-logo-cl text-sm text-primary-cl rounded-md mt-[2em]"
 					disabled={navigation.state === "submitting"}
 				>
 					{navigation.state === "submitting"
@@ -87,7 +89,7 @@ const Login = () => {
 				</button>
 				<button
 					type="button"
-					className="w-full h-[2rem] bg-blue-400 text-primary-cl rounded-md -mt-[0.5em]"
+					className="w-full h-[2rem] bg-blue-400 text-sm text-primary-cl rounded-md -mt-[0.5em]"
 					onClick={handleGuestLogin}
 				>
 					Guest Login
@@ -95,7 +97,7 @@ const Login = () => {
 				<span className="text-sm text-gray-400 text-center mt-[1em]">
 					Don't have an account?&nbsp;
 					<Link
-						to="/signup"
+						to={`/signup?redirectTo=${pathname}`}
 						className="text-logo-cl"
 					>
 						Create now
