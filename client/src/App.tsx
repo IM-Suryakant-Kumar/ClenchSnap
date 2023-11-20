@@ -6,8 +6,11 @@ import {
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
-import Login, { loader as loginLoader, action as loginAction } from "./pages/Login";
-import Signup, { loader as signupLoader, action as signupAction } from "./pages/Signup";
+import Login from "./pages/Login";
+import Signup, {
+	loader as signupLoader,
+	action as signupAction,
+} from "./pages/Signup";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -22,14 +25,12 @@ const router = createBrowserRouter(
 			<Route
 				path="login"
 				element={<Login />}
-				loader={loginLoader}
-                action={loginAction}
 			/>
 			<Route
 				path="signup"
 				element={<Signup />}
 				loader={signupLoader}
-                action={signupAction}
+				action={signupAction}
 			/>
 			<Route
 				path="*"

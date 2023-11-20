@@ -6,7 +6,7 @@ import { guestLogin, login, logout, signup } from "../utils/authApi";
 import IRes from "../types/response";
 import { getLoggedInUser } from "../utils/userApi";
 
-interface IContext {
+export interface IAuthContext {
 	authState: IAuthIntialState;
 	registerUser: (cred: IRegCred) => Promise<void>;
 	loginUser: (cred: ILogCred) => Promise<void>;
@@ -15,7 +15,7 @@ interface IContext {
 	getProfile: () => Promise<void>;
 }
 
-export const AuthContext = createContext<IContext | null>(null);
+export const AuthContext = createContext<IAuthContext | null>(null);
 
 type Props = {
 	children: React.ReactNode;
@@ -40,7 +40,7 @@ const AuthContextProvider: React.FC<Props> = ({ children }) => {
 			payload: { errorMessage: success ? null : message },
 		});
 	};
-    // guest login
+	// guest login
 	const loginGuestUser = async () => {
 		const { success, message } = (await guestLogin()) as IRes;
 		authDispatch({
@@ -48,7 +48,7 @@ const AuthContextProvider: React.FC<Props> = ({ children }) => {
 			payload: { errorMessage: success ? null : message },
 		});
 	};
-    // logout
+	// logout
 	const logoutUser = async () => {
 		const { success, message } = (await logout()) as IRes;
 		authDispatch({
@@ -56,7 +56,7 @@ const AuthContextProvider: React.FC<Props> = ({ children }) => {
 			payload: { errorMessage: success ? null : message },
 		});
 	};
-    // get logged-in user
+	// get logged-in user
 	const getProfile = async () => {
 		const { success, user } = (await getLoggedInUser()) as IRes;
 		authDispatch({
@@ -81,6 +81,6 @@ const AuthContextProvider: React.FC<Props> = ({ children }) => {
 	);
 };
 
-const useAuth = () => useContext(AuthContext)
+const useAuth = () => useContext(AuthContext);
 
-export { AuthContextProvider, useAuth }
+export { AuthContextProvider, useAuth };

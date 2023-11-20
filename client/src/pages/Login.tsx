@@ -1,57 +1,41 @@
-import {
-	Form,
-	LoaderFunctionArgs,
-	redirect,
-	useActionData,
-	useLoaderData,
-	useNavigate,
-	useNavigation,
-	useSearchParams,
-} from "react-router-dom";
-import { getLoggedInUser } from "../utils/userApi";
-import IRes from "../types/response";
-import { guestLogin, login } from "../utils/authApi";
-import { ILogCred } from "../types/user";
+import { useNavigate, useNavigation, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const data = (await getLoggedInUser()) as IRes;
-	return data.success
-		? redirect("/")
-		: new URL(request.url).searchParams.get("message");
-};
-
-export const action = async ({ request }: LoaderFunctionArgs) => {
-	const formData = await request.formData();
-	const email = formData.get("email");
-	const password = formData.get("password");
-	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
-
-	const data = (await login({ email, password } as ILogCred)) as IRes;
-	return data.success ? redirect(pathname) : data.message;
-};
+import { useAuth } from "../contexts";
+import { IAuthContext } from "../contexts/Auth";
 
 const Login = () => {
-	const message = useLoaderData() as string;
-	const errorMessage = useActionData() as string;
 	const navigation = useNavigation();
-	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+	const { authState, loginUser, loginGuestUser } = useAuth() as IAuthContext;
 
-	// pathname
+	console.log(navigation.state);
+
+	const message = searchParams.get("message");
+	const errorMessage = authState.errorMessage;
 	const pathname = searchParams.get("redirectTo") || "/";
 
 	const handleGuestLogin = async () => {
-		const data = await guestLogin();
-		data.success && navigate(pathname, { replace: true });
+		await loginGuestUser();
+		!errorMessage && navigate(pathname, { replace: true });
+	};
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+		const email = formData.get("email") as string;
+		const password = formData.get("password") as string;
+		const pathname = searchParams.get("redirectTo") || "/";
+		// login
+		await loginUser({ email, password });
+		authState.user && navigate(pathname, { replace: true });
 	};
 
 	return (
 		<div className="min-h-screen flex justify-center items-center">
-			<Form
+			<form
 				className="w-[90%] max-w-[24rem] bg-secondary-cl flex flex-col gap-[1em] py-[2em] px-[1em] rounded-md"
-				method="post"
-				replace
+				onSubmit={handleSubmit}
 			>
 				<h1 className="text-2xl font-semibold font-cinzel text-center text-logo-cl mb-[1em]">
 					Log In
@@ -103,7 +87,7 @@ const Login = () => {
 						Create now
 					</Link>{" "}
 				</span>
-			</Form>
+			</form>
 		</div>
 	);
 };

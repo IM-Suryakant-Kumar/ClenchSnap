@@ -1,10 +1,20 @@
+import { useEffect, useCallback } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
+import { useAuth } from "../contexts";
+import { IAuthContext } from "../contexts/Auth";
 
 const Layout = () => {
+	const { authState, getProfile } = useAuth() as IAuthContext;
+
+	useEffect(() => {
+		(async () => await getProfile())();
+		console.log("render effect");
+	}, [authState.user]);
+
 	return (
 		<div className="min-h-screen">
 			<Navbar />
