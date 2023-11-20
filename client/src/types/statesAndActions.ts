@@ -1,5 +1,14 @@
 import IUser from "./user";
 
+// loading
+export interface ILoadingState {
+	loading: boolean;
+}
+export interface ILoadingAction {
+	type: string;
+	payload: ILoadingState;
+}
+
 // auth
 export interface IAuthIntialState {
 	user?: IUser | null;
@@ -14,7 +23,6 @@ export interface IAuthAction {
 export interface IUserInitialState {
 	users: IUser[] | null;
 }
-
 export interface IUserAction {
 	type: string;
 	payload: IUserInitialState;
