@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useContext } from "react";
 import { userInitialState, userReducer } from "../reducers/user";
 import { IUserAction, IUserInitialState } from "../types/statesAndActions";
 
@@ -15,7 +15,7 @@ type Props = {
 	children?: React.ReactNode;
 };
 
-export const UserContextProvider: React.FC<Props> = ({ children }) => {
+const UserContextProvider: React.FC<Props> = ({ children }) => {
 	const [userState, userDispatch] = useReducer(userReducer, userInitialState);
 
 	const getFollowers = async () => {};
@@ -34,3 +34,7 @@ export const UserContextProvider: React.FC<Props> = ({ children }) => {
 		</UserContext.Provider>
 	);
 };
+
+const useUser = () => useContext(UserContext);
+
+export { UserContextProvider, useUser };
