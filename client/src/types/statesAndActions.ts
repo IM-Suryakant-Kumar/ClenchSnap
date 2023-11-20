@@ -9,6 +9,7 @@ export interface IAuthAction {
 	type: string;
 	payload: IAuthIntialState;
 }
+
 // user
 export interface IUserInitialState {
 	users: IUser[] | null;

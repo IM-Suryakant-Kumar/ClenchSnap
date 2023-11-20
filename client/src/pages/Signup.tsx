@@ -1,51 +1,41 @@
 import {
-	Form,
-	LoaderFunctionArgs,
-	redirect,
-	useActionData,
+	useNavigate,
 	useNavigation,
 	useSearchParams,
 } from "react-router-dom";
-import { getLoggedInUser } from "../utils/userApi";
-import IRes from "../types/response";
-import { signup } from "../utils/authApi";
 import { IRegCred } from "../types/user";
 import { Link } from "react-router-dom";
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const data = (await getLoggedInUser()) as IRes;
-	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
-	return data.success ? redirect(pathname) : null;
-};
-
-export const action = async ({ request }: LoaderFunctionArgs) => {
-	const formData = await request.formData();
-	const name = formData.get("name");
-	const email = formData.get("email");
-	const password = formData.get("password");
-	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
-
-	const data = (await signup({
-		name,
-		email,
-		password,
-	} as IRegCred)) as IRes;
-	return data.success ? redirect(pathname) : data.message;
-};
+import { useAuth } from "../contexts";
+import { IAuthContext } from "../contexts/Auth";
 
 const Signup = () => {
-	const errorMessage = useActionData() as string;
 	const navigation = useNavigation();
+	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
-	// pathname
+	const { authState, registerUser } = useAuth() as IAuthContext;
+
+	const errorMessage = authState.errorMessage;
 	const pathname = searchParams.get("redirectTo") || "/";
+
+	// check user
+	!authState.user && navigate(pathname, { replace: true });
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+		const name = formData.get("name");
+		const email = formData.get("email");
+		const password = formData.get("password");
+
+		await registerUser({ name, email, password } as IRegCred);
+		!errorMessage && navigate(pathname, { replace: true });
+	};
 
 	return (
 		<div className="min-h-screen flex justify-center items-center">
-			<Form
+			<form
 				className="w-[90%] max-w-[24rem] bg-secondary-cl flex flex-col gap-[1em] py-[2em] px-[1em] rounded-md"
-				method="post"
-				replace
+				onSubmit={handleSubmit}
 			>
 				<h1 className="text-2xl font-semibold font-cinzel text-center text-logo-cl mb-[1em]">
 					Sign Up
@@ -91,7 +81,7 @@ const Signup = () => {
 						Log in
 					</Link>{" "}
 				</span>
-			</Form>
+			</form>
 		</div>
 	);
 };

@@ -12,7 +12,6 @@ const Layout = () => {
 
 	useEffect(() => {
 		(async () => await getProfile())();
-		console.log("render effect");
 	}, [authState.user]);
 
 	return (
