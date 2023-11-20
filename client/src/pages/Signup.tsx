@@ -1,18 +1,17 @@
-import {
-	useNavigate,
-	useNavigation,
-	useSearchParams,
-} from "react-router-dom";
+import { useNavigate, useNavigation, useSearchParams } from "react-router-dom";
 import { IRegCred } from "../types/user";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts";
+import { useAuth, useLoading } from "../contexts";
 import { IAuthContext } from "../contexts/Auth";
 
 const Signup = () => {
 	const navigation = useNavigation();
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
-	const { authState, registerUser } = useAuth() as IAuthContext;
+	const { authState, registerUser } = useAuth();
+	const {
+		loadingState: { loading },
+	} = useLoading();
 
 	const errorMessage = authState.errorMessage;
 	const pathname = searchParams.get("redirectTo") || "/";
@@ -66,11 +65,9 @@ const Signup = () => {
 				/>
 				<button
 					className="w-full h-[2rem] bg-logo-cl text-sm text-primary-cl rounded-md mt-[2em]"
-					disabled={navigation.state === "submitting"}
+					disabled={loading}
 				>
-					{navigation.state === "submitting"
-						? "Signing up..."
-						: "Sign up"}
+					{loading ? "Signing up..." : "Sign up"}
 				</button>
 				<span className="text-sm text-gray-400 text-center mt-[1em]">
 					Already have an account?&nbsp;

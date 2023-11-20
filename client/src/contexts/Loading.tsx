@@ -37,6 +37,6 @@ const LoadingContextProvider: React.FC<Props> = ({ children }) => {
 	);
 };
 
-const useLoading = () => useContext(LoadingContext);
+const useLoading = () => useContext(LoadingContext) as ILoadingContext;
 
 export { LoadingContextProvider, useLoading };

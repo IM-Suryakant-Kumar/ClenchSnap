@@ -10,20 +10,20 @@ export interface ILoadingAction {
 }
 
 // auth
-export interface IAuthIntialState {
+export interface IAuthState {
 	user?: IUser | null;
 	errorMessage?: string | null;
 }
 export interface IAuthAction {
 	type: string;
-	payload: IAuthIntialState;
+	payload: IAuthState;
 }
 
 // user
-export interface IUserInitialState {
+export interface IUserState {
 	users: IUser[] | null;
 }
 export interface IUserAction {
 	type: string;
-	payload: IUserInitialState;
+	payload: IUserState;
 }

@@ -1,15 +1,15 @@
 import { createContext, useReducer, useContext } from "react";
 import { userInitialState, userReducer } from "../reducers/user";
-import { IUserAction, IUserInitialState } from "../types/statesAndActions";
+import { IUserAction, IUserState } from "../types/statesAndActions";
 
-interface IContext {
-	userState: IUserInitialState;
+interface IUserContext {
+	userState: IUserState;
 	userDispatch: React.Dispatch<IUserAction>;
 	getFollowers: () => Promise<void>;
 	getFollowings: () => Promise<void>;
 }
 
-const UserContext = createContext<IContext | null>(null);
+const UserContext = createContext<IUserContext | null>(null);
 
 type Props = {
 	children?: React.ReactNode;
@@ -35,6 +35,6 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 	);
 };
 
-const useUser = () => useContext(UserContext);
+const useUser = () => useContext(UserContext) as IUserContext;
 
 export { UserContextProvider, useUser };

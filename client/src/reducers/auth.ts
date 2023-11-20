@@ -1,11 +1,11 @@
-import { IAuthAction, IAuthIntialState } from "../types/statesAndActions";
+import { IAuthAction, IAuthState } from "../types/statesAndActions";
 
-export const authInitialState: IAuthIntialState = {
+export const authInitialState: IAuthState = {
 	user: null,
 	errorMessage: null,
 };
 
-export const authReducer = (state: IAuthIntialState, action: IAuthAction) => {
+export const authReducer = (state: IAuthState, action: IAuthAction) => {
 	switch (action.type) {
         case "REGISTER": {
             const { errorMessage } = action.payload

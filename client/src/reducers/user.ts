@@ -1,10 +1,10 @@
-import { IUserAction, IUserInitialState } from "../types/statesAndActions";
+import { IUserAction, IUserState } from "../types/statesAndActions";
 
-export const userInitialState: IUserInitialState = {
+export const userInitialState: IUserState = {
 	users: null,
 };
 
-export const userReducer = (state: IUserInitialState, action: IUserAction) => {
+export const userReducer = (state: IUserState, action: IUserAction) => {
 	switch (action.type) {
 		case "GET_FOLLOWERS":
 			return { ...state, users: action.payload.users };
