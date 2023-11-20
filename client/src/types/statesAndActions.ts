@@ -2,7 +2,8 @@ import IUser from "./user";
 
 // loading
 export interface ILoadingState {
-	loading: boolean;
+	loading?: boolean;
+	submitting?: boolean;
 }
 export interface ILoadingAction {
 	type: string;

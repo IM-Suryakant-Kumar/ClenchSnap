@@ -7,7 +7,7 @@ const Login = () => {
 	const [searchParams] = useSearchParams();
 	const { authState, loginUser, loginGuestUser } = useAuth();
 	const {
-		loadingState: { loading },
+		loadingState: { loading, submitting },
 	} = useLoading();
 
 	const message = searchParams.get("message");

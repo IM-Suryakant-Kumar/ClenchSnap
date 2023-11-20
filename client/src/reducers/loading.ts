@@ -2,6 +2,7 @@ import { ILoadingAction, ILoadingState } from "../types/statesAndActions";
 
 export const loadingInitialState: ILoadingState = {
 	loading: false,
+	submitting: false,
 };
 
 export const loadingReducer = (
@@ -10,7 +11,9 @@ export const loadingReducer = (
 ) => {
 	switch (action.type) {
 		case "LOADING":
-			return { loading: action.payload.loading };
+			return { ...state, loading: action.payload.loading };
+		case "SUBMITTING":
+			return { ...state, submitting: action.payload.submitting };
 		default:
 			return state;
 	}

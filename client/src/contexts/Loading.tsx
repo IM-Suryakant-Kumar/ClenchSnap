@@ -6,6 +6,8 @@ export interface ILoadingContext {
 	loadingState: ILoadingState;
 	loadingStart: () => void;
 	loadingStop: () => void;
+	submittingStart: () => void;
+	submittingStop: () => void;
 }
 
 const LoadingContext = createContext<ILoadingContext | null>(null);
@@ -28,7 +30,21 @@ const LoadingContextProvider: React.FC<Props> = ({ children }) => {
 		loadingDispatch({ type: "LOADING", payload: { loading: false } });
 	};
 
-	const providerItem = { loadingState, loadingStart, loadingStop };
+	const submittingStart = () => {
+		loadingDispatch({ type: "SUBMITTING", payload: { submitting: true } });
+	};
+
+	const submittingStop = () => {
+		loadingDispatch({ type: "SUBMITTING", payload: { submitting: false } });
+	};
+
+	const providerItem = {
+		loadingState,
+		loadingStart,
+		loadingStop,
+		submittingStart,
+		submittingStop,
+	};
 
 	return (
 		<LoadingContext.Provider value={providerItem}>

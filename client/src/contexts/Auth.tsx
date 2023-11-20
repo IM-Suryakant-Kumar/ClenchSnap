@@ -7,6 +7,7 @@ import IRes from "../types/response";
 import { getLoggedInUser } from "../utils/userApi";
 import { useLoading } from ".";
 import { ILoadingContext } from "./Loading";
+import loadingWrapper from "../utils/loadingWrapper";
 
 export interface IAuthContext {
 	authState: IAuthState;
@@ -25,57 +26,68 @@ type Props = {
 
 const AuthContextProvider: React.FC<Props> = ({ children }) => {
 	const [authState, authDispatch] = useReducer(authReducer, authInitialState);
-	const { loadingStart, loadingStop } = useLoading() as ILoadingContext;
+	const { loadingStart, loadingStop, submittingStart, submittingStop } =
+		useLoading() as ILoadingContext;
 
 	// register
 	const registerUser = async (cred: IRegCred) => {
-		loadingStart();
-		const { success, message } = (await signup(cred)) as IRes;
-		authDispatch({
-			type: "REGISTER",
-			payload: { errorMessage: success ? null : message },
-		});
-		loadingStop();
+		const fn = async () => {
+			const { success, message } = (await signup(cred)) as IRes;
+			authDispatch({
+				type: "REGISTER",
+				payload: { errorMessage: success ? null : message },
+			});
+		};
+
+		loadingWrapper(submittingStart, submittingStop, fn);
 	};
 	//login
 	const loginUser = async (cred: ILogCred) => {
-		loadingStart();
-		const { success, message } = (await login(cred)) as IRes;
-		authDispatch({
-			type: "LOGIN",
-			payload: { errorMessage: success ? null : message },
-		});
-		loadingStop();
+		const fn = async () => {
+			const { success, message } = (await login(cred)) as IRes;
+			authDispatch({
+				type: "LOGIN",
+				payload: { errorMessage: success ? null : message },
+			});
+		};
+
+		loadingWrapper(submittingStart, submittingStop, fn);
 	};
 	// guest login
 	const loginGuestUser = async () => {
-		loadingStart();
-		const { success, message } = (await guestLogin()) as IRes;
-		authDispatch({
-			type: "GUEST_LOGIN",
-			payload: { errorMessage: success ? null : message },
-		});
-		loadingStop();
+		const fn = async () => {
+			const { success, message } = (await guestLogin()) as IRes;
+			authDispatch({
+				type: "GUEST_LOGIN",
+				payload: { errorMessage: success ? null : message },
+			});
+		};
+
+		loadingWrapper(loadingStart, loadingStop, fn);
 	};
 	// logout
 	const logoutUser = async () => {
-		loadingStart();
-		const { success, message } = (await logout()) as IRes;
-		authDispatch({
-			type: "LOGOUT",
-			payload: { errorMessage: success ? null : message },
-		});
-		loadingStop();
+		const fn = async () => {
+			const { success, message } = (await logout()) as IRes;
+			authDispatch({
+				type: "LOGOUT",
+				payload: { errorMessage: success ? null : message },
+			});
+		};
+
+		loadingWrapper(loadingStart, loadingStop, fn);
 	};
 	// get logged-in user
 	const getProfile = async () => {
-		loadingStart();
-		const { success, user } = (await getLoggedInUser()) as IRes;
-		authDispatch({
-			type: "GET_PROFILE",
-			payload: { user: success ? user : null },
-		});
-		loadingStop();
+		const fn = async () => {
+			const { success, user } = (await getLoggedInUser()) as IRes;
+			authDispatch({
+				type: "GET_PROFILE",
+				payload: { user: success ? user : null },
+			});
+		};
+
+		loadingWrapper(loadingStart, loadingStop, fn);
 	};
 
 	const providerItem = {
