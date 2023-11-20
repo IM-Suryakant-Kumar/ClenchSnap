@@ -1,0 +1,4 @@
+const authInitialState = {
+    token: string;
+    
+}
