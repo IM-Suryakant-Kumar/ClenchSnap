@@ -1,38 +1,46 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+	Form,
+	LoaderFunctionArgs,
+	redirect,
+	useActionData,
+	useNavigation,
+	useSearchParams,
+} from "react-router-dom";
 import { IRegCred } from "../types/user";
 import { Link } from "react-router-dom";
-import { useAuth, useLoading } from "../contexts";
+import { getLoggedInUser } from "../utils/userApi";
+import IRes from "../types/response";
+import { signup } from "../utils/authApi";
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
+	const data = (await getLoggedInUser()) as IRes;
+	return data.success ? redirect(pathname) : null;
+};
+
+export const action = async ({ request }: LoaderFunctionArgs) => {
+	const formData = await request.formData();
+	const name = formData.get("name");
+	const email = formData.get("email");
+	const password = formData.get("password");
+	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
+
+	const data = (await signup({ name, email, password } as IRegCred)) as IRes;
+	return data.success ? redirect(pathname) : data.message;
+};
 
 const Signup = () => {
-	const navigate = useNavigate();
+	const navigation = useNavigation();
 	const [searchParams] = useSearchParams();
-	const { authState, registerUser } = useAuth();
-	const {
-		loadingState: { submitting },
-	} = useLoading();
-
-	const errorMessage = authState.errorMessage;
+	const errorMessage = useActionData() as string;
 	const pathname = searchParams.get("redirectTo") || "/";
-
-	// check user
-	authState.user && navigate(pathname, { replace: true });
-
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const formData = new FormData(e.currentTarget);
-		const name = formData.get("name");
-		const email = formData.get("email");
-		const password = formData.get("password");
-
-		await registerUser({ name, email, password } as IRegCred);
-		!errorMessage && navigate(pathname, { replace: true });
-	};
 
 	return (
 		<div className="min-h-screen flex justify-center items-center">
-			<form
+			<Form
 				className="w-[90%] max-w-[24rem] bg-secondary-cl flex flex-col gap-[1em] py-[2em] px-[1em] rounded-md"
-				onSubmit={handleSubmit}
+				method="post"
+				replace
 			>
 				<h1 className="text-2xl font-semibold font-cinzel text-center text-logo-cl mb-[1em]">
 					Sign Up
@@ -63,9 +71,11 @@ const Signup = () => {
 				/>
 				<button
 					className="w-full h-[2rem] bg-logo-cl text-sm text-primary-cl rounded-md mt-[2em]"
-					disabled={submitting}
+					disabled={navigation.state === "submitting"}
 				>
-					{submitting ? "Signing up..." : "Sign up"}
+					{navigation.state === "submitting"
+						? "Signing up..."
+						: "Sign up"}
 				</button>
 				<span className="text-sm text-gray-400 text-center mt-[1em]">
 					Already have an account?&nbsp;
@@ -76,7 +86,7 @@ const Signup = () => {
 						Log in
 					</Link>{" "}
 				</span>
-			</form>
+			</Form>
 		</div>
 	);
 };

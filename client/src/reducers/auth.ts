@@ -1,8 +1,7 @@
 import { IAuthAction, IAuthState } from "../types/statesAndActions";
 
 export const authInitialState: IAuthState = {
-	user: null,
-	errorMessage: null,
+	user: null
 };
 
 export const authReducer = (state: IAuthState, action: IAuthAction) => {

@@ -9,11 +9,11 @@ import {
 	useSearchParams,
 } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useAuth, useLoading } from "../contexts";
+import { useAuth } from "../contexts";
 import { guestLogin, login } from "../utils/authApi";
 import IRes from "../types/response";
-import { useEffect } from "react";
 import { getLoggedInUser } from "../utils/userApi";
+import { ILogCred } from "../types/user";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const searchParams = new URL(request.url).searchParams;
@@ -26,11 +26,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export const action = async ({ request }: LoaderFunctionArgs) => {
 	const formData = await request.formData();
-	const email = formData.get("email") as string;
-	const password = formData.get("password") as string;
+	const email = formData.get("email");
+	const password = formData.get("password");
 	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
 
-	const data = (await login({ email, password })) as IRes;
+	const data = (await login({ email, password } as ILogCred)) as IRes;
 	return data.success ? redirect(pathname) : data.message;
 };
 
@@ -39,20 +39,15 @@ const Login = () => {
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
 	const { getProfile } = useAuth();
-	const {
-		loadingState: { submitting },
-	} = useLoading();
 
 	const message = useLoaderData() as string;
 	const errorMessage = useActionData() as string;
 	const pathname = searchParams.get("redirectTo") || "/";
 
 	const handleGuestLogin = async () => {
-		// api
-		await guestLogin();
-		// dispatch
+		const data = (await guestLogin()) as IRes;
 		await getProfile();
-		!errorMessage && navigate(pathname, { replace: true });
+		data.success && navigate(pathname, { replace: true });
 	};
 
 	return (
@@ -101,7 +96,7 @@ const Login = () => {
 					className="w-full h-[2rem] bg-blue-400 text-sm text-primary-cl rounded-md -mt-[0.5em]"
 					onClick={handleGuestLogin}
 				>
-					{submitting ? "Guest Logging in..." : "Guest Login"}
+					Guest Login
 				</button>
 				<span className="text-sm text-gray-400 text-center mt-[1em]">
 					Don't have an account?&nbsp;

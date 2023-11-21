@@ -13,7 +13,6 @@ export interface ILoadingAction {
 // auth
 export interface IAuthState {
 	user?: IUser | null;
-	errorMessage?: string | null;
 }
 export interface IAuthAction {
 	type: string;
