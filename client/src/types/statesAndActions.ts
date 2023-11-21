@@ -10,18 +10,11 @@ export interface ILoadingAction {
 	payload: ILoadingState;
 }
 
-// auth
-export interface IAuthState {
-	user?: IUser | null;
-}
-export interface IAuthAction {
-	type: string;
-	payload: IAuthState;
-}
-
 // user
 export interface IUserState {
-	users: IUser[] | null;
+    user?: IUser | null
+	followers?: IUser[] | null;
+    followings?: IUser[] | null;
 }
 export interface IUserAction {
 	type: string;

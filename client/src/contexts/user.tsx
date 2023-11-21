@@ -1,10 +1,15 @@
 import { createContext, useReducer, useContext } from "react";
 import { userInitialState, userReducer } from "../reducers/user";
-import { IUserAction, IUserState } from "../types/statesAndActions";
+import { IUserState } from "../types/statesAndActions";
+import { getLoggedInUser } from "../utils/userApi";
+import loadingWrapper from "../utils/loadingWrapper";
+import { useLoading } from ".";
+import { ILoadingContext } from "./Loading";
+import { IRes } from "../types/response";
 
 interface IUserContext {
 	userState: IUserState;
-	userDispatch: React.Dispatch<IUserAction>;
+	getProfile: () => Promise<void>;
 	getFollowers: () => Promise<void>;
 	getFollowings: () => Promise<void>;
 }
@@ -17,13 +22,27 @@ type Props = {
 
 const UserContextProvider: React.FC<Props> = ({ children }) => {
 	const [userState, userDispatch] = useReducer(userReducer, userInitialState);
+    const { loadingStart, loadingStop } = useLoading() as ILoadingContext;
 
+	// get profile
+	const getProfile = async () => {
+		const fn = async () => {
+			const { success, user } = (await getLoggedInUser()) as IRes;
+			userDispatch({
+				type: "GET_PROFILE",
+				payload: { user: success ? user : null },
+			});
+		};
+
+		loadingWrapper(loadingStart, loadingStop, fn);
+	};
 	const getFollowers = async () => {};
 	const getFollowings = async () => {};
 
 	const providerItem = {
 		userState,
 		userDispatch,
+        getProfile,
 		getFollowers,
 		getFollowings,
 	};

@@ -9,10 +9,10 @@ import {
 	useSearchParams,
 } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts";
 import { guestLogin, login } from "../utils/authApi";
 import { ILogCred } from "../types/user";
 import { getUserFromLocalStorage } from "../utils/handleUser";
+import { useUser } from "../contexts";
 
 export const loader = ({ request }: LoaderFunctionArgs) => {
 	const searchParams = new URL(request.url).searchParams;
@@ -37,7 +37,7 @@ const Login = () => {
 	const navigation = useNavigation();
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
-	const { getProfile } = useAuth();
+    const { getProfile } = useUser()
 
 	const message = useLoaderData() as string;
 	const errorMessage = useActionData() as string;
