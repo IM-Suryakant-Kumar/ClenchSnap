@@ -8,14 +8,12 @@ import {
 	removeTokenFromLocalStorage,
 } from "./handleToken";
 import { removeUserFromLocalStorage } from "./handleUser";
-import { getLoggedInUser } from "./userApi";
 
 // login
 export const login = async (logCred: ILogCred) => {
 	try {
 		const { data } = (await axios.post("/login", logCred)) as IApiRes;
 		AddTokenToLocalStorage(data.token);
-		await getLoggedInUser();
 		toast.success(data.message);
 		return data;
 	} catch (error) {
@@ -46,7 +44,6 @@ export const signup = async (regCred: IRegCred) => {
 	try {
 		const { data } = (await axios.post("/register", regCred)) as IApiRes;
 		AddTokenToLocalStorage(data.token);
-		await getLoggedInUser();
 		toast.success(data.message);
 		return data;
 	} catch (error) {
