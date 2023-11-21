@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
 
 const Layout = () => {
+    
 	return (
 		<div className="min-h-screen">
 			<Navbar />
