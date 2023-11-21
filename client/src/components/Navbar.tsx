@@ -12,7 +12,7 @@ const Navbar = () => {
 	} = useUser();
 
 	return (
-		<header className="h-[6rem] w-full sm:h-[4rem] bg-secondary-cl px-1 fixed top-0">
+		<header className="h-[6rem] w-full sm:h-[4rem] bg-secondary-cl px-1 fixed top-0 z-10">
 			<nav className="h-full flex flex-wrap ">
 				<div className="w-[75%] sm:w-[34%] flex items-center gap-[0.3125em] sm:gap-2 py-1">
 					<img

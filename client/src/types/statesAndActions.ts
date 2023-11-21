@@ -7,16 +7,16 @@ export interface ILoadingState {
 }
 export interface ILoadingAction {
 	type: string;
-	payload: ILoadingState;
+	payload?: ILoadingState;
 }
 
 // user
 export interface IUserState {
-    user?: IUser | null
+	user?: IUser | null;
 	followers?: IUser[] | null;
-    followings?: IUser[] | null;
+	followings?: IUser[] | null;
 }
 export interface IUserAction {
 	type: string;
-	payload: IUserState;
+	payload?: IUserState;
 }

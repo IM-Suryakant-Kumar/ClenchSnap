@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getLoggedInUser } from "../controllers/user";
+import { getLoggedInUser, updateUser } from "../controllers/user";
 
 const router = Router();
 
-router.route("/me").get(getLoggedInUser);
+router.route("/me").get(getLoggedInUser).patch(updateUser);
 
 export default router;

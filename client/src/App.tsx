@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Login, { loader as loginLoader, action as loginAction } from "./pages/Login";
 import Signup, { loader as signupLoader, action as signupAction } from "./pages/Signup";
 import Home from "./pages/Home";
+import Setting from "./pages/Setting";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -19,6 +20,10 @@ const router = createBrowserRouter(
 			<Route
 				index
 				element={<Home />}
+			/>
+			<Route
+				path="settings"
+				element={<Setting />}
 			/>
 			<Route
 				path="login"
