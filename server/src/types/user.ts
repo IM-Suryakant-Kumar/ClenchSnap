@@ -1,5 +1,4 @@
 import { Document } from "mongoose";
-import { type } from "os";
 
 export type User = {
 	name: string;

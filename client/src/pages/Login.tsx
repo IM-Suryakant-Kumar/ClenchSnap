@@ -38,7 +38,6 @@ const Login = () => {
 	const navigation = useNavigation();
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
-	const { getProfile } = useUser();
 	const {
 		loadingState: { submitting },
 		submittingStart,
@@ -52,7 +51,6 @@ const Login = () => {
 	const handleGuestLogin = async () => {
 		const fn = async () => {
 			const data = await guestLogin();
-			await getProfile();
 			data.success && navigate(pathname, { replace: true });
 		};
 
