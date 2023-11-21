@@ -8,14 +8,14 @@ import {
 } from "react-router-dom";
 import { IRegCred } from "../types/user";
 import { Link } from "react-router-dom";
-import { getLoggedInUser } from "../utils/userApi";
 import IRes from "../types/response";
 import { signup } from "../utils/authApi";
+import { getUserFromLocalStorage } from "../utils/handleUser";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = ({ request }: LoaderFunctionArgs) => {
 	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
-	const data = (await getLoggedInUser()) as IRes;
-	return data.success ? redirect(pathname) : null;
+	const user = getUserFromLocalStorage()
+	return user ? redirect(pathname) : null;
 };
 
 export const action = async ({ request }: LoaderFunctionArgs) => {

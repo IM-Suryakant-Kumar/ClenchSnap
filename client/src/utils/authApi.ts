@@ -7,6 +7,7 @@ import {
 	getTokenFromLocalStorage,
     removeTokenFromLocalStorage,
 } from "./handleToken";
+import { removeUserFromLocalStorage } from "./handleUser";
 
 // login
 export const login = async (logCred: ILogCred) => {
@@ -60,6 +61,7 @@ export const logout = async () => {
 			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
 		});
         removeTokenFromLocalStorage()
+        removeUserFromLocalStorage()
         toast.success(data.message);
 		return data;
 	} catch (error) {

@@ -12,16 +12,16 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../contexts";
 import { guestLogin, login } from "../utils/authApi";
 import IRes from "../types/response";
-import { getLoggedInUser } from "../utils/userApi";
 import { ILogCred } from "../types/user";
+import { getUserFromLocalStorage } from "../utils/handleUser";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = ({ request }: LoaderFunctionArgs) => {
 	const searchParams = new URL(request.url).searchParams;
 	const message = searchParams.get("message");
 	const pathname = searchParams.get("redirectTo") || "/";
 
-	const data = (await getLoggedInUser()) as IRes;
-	return data.success ? redirect(pathname) : message;
+	const user = getUserFromLocalStorage();
+	return user ? redirect(pathname) : message;
 };
 
 export const action = async ({ request }: LoaderFunctionArgs) => {
