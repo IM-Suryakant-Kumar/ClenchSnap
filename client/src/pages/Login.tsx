@@ -11,7 +11,6 @@ import {
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts";
 import { guestLogin, login } from "../utils/authApi";
-import IRes from "../types/response";
 import { ILogCred } from "../types/user";
 import { getUserFromLocalStorage } from "../utils/handleUser";
 
@@ -30,7 +29,7 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
 	const password = formData.get("password");
 	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
 
-	const data = (await login({ email, password } as ILogCred)) as IRes;
+	const data = (await login({ email, password } as ILogCred));
 	return data.success ? redirect(pathname) : data.message;
 };
 
@@ -45,7 +44,7 @@ const Login = () => {
 	const pathname = searchParams.get("redirectTo") || "/";
 
 	const handleGuestLogin = async () => {
-		const data = (await guestLogin()) as IRes;
+		const data = (await guestLogin());
 		await getProfile();
 		data.success && navigate(pathname, { replace: true });
 	};

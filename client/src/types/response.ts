@@ -1,12 +1,16 @@
 import IUser from "./user";
 
-export default interface IRes {
+export interface IRes {
 	success: boolean;
-	message?: string;
-	user?: IUser;
+	token: string;
+	message: string;
+	user: IUser;
+}
+export default interface IApiRes {
+	data: IRes;
 }
 
-export interface IError {
+export interface IApiError {
 	response: {
 		data: {
 			success: boolean;

@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import { IRegCred } from "../types/user";
 import { Link } from "react-router-dom";
-import IRes from "../types/response";
 import { signup } from "../utils/authApi";
 import { getUserFromLocalStorage } from "../utils/handleUser";
 
@@ -25,7 +24,7 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
 	const password = formData.get("password");
 	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
 
-	const data = (await signup({ name, email, password } as IRegCred)) as IRes;
+	const data = (await signup({ name, email, password } as IRegCred));
 	return data.success ? redirect(pathname) : data.message;
 };
 

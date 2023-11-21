@@ -1,25 +1,25 @@
 import { toast } from "react-toastify";
-import { IError } from "../types/response";
+import IApiRes, { IApiError } from "../types/response";
 import { ILogCred, IRegCred } from "../types/user";
 import axios from "./axios";
 import {
 	AddTokenToLocalStorage,
 	getTokenFromLocalStorage,
-    removeTokenFromLocalStorage,
+	removeTokenFromLocalStorage,
 } from "./handleToken";
 import { removeUserFromLocalStorage } from "./handleUser";
 
 // login
 export const login = async (logCred: ILogCred) => {
 	try {
-		const { data } = await axios.post("/login", logCred);
+		const { data } = (await axios.post("/login", logCred)) as IApiRes;
 		AddTokenToLocalStorage(data.token);
 		toast.success(data.message);
 		return data;
 	} catch (error) {
 		const {
 			response: { data },
-		} = error as IError;
+		} = error as IApiError;
 		console.log(data);
 		return data;
 	}
@@ -27,14 +27,14 @@ export const login = async (logCred: ILogCred) => {
 // guest login
 export const guestLogin = async () => {
 	try {
-		const { data } = await axios.get("/guest-login");
+		const { data } = (await axios.get("/guest-login")) as IApiRes;
 		AddTokenToLocalStorage(data.token);
-        toast.success(data.message);
+		toast.success(data.message);
 		return data;
 	} catch (error) {
 		const {
 			response: { data },
-		} = error as IError;
+		} = error as IApiError;
 		console.log(data);
 		return data;
 	}
@@ -42,14 +42,14 @@ export const guestLogin = async () => {
 // signup
 export const signup = async (regCred: IRegCred) => {
 	try {
-		const { data } = await axios.post("/register", regCred);
+		const { data } = (await axios.post("/register", regCred)) as IApiRes;
 		AddTokenToLocalStorage(data.token);
-        toast.success(data.message);
+		toast.success(data.message);
 		return data;
 	} catch (error) {
 		const {
 			response: { data },
-		} = error as IError;
+		} = error as IApiError;
 		console.log(data);
 		return data;
 	}
@@ -57,17 +57,17 @@ export const signup = async (regCred: IRegCred) => {
 // logout
 export const logout = async () => {
 	try {
-		const { data } = await axios.get("/logout", {
+		const { data } = (await axios.get("/logout", {
 			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
-		});
-        removeTokenFromLocalStorage()
-        removeUserFromLocalStorage()
-        toast.success(data.message);
+		})) as IApiRes;
+		removeTokenFromLocalStorage();
+		removeUserFromLocalStorage();
+		toast.success(data.message);
 		return data;
 	} catch (error) {
 		const {
 			response: { data },
-		} = error as IError;
+		} = error as IApiError;
 		console.log(data);
 		return data;
 	}

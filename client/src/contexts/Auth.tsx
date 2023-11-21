@@ -1,11 +1,11 @@
 import { createContext, useReducer, useContext } from "react";
 import { IAuthState } from "../types/statesAndActions";
 import { authInitialState, authReducer } from "../reducers/auth";
-import IRes from "../types/response";
 import { getLoggedInUser } from "../utils/userApi";
 import { useLoading } from ".";
 import { ILoadingContext } from "./Loading";
 import loadingWrapper from "../utils/loadingWrapper";
+import { IRes } from "../types/response";
 
 export interface IAuthContext {
 	authState: IAuthState;
