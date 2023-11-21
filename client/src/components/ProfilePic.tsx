@@ -31,7 +31,7 @@ const ProfilePic: React.FC<Props> = ({ name, avatar, width, height, size }) => {
 					className="text-primary-cl w-full h-full rounded-full flex justify-center items-center"
 					style={{ backgroundColor: color, fontSize: size }}
 				>
-					{name.charAt(0)}
+					{name.charAt(0).toUpperCase()}
 				</div>
 			)}
 		</div>

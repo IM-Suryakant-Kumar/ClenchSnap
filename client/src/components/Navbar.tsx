@@ -36,7 +36,7 @@ const Navbar = () => {
 							avatar={user.avatar}
 							width="1.5rem"
 							height="1.5rem"
-							size="1.2rem"
+							size="0.65rem"
 						/>
 					) : (
 						<CgProfile color="#3a86ff" />
