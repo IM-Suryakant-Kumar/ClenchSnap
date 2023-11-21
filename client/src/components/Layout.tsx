@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import { Slide, ToastContainer } from "react-toastify";
@@ -8,11 +8,12 @@ import { useAuth } from "../contexts";
 import { IAuthContext } from "../contexts/Auth";
 
 const Layout = () => {
-	const { authState, getProfile } = useAuth() as IAuthContext;
+	const { getProfile } = useAuth() as IAuthContext;
 
 	useEffect(() => {
+		// only for first render
 		(async () => await getProfile())();
-	}, [authState.user]);
+	}, []);
 
 	return (
 		<div className="min-h-screen">

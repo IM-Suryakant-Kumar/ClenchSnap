@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
-import Login, { action as loginAction } from "./pages/Login";
+import Login, { loader as loginLoader, action as loginAction } from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 
@@ -23,6 +23,7 @@ const router = createBrowserRouter(
 			<Route
 				path="login"
 				element={<Login />}
+                loader={loginLoader}
 				action={loginAction}
 			/>
 			<Route

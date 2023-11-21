@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext } from "react";
+import { createContext, useReducer, useContext, useMemo } from "react";
 import { IAuthState } from "../types/statesAndActions";
 import { authInitialState, authReducer } from "../reducers/auth";
 import { ILogCred, IRegCred } from "../types/user";
@@ -63,7 +63,7 @@ const AuthContextProvider: React.FC<Props> = ({ children }) => {
 			});
 		};
 
-		loadingWrapper(loadingStart, loadingStop, fn);
+		loadingWrapper(submittingStart, submittingStop, fn);
 	};
 	// logout
 	const logoutUser = async () => {
@@ -89,6 +89,8 @@ const AuthContextProvider: React.FC<Props> = ({ children }) => {
 
 		loadingWrapper(loadingStart, loadingStop, fn);
 	};
+
+	useMemo(() => authState, []);
 
 	const providerItem = {
 		authState,
