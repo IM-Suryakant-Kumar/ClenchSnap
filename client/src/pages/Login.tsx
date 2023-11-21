@@ -12,7 +12,8 @@ import { Link } from "react-router-dom";
 import { guestLogin, login } from "../utils/authApi";
 import { ILogCred } from "../types/user";
 import { getUserFromLocalStorage } from "../utils/handleUser";
-import { useUser } from "../contexts";
+import { useLoading, useUser } from "../contexts";
+import loadingWrapper from "../utils/loadingWrapper";
 
 export const loader = ({ request }: LoaderFunctionArgs) => {
 	const searchParams = new URL(request.url).searchParams;
@@ -29,7 +30,7 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
 	const password = formData.get("password");
 	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
 
-	const data = (await login({ email, password } as ILogCred));
+	const data = await login({ email, password } as ILogCred);
 	return data.success ? redirect(pathname) : data.message;
 };
 
@@ -37,16 +38,25 @@ const Login = () => {
 	const navigation = useNavigation();
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
-    const { getProfile } = useUser()
+	const { getProfile } = useUser();
+	const {
+		loadingState: { submitting },
+		submittingStart,
+		submittingStop,
+	} = useLoading();
 
 	const message = useLoaderData() as string;
 	const errorMessage = useActionData() as string;
 	const pathname = searchParams.get("redirectTo") || "/";
 
 	const handleGuestLogin = async () => {
-		const data = (await guestLogin());
-		await getProfile();
-		data.success && navigate(pathname, { replace: true });
+		const fn = async () => {
+			const data = await guestLogin();
+			await getProfile();
+			data.success && navigate(pathname, { replace: true });
+		};
+
+		loadingWrapper(submittingStart, submittingStop, fn);
 	};
 
 	return (
@@ -94,8 +104,9 @@ const Login = () => {
 					type="button"
 					className="w-full h-[2rem] bg-blue-400 text-sm text-primary-cl rounded-md -mt-[0.5em]"
 					onClick={handleGuestLogin}
+					disabled={submitting}
 				>
-					Guest Login
+					{submitting ? "Guest Loging in..." : "Guest Login"}
 				</button>
 				<span className="text-sm text-gray-400 text-center mt-[1em]">
 					Don't have an account?&nbsp;
