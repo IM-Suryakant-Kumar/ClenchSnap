@@ -1,7 +1,6 @@
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import ProfilePic from "../components/ProfilePic";
 import { useLoading, useUser } from "../contexts";
-import IUser from "../types/user";
 import { useNavigate } from "react-router-dom";
 import loadingWrapper from "../utils/loadingWrapper";
 import { useState } from "react";
@@ -12,7 +11,6 @@ const Setting = () => {
 	const {
 		userState: { user },
 		getLogout,
-		getProfile,
 		updateProfile,
 	} = useUser();
 	const {
@@ -38,14 +36,13 @@ const Setting = () => {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const fn = async () => {
-			try {
-				const formData = new FormData(e.currentTarget);
-				const name = formData.get("name") as string;
-				const email = formData.get("email") as string;
-                let avatar: string = ""
-				const file = formData.get("avatar") as File;
-				console.log(name, email, avatar);
+			const formData = new FormData(e.currentTarget);
+			const name = formData.get("name") as string;
+			const email = formData.get("email") as string;
+			let avatar: string = user?.avatar as string;
+			const file = formData.get("avatar") as File;
 
+			try {
 				if (
 					file &&
 					(file.type === "image/png" || "image/jpg" || "image/jpeg")
@@ -60,11 +57,11 @@ const Setting = () => {
 					const res = await axios.post(url, data);
 					avatar = res.data.secure_url;
 				}
-
-                await updateProfile({ name, email, avatar });
 			} catch (error) {
-				console.log(error);
+				console.log("");
 			}
+
+			await updateProfile({ name, email, avatar });
 		};
 
 		loadingWrapper(submittingStart, submittingStop, fn);

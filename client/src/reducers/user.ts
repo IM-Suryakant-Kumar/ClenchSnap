@@ -13,8 +13,8 @@ export const userReducer = (state: IUserState, action: IUserAction) => {
 			return { ...state, user: action.payload.user };
 		case "GET_LOGOUT":
 			return { ...state, user: action.payload.user };
-		case "UPDATE_PROFILE":
-			return { ...state, user: action.payload.user };
+		case "UPDATE_PROFILE":{
+			return { ...state, user: action.payload.user };}
 		case "GET_FOLLOWERS":
 			return { ...state, followers: action.payload.followers };
 		case "GET_FOLLOWINGS":

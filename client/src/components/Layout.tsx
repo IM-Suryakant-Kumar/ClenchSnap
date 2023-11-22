@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
 
 const Layout = () => {
-    
 	return (
 		<div className="min-h-screen">
 			<Navbar />
@@ -16,6 +15,7 @@ const Layout = () => {
 			<ToastContainer
 				autoClose={1000}
 				transition={Slide}
+				pauseOnFocusLoss={false}
 				theme="colored"
 			/>
 		</div>
