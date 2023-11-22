@@ -1,6 +1,6 @@
 import { createContext, useReducer, useContext } from "react";
-import { userInitialState, userReducer } from "../reducers/user";
 import { IUserState } from "../types/statesAndActions";
+import { userInitialState, userReducer } from "../reducers/user";
 import { getLoggedInUser, updateUser } from "../utils/userApi";
 import { IRes } from "../types/response";
 import IUser from "../types/user";
