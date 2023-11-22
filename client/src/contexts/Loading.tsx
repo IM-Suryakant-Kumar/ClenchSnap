@@ -23,19 +23,31 @@ const LoadingContextProvider: React.FC<Props> = ({ children }) => {
 	);
 
 	const loadingStart = () => {
-		loadingDispatch({ type: "LOADING", payload: { loading: true } });
+		loadingDispatch({
+			type: "LOADING",
+			payload: { loading: true, submitting: false },
+		});
 	};
 
 	const loadingStop = () => {
-		loadingDispatch({ type: "LOADING", payload: { loading: false } });
+		loadingDispatch({
+			type: "LOADING",
+			payload: { loading: false, submitting: false },
+		});
 	};
 
 	const submittingStart = () => {
-		loadingDispatch({ type: "SUBMITTING", payload: { submitting: true } });
+		loadingDispatch({
+			type: "SUBMITTING",
+			payload: { submitting: true, loading: false },
+		});
 	};
 
 	const submittingStop = () => {
-		loadingDispatch({ type: "SUBMITTING", payload: { submitting: false } });
+		loadingDispatch({
+			type: "SUBMITTING",
+			payload: { submitting: false, loading: false },
+		});
 	};
 
 	const providerItem = {
