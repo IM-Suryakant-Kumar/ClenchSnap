@@ -28,7 +28,10 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 	const getLogout = async () => {
 		const { success } = (await logout()) as IRes;
 		success &&
-			userDispatch({ type: "GET_LOGOUT", payload: { user: null } });
+			userDispatch({
+				type: "GET_LOGOUT",
+				payload: { user: null, followers: null, followings: null },
+			});
 	};
 	// get profile
 	const getProfile = async () => {
@@ -36,7 +39,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 		success &&
 			userDispatch({
 				type: "GET_PROFILE",
-				payload: { user: user },
+				payload: { user: user, followers: null, followings: null },
 			});
 	};
 	// update profile
@@ -49,7 +52,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 		success &&
 			userDispatch({
 				type: "UPDATE_PROFILE",
-				payload: { user },
+				payload: { user, followers: null, followings: null },
 			});
 	};
 
