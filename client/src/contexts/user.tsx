@@ -18,7 +18,7 @@ interface IUserContext {
 const UserContext = createContext<IUserContext | null>(null);
 
 type Props = {
-	children?: React.ReactNode;
+	children: React.ReactNode;
 };
 
 const UserContextProvider: React.FC<Props> = ({ children }) => {
