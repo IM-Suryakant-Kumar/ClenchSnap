@@ -27,7 +27,8 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 	// get logout
 	const getLogout = async () => {
 		const { success } = (await logout()) as IRes;
-		success && userDispatch({ type: "GET_LOGOUT" });
+		success &&
+			userDispatch({ type: "GET_LOGOUT", payload: { user: null } });
 	};
 	// get profile
 	const getProfile = async () => {
@@ -58,7 +59,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 	const providerItem = {
 		userState,
 		userDispatch,
-        getLogout,
+		getLogout,
 		getProfile,
 		updateProfile,
 		getFollowers,

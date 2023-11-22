@@ -18,5 +18,5 @@ export interface IUserState {
 }
 export interface IUserAction {
 	type: string;
-	payload?: IUserState;
+	payload: IUserState;
 }
