@@ -16,6 +16,9 @@ import Signup, {
 } from "./pages/Signup";
 import Home from "./pages/Home";
 import Setting from "./pages/Setting";
+import HostLayout, {
+	loader as hostLayoutLoader,
+} from "./components/HostLayout";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -24,12 +27,21 @@ const router = createBrowserRouter(
 			element={<Layout />}
 		>
 			<Route
+				index
+				element={<Home />}
+			/>
+			<Route
 				path="host"
-				element={}
+				element={<HostLayout />}
+				loader={hostLayoutLoader}
 			>
 				<Route
 					index
-					element={<Home />}
+					element={<h1>explore</h1>}
+				/>
+				<Route
+					path="profile"
+					element={<h1>profile</h1>}
 				/>
 				<Route
 					path="settings"

@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
 import { getUserFromLocalStorage } from "./handleUser";
 
-const requireAuth = async ({ request }: LoaderFunctionArgs) => {
+const requireAuth = ({ request }: LoaderFunctionArgs) => {
 	const pathname = new URL(request.url).pathname;
 	const user = getUserFromLocalStorage();
 	if (!user)

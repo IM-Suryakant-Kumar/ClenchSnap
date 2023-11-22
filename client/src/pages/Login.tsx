@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { guestLogin, login } from "../utils/authApi";
 import { ILogCred } from "../types/user";
 import { getUserFromLocalStorage } from "../utils/handleUser";
-import { useLoading, useUser } from "../contexts";
+import { useLoading } from "../contexts";
 import loadingWrapper from "../utils/loadingWrapper";
 
 export const loader = ({ request }: LoaderFunctionArgs) => {

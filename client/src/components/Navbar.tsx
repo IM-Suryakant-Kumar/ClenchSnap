@@ -28,7 +28,7 @@ const Navbar = () => {
 				</div>
 				<div
 					className="w-[25%] sm:w-[10%] sm:order-3 flex items-center justify-end pr-[1em] text-[1.5rem] sm:text-[1.8rem] cursor-pointer"
-					onClick={() => navigate("/settings")}
+					onClick={() => navigate("/host/settings")}
 				>
 					{user ? (
 						<ProfilePic

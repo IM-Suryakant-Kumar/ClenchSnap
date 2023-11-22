@@ -22,7 +22,7 @@ const Sidebar = () => {
 					</div>
 				</NavLink>
 				<NavLink
-					to="/explore"
+					to="/host"
 					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
 				>
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
@@ -33,7 +33,7 @@ const Sidebar = () => {
 					</div>
 				</NavLink>
 				<NavLink
-					to="/profile"
+					to="/host/profile"
 					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
 				>
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
@@ -44,7 +44,7 @@ const Sidebar = () => {
 					</div>
 				</NavLink>
 				<NavLink
-					to="/settings"
+					to="/host/settings"
 					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
 				>
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
