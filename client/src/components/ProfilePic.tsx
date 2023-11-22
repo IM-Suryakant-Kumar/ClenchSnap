@@ -22,7 +22,7 @@ const ProfilePic: React.FC<Props> = ({ name, avatar, width, height, size }) => {
 					style={{ backgroundColor: color, fontSize: size }}
 				>
 					<img
-						className="rounded-full object-cover"
+						className="w-full h-full rounded-full object-cover"
 						src={avatar}
 					/>
 				</div>
