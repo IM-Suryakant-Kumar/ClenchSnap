@@ -11,8 +11,8 @@ interface IUserContext {
 	getLogout: () => Promise<void>;
 	getProfile: () => Promise<void>;
 	updateProfile: ({ name, email, avatar }: IUser) => Promise<void>;
-	getFollowers: () => Promise<void>;
-	getFollowings: () => Promise<void>;
+	// getFollowers: () => Promise<void>;
+	// getFollowings: () => Promise<void>;
 }
 
 const UserContext = createContext<IUserContext | null>(null);
@@ -56,8 +56,8 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 			});
 	};
 
-	const getFollowers = async () => {};
-	const getFollowings = async () => {};
+	// const getFollowers = async () => {};
+	// const getFollowings = async () => {};
 
 	const providerItem = {
 		userState,
@@ -65,8 +65,8 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 		getLogout,
 		getProfile,
 		updateProfile,
-		getFollowers,
-		getFollowings,
+		// getFollowers,
+		// getFollowings,
 	};
 
 	return (
