@@ -1,45 +1,58 @@
 import {
-	Form,
 	LoaderFunctionArgs,
 	redirect,
-	useActionData,
-	useNavigation,
+	useNavigate,
 	useSearchParams,
 } from "react-router-dom";
 import { IRegCred } from "../types/user";
 import { Link } from "react-router-dom";
 import { signup } from "../utils/authApi";
 import { getUserFromLocalStorage } from "../utils/handleUser";
+import { useLoading, useUser } from "../contexts";
+import { useState } from "react";
+import loadingWrapper from "../utils/loadingWrapper";
 
 export const loader = ({ request }: LoaderFunctionArgs) => {
 	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
-	const user = getUserFromLocalStorage()
+	const user = getUserFromLocalStorage();
 	return user ? redirect(pathname) : null;
 };
 
-export const action = async ({ request }: LoaderFunctionArgs) => {
-	const formData = await request.formData();
-	const name = formData.get("name");
-	const email = formData.get("email");
-	const password = formData.get("password");
-	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
-
-	const data = (await signup({ name, email, password } as IRegCred));
-	return data.success ? redirect(pathname) : data.message;
-};
-
 const Signup = () => {
-	const navigation = useNavigation();
+	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
-	const errorMessage = useActionData() as string;
+	const [errorMessage, setErrorMessage] = useState<string>("");
 	const pathname = searchParams.get("redirectTo") || "/";
+
+	const { getProfile } = useUser();
+	const {
+		loadingState: { submitting },
+		submittingStart,
+		submittingStop,
+	} = useLoading();
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const fn = async () => {
+			const formData = new FormData(e.currentTarget);
+			const name = formData.get("name");
+			const email = formData.get("email");
+			const password = formData.get("password");
+
+			const data = await signup({ name, email, password } as IRegCred);
+			data.success
+				? (await getProfile(), navigate(pathname, { replace: true }))
+				: setErrorMessage(data.message);
+		};
+
+		loadingWrapper(submittingStart, submittingStop, fn);
+	};
 
 	return (
 		<div className="min-h-screen flex justify-center items-center">
-			<Form
+			<form
 				className="w-[90%] max-w-[24rem] bg-secondary-cl flex flex-col gap-[1em] py-[2em] px-[1em] rounded-md"
-				method="post"
-				replace
+                onSubmit={handleSubmit}
 			>
 				<h1 className="text-2xl font-semibold font-cinzel text-center text-logo-cl mb-[1em]">
 					Sign Up
@@ -70,9 +83,9 @@ const Signup = () => {
 				/>
 				<button
 					className="w-full h-[2rem] bg-logo-cl text-sm text-primary-cl rounded-md mt-[2em]"
-					disabled={navigation.state === "submitting"}
+					disabled={submitting}
 				>
-					{navigation.state === "submitting"
+					{submitting
 						? "Signing up..."
 						: "Sign up"}
 				</button>
@@ -85,7 +98,7 @@ const Signup = () => {
 						Log in
 					</Link>{" "}
 				</span>
-			</Form>
+			</form>
 		</div>
 	);
 };

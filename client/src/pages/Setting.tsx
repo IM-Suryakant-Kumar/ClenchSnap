@@ -32,9 +32,9 @@ const Setting = () => {
 	const handleLogout = async () => {
 		const fn = async () => {
 			await getLogout();
+			navigate("/");
 		};
 		loadingWrapper(loadingStart, loadingStop, fn);
-		navigate("/");
 	};
 
 	return (

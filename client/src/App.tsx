@@ -1,4 +1,5 @@
 import {
+	Navigate,
 	Route,
 	RouterProvider,
 	createBrowserRouter,
@@ -6,14 +7,8 @@ import {
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
-import Login, {
-	loader as loginLoader,
-	action as loginAction,
-} from "./pages/Login";
-import Signup, {
-	loader as signupLoader,
-	action as signupAction,
-} from "./pages/Signup";
+import Login, { loader as loginLoader } from "./pages/Login";
+import Signup, { loader as signupLoader } from "./pages/Signup";
 import Home from "./pages/Home";
 import Setting from "./pages/Setting";
 import HostLayout, {
@@ -37,6 +32,10 @@ const router = createBrowserRouter(
 			>
 				<Route
 					index
+					element={<Navigate to="explore" />}
+				/>
+				<Route
+					path="explore"
 					element={<h1>explore</h1>}
 				/>
 				<Route
@@ -52,13 +51,11 @@ const router = createBrowserRouter(
 				path="login"
 				element={<Login />}
 				loader={loginLoader}
-				action={loginAction}
 			/>
 			<Route
 				path="signup"
 				element={<Signup />}
 				loader={signupLoader}
-				action={signupAction}
 			/>
 			<Route
 				path="*"
