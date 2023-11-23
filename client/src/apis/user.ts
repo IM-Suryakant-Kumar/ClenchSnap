@@ -8,7 +8,7 @@ import asyncWrapper from "../utils/asyncWrapper";
 
 export const getLoggedInUser = async () => {
 	asyncWrapper(async () => {
-		const { data } = (await axios.get("/me", config)) as IApiRes;
+		const { data } = (await axios.get("/user/me", config)) as IApiRes;
 		addUserToLocalStorage(data.user);
 		return data;
 	});
@@ -16,7 +16,7 @@ export const getLoggedInUser = async () => {
 
 export const updateUser = async (user: IUser) => {
 	asyncWrapper(async () => {
-		const { data } = (await axios.patch("/me", user, config)) as IApiRes;
+		const { data } = (await axios.patch("/user/me", user, config)) as IApiRes;
 		addUserToLocalStorage(data.user);
 		toast.success(data.message);
 		return data;
