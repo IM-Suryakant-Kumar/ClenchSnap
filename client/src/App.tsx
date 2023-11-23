@@ -11,10 +11,11 @@ import Login, { loader as loginLoader } from "./pages/Login";
 import Signup, { loader as signupLoader } from "./pages/Signup";
 import Home from "./pages/Home";
 import Setting from "./pages/Setting";
+import Error from "./pages/Error"
 import HostLayout, {
 	loader as hostLayoutLoader,
 } from "./components/HostLayout";
-import Error from "./pages/Error"
+import Profile from "./pages/Profile"
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -42,7 +43,7 @@ const router = createBrowserRouter(
 				/>
 				<Route
 					path="profile"
-					element={<h1>profile</h1>}
+					element={<Profile />}
 				/>
 				<Route
 					path="settings"
