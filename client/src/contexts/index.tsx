@@ -1,5 +1,5 @@
 import { LoadingContextProvider } from "./Loading";
-import { UserContextProvider } from "./User";
+import { UserContextProvider } from "./UserContextProvider";
 
 type Props = {
 	children: React.ReactNode;
@@ -8,7 +8,7 @@ type Props = {
 const MainContextProvider: React.FC<Props> = ({ children }) => {
 	return (
 		<LoadingContextProvider>
-				<UserContextProvider>{children}</UserContextProvider>
+			<UserContextProvider>{children}</UserContextProvider>
 		</LoadingContextProvider>
 	);
 };

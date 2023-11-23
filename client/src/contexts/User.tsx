@@ -7,9 +7,9 @@ import { logout } from "../apis/auth";
 
 interface IUserContext {
 	userState: IUserState;
-	// getLogout: () => Promise<void>;
-	// getProfile: () => Promise<void>;
-	// updateProfile: ({ fullname, email, avatar }: IUser) => Promise<void>;
+	getLogout: () => Promise<void>;
+	getProfile: () => Promise<void>;
+	updateProfile: ({ fullname, email, avatar }: IUser) => Promise<void>;
 	// getFollowers: () => Promise<void>;
 	// getFollowings: () => Promise<void>;
 }
@@ -25,33 +25,33 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 
 	// get logout
 	const getLogout = async () => {
-		const { success } = (await logout());
+		const { success } = await logout();
 		success &&
 			userDispatch({
 				type: "GET_LOGOUT",
-				payload: { user: null, followers: null, followings: null },
+				payload: { user: null },
 			});
 	};
 	// get profile
 	const getProfile = async () => {
-		const { success, user } = (await getLoggedInUser());
+		const { success, user } = await getLoggedInUser();
 		success &&
 			userDispatch({
 				type: "GET_PROFILE",
-				payload: { user: user, followers: null, followings: null },
+				payload: { user },
 			});
 	};
 	// update profile
 	const updateProfile = async ({ fullname, email, avatar }: IUser) => {
-		const { success, user } = (await updateUser({
+		const { success, user } = await updateUser({
 			fullname,
 			email,
 			avatar,
-		})) as IRes;
+		} as IUser);
 		success &&
 			userDispatch({
 				type: "UPDATE_PROFILE",
-				payload: { user, followers: null, followings: null },
+				payload: { user },
 			});
 	};
 
@@ -60,10 +60,9 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 
 	const providerItem = {
 		userState,
-		// userDispatch,
-		// getLogout,
-		// getProfile,
-		// updateProfile,
+		getLogout,
+		getProfile,
+		updateProfile,
 		// getFollowers,
 		// getFollowings,
 	};

@@ -12,11 +12,12 @@ export interface ILoadingAction {
 
 // user
 export interface IUserState {
-	user: IUser | null;
-	followers: IUser[] | null;
-	followings: IUser[] | null;
+	user?: IUser | null;
+    followers?: IUser[] | null;
+	followings?: IUser[] | null;
 }
+
 export interface IUserAction {
 	type: string;
-	payload?: IUser | IUser[];
+	payload: IUserState;
 }
