@@ -3,8 +3,16 @@ import Navbar from "./Navbar";
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
+import { useUser } from "../contexts";
+import { useEffect } from "react";
 
 const Layout = () => {
+	const { getProfile } = useUser();
+
+	useEffect(() => {
+		(async () => await getProfile())();
+	}, []);
+
 	return (
 		<div className="min-h-screen">
 			<Navbar />
