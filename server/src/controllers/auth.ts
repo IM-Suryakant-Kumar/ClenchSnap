@@ -16,7 +16,7 @@ interface IReq extends Request {
 // Create User
 export const createUser = async (req: Request, res: Response) => {
 	const {
-		body: { fullname, username, email, password},
+		body: { fullname, username, email, password },
 	} = req as IReq;
 
 	if (!(fullname && username && email && password))
@@ -34,7 +34,7 @@ export const login = async (req: Request, res: Response) => {
 	if (!(email && password))
 		throw new BadRequestError("Please provide all values");
 
-	const user = await User.findOne({ email });
+	const user = await User.findOne({ email }).select("+password");
 	if (!user) throw new UnauthenticatedError("Invalid Credentials!");
 
 	const isPasswordCorrect = await user.comparePassword(password);
@@ -44,7 +44,9 @@ export const login = async (req: Request, res: Response) => {
 };
 // guest login
 export const guestLogin = async (req: Request, res: Response) => {
-	const user = await User.findOne({ email: "clenchsnap@gmail.com" });
+	const user = await User.findOne({ email: "clenchsnap@gmail.com" }).select(
+		"+password",
+	);
 	if (!user) throw new UnauthenticatedError("Invalid Credentials!");
 
 	const isPasswordCorrect = await user.comparePassword("secret");
