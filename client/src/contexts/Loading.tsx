@@ -25,28 +25,28 @@ const LoadingContextProvider: React.FC<Props> = ({ children }) => {
 	const loadingStart = () => {
 		loadingDispatch({
 			type: "LOADING",
-			payload: { loading: true, submitting: false },
+			payload: true,
 		});
 	};
 
 	const loadingStop = () => {
 		loadingDispatch({
 			type: "LOADING",
-			payload: { loading: false, submitting: false },
+			payload: false,
 		});
 	};
 
 	const submittingStart = () => {
 		loadingDispatch({
 			type: "SUBMITTING",
-			payload: { submitting: true, loading: false },
+			payload: true,
 		});
 	};
 
 	const submittingStop = () => {
 		loadingDispatch({
 			type: "SUBMITTING",
-			payload: { submitting: false, loading: false },
+			payload: false,
 		});
 	};
 

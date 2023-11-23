@@ -10,15 +10,15 @@ export const userInitialState: IUserState = {
 export const userReducer = (state: IUserState, action: IUserAction) => {
 	switch (action.type) {
 		case "GET_PROFILE":
-			return { ...state, user: action.payload.user };
+			return { ...state, user: action.payload };
 		case "GET_LOGOUT":
-			return { ...state, user: action.payload.user };
-		case "UPDATE_PROFILE":{
-			return { ...state, user: action.payload.user };}
+			return { ...state, user: null };
+		case "UPDATE_PROFILE":
+			return { ...state, user: action.payload };
 		case "GET_FOLLOWERS":
-			return { ...state, followers: action.payload.followers };
+			return { ...state, followers: action.payload };
 		case "GET_FOLLOWINGS":
-			return { ...state, followings: action.payload.followings };
+			return { ...state, followings: action.payload };
 		default:
 			return state;
 	}

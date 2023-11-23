@@ -11,9 +11,9 @@ export const loadingReducer = (
 ) => {
 	switch (action.type) {
 		case "LOADING":
-			return { ...state, loading: action.payload.loading };
+			return { ...state, loading: action.payload };
 		case "SUBMITTING":
-			return { ...state, submitting: action.payload.submitting };
+			return { ...state, submitting: action.payload };
 		default:
 			return state;
 	}

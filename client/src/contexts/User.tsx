@@ -2,15 +2,14 @@ import { createContext, useReducer, useContext } from "react";
 import { IUserState } from "../types/statesAndActions";
 import { userInitialState, userReducer } from "../reducers/user";
 import { getLoggedInUser, updateUser } from "../apis/user";
-import { IRes } from "../types/response";
 import IUser from "../types/user";
 import { logout } from "../apis/auth";
 
 interface IUserContext {
 	userState: IUserState;
-	getLogout: () => Promise<void>;
-	getProfile: () => Promise<void>;
-	updateProfile: ({ name, email, avatar }: IUser) => Promise<void>;
+	// getLogout: () => Promise<void>;
+	// getProfile: () => Promise<void>;
+	// updateProfile: ({ fullname, email, avatar }: IUser) => Promise<void>;
 	// getFollowers: () => Promise<void>;
 	// getFollowings: () => Promise<void>;
 }
@@ -26,7 +25,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 
 	// get logout
 	const getLogout = async () => {
-		const { success } = (await logout()) as IRes;
+		const { success } = (await logout());
 		success &&
 			userDispatch({
 				type: "GET_LOGOUT",
@@ -35,7 +34,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 	};
 	// get profile
 	const getProfile = async () => {
-		const { success, user } = (await getLoggedInUser()) as IRes;
+		const { success, user } = (await getLoggedInUser());
 		success &&
 			userDispatch({
 				type: "GET_PROFILE",
@@ -43,9 +42,9 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 			});
 	};
 	// update profile
-	const updateProfile = async ({ name, email, avatar }: IUser) => {
+	const updateProfile = async ({ fullname, email, avatar }: IUser) => {
 		const { success, user } = (await updateUser({
-			name,
+			fullname,
 			email,
 			avatar,
 		})) as IRes;
@@ -61,10 +60,10 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 
 	const providerItem = {
 		userState,
-		userDispatch,
-		getLogout,
-		getProfile,
-		updateProfile,
+		// userDispatch,
+		// getLogout,
+		// getProfile,
+		// updateProfile,
 		// getFollowers,
 		// getFollowings,
 	};

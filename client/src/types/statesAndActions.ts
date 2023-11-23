@@ -7,7 +7,7 @@ export interface ILoadingState {
 }
 export interface ILoadingAction {
 	type: string;
-	payload: ILoadingState;
+	payload: boolean;
 }
 
 // user
@@ -18,5 +18,5 @@ export interface IUserState {
 }
 export interface IUserAction {
 	type: string;
-	payload: IUserState;
+	payload?: IUser | IUser[];
 }
