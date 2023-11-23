@@ -14,6 +14,8 @@ interface SuccessResponse {
 interface FaildResponse {
 	response: {
 		data: TData;
+		status: string;
+		statusText: string;
 	};
 }
 
