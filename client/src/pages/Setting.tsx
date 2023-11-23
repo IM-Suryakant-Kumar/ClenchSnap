@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import loadingWrapper from "../utils/loadingWrapper";
 import { useState } from "react";
 import axios from "axios";
+import IUser from "../types/user";
 
 const Setting = () => {
 	const navigate = useNavigate();
@@ -37,9 +38,12 @@ const Setting = () => {
 		e.preventDefault();
 		const fn = async () => {
 			const formData = new FormData(e.currentTarget);
-			const name = formData.get("name") as string;
-			const email = formData.get("email") as string;
+			const fullname = formData.get("fullname");
+			const username = formData.get("username");
+			const email = formData.get("email");
 			let avatar: string = user?.avatar as string;
+			const bio = formData.get("bio");
+			const website = formData.get("website");
 			const file = formData.get("avatar") as File;
 
 			try {
@@ -61,7 +65,14 @@ const Setting = () => {
 				console.log("");
 			}
 
-			await updateProfile({ name, email, avatar });
+			await updateProfile({
+				fullname,
+				username,
+				email,
+				avatar,
+				bio,
+				website,
+			} as IUser);
 		};
 
 		loadingWrapper(submittingStart, submittingStop, fn);
@@ -77,7 +88,8 @@ const Setting = () => {
 
 	return (
 		<form
-			className="text-center flex flex-col items-center gap-[1.5em]"
+			spellCheck={false}
+			className="flex flex-col items-center gap-[0.5em]"
 			onSubmit={handleSubmit}
 		>
 			<div className="w-[80%] max-w-[16rem] h-[6rem] flex justify-center items-center mb-[2em]">
@@ -86,7 +98,7 @@ const Setting = () => {
 						width="4.5rem"
 						height="4.5rem"
 						size="2rem"
-						name={user?.name as string}
+						name={user?.fullname as string}
 						avatar={imagePreview}
 					/>
 					<input
@@ -100,28 +112,78 @@ const Setting = () => {
 					</div>
 				</div>
 			</div>
-
-			<label className="w-[80%] max-w-[16rem]">
-				Name:
-				<input
-					className="ml-[1em] outline-none border-2 border-logo-cl rounded-xl pl-[0.4em] bg-inherit"
-					type="text"
-					name="name"
-					defaultValue={user?.name}
-				/>
+			{/* fullname */}
+			<label
+				htmlFor="fullname"
+				className="w-[80%] max-w-[16rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
+			>
+				Full Name
 			</label>
-			<label className="w-[80%] max-w-[16rem]">
-				Email:
-				<input
-					className="ml-[1em] outline-none border-2 border-logo-cl rounded-xl pl-[0.4em] bg-inherit"
-					type="email"
-					name="email"
-					defaultValue={user?.email}
-				/>
+			<input
+				className="w-[80%] max-w-[16rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
+				type="text"
+				id="fullname"
+				name="fullname"
+				defaultValue={user?.fullname}
+			/>
+			{/* username */}
+			<label
+				htmlFor="username"
+				className="w-[80%] max-w-[16rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
+			>
+				Username
 			</label>
+			<input
+				className="w-[80%] max-w-[16rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
+				type="text"
+				id="username"
+				name="username"
+				defaultValue={user?.username}
+			/>
+			{/* email */}
+			<label
+				htmlFor="email"
+				className="w-[80%] max-w-[16rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
+			>
+				Email
+			</label>
+			<input
+				className="w-[80%] max-w-[16rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
+				id="email"
+				type="email"
+				name="email"
+				defaultValue={user?.email}
+			/>
+			{/* Bio */}
+			<label
+				htmlFor="bio"
+				className="w-[80%] max-w-[16rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
+			>
+				Bio
+			</label>
+			<textarea
+				className="w-[80%] max-w-[16rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
+				id="bio"
+				name="bio"
+				defaultValue={user?.bio}
+			/>
+			{/* Website */}
+			<label
+				htmlFor="bio"
+				className="w-[80%] max-w-[16rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
+			>
+				Website
+			</label>
+			<input
+				className="w-[80%] max-w-[16rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
+				id="website"
+				type="text"
+				name="website"
+				defaultValue={user?.website}
+			/>
 			<button
 				type="submit"
-				className="w-[80%] h-[2rem] max-w-[16rem] bg-logo-cl text-primary-cl rounded-lg mt-[2.5em] -mb-[0.4em]"
+				className="w-[80%] h-[2rem] max-w-[16rem] bg-logo-cl text-primary-cl rounded-lg mt-[2.5em] mb-[0.4em]"
 				disabled={submitting}
 			>
 				{submitting ? "SAVING..." : "SAVE"}

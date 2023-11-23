@@ -4,12 +4,20 @@ import { userInitialState, userReducer } from "../reducers/user";
 import { getLoggedInUser, updateUser } from "../apis/user";
 import IUser from "../types/user";
 import { logout } from "../apis/auth";
+import { toast } from "react-toastify";
 
 interface IUserContext {
 	userState: IUserState;
 	getLogout: () => Promise<void>;
 	getProfile: () => Promise<void>;
-	updateProfile: ({ fullname, email, avatar }: IUser) => Promise<void>;
+	updateProfile: ({
+		fullname,
+		username,
+		email,
+		avatar,
+		bio,
+		website,
+	}: IUser) => Promise<void>;
 	// getFollowers: () => Promise<void>;
 	// getFollowings: () => Promise<void>;
 }
@@ -42,17 +50,33 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 			});
 	};
 	// update profile
-	const updateProfile = async ({ fullname, email, avatar }: IUser) => {
-		const { success, user } = await updateUser({
+	const updateProfile = async ({
+		fullname,
+		username,
+		email,
+		avatar,
+		bio,
+		website,
+	}: IUser) => {
+		const { success, user, message } = await updateUser({
 			fullname,
+			username,
 			email,
 			avatar,
+			bio,
+			website,
 		} as IUser);
-		success &&
-			userDispatch({
+		success ?
+			(userDispatch({
 				type: "UPDATE_PROFILE",
 				payload: { user },
-			});
+			})) : (toast.error(message, {
+                    autoClose: 6000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                }))
 	};
 
 	// const getFollowers = async () => {};

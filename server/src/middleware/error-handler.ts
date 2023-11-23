@@ -21,9 +21,12 @@ const errorHandlerMiddleware = (
 	}
 
 	if (err.code && err.code === 11000) {
-		customError.message = `Duplicate value entered for ${Object.keys(
+		// customError.message = `Duplicate value entered for ${Object.keys(
+		// 	err.keyValue,
+		// )} field, please choose another value`;
+		customError.message = `This ${Object.keys(
 			err.keyValue,
-		)} field, please choose another value`;
+		)} is already exists, please choose another value`;
 		customError.statusCode = StatusCodes.BAD_REQUEST;
 	}
 
