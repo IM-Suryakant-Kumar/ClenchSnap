@@ -3,7 +3,7 @@ import IUser from "user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const UserSchema: Schema = new Schema(
+const UserSchema: Schema = new Schema<IUser>(
 	{
 		fullname: {
 			type: String,
@@ -15,15 +15,19 @@ const UserSchema: Schema = new Schema(
 			type: String,
 			required: [true, "username is required"],
 			unique: true,
-            maxlength: 20,
-            minlength: 3
+			maxlength: 20,
+			minlength: 3,
 		},
 		email: {
 			type: String,
 			required: [true, "email is required"],
 			unique: true,
 		},
-		password: { type: String, required: [true, "password is required"] },
+		password: {
+			type: String,
+			required: [true, "password is required"],
+			select: false,
+		},
 		avatar: { type: String },
 		bio: { type: String },
 		website: { type: String },

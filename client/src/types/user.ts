@@ -5,7 +5,6 @@ export default interface IUser {
 	avatar: string;
 	bio: string;
 	website: string;
-	password: string;
 }
 
 export interface ILogCred {

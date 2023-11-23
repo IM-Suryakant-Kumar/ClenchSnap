@@ -13,7 +13,7 @@ import asyncWrapper from "../utils/asyncWrapper";
 // login
 export const login = async (logCred: ILogCred) => {
 	asyncWrapper(async () => {
-		const { data } = (await axios.post("/login", logCred)) as IApiRes;
+		const { data } = (await axios.post("/auth/login", logCred)) as IApiRes;
 		AddTokenToLocalStorage(data.token);
 		toast.success(data.message);
 		return data;
@@ -22,7 +22,7 @@ export const login = async (logCred: ILogCred) => {
 // guest login
 export const guestLogin = async () => {
 	asyncWrapper(async () => {
-		const { data } = (await axios.get("/guest-login")) as IApiRes;
+		const { data } = (await axios.get("/auth/guest-login")) as IApiRes;
 		AddTokenToLocalStorage(data.token);
 		toast.success(data.message);
 		return data;
@@ -31,7 +31,7 @@ export const guestLogin = async () => {
 // signup
 export const signup = async (regCred: IRegCred) => {
 	asyncWrapper(async () => {
-		const { data } = (await axios.post("/register", regCred)) as IApiRes;
+		const { data } = (await axios.post("/auth/register", regCred)) as IApiRes;
 		AddTokenToLocalStorage(data.token);
 		toast.success(data.message);
 		return data;
@@ -40,7 +40,7 @@ export const signup = async (regCred: IRegCred) => {
 // logout
 export const logout = async () => {
 	asyncWrapper(async () => {
-		const { data } = (await axios.get("/logout", config)) as IApiRes;
+		const { data } = (await axios.get("/auth/logout", config)) as IApiRes;
 		removeTokenFromLocalStorage();
 		removeUserFromLocalStorage();
 		toast.success(data.message);
