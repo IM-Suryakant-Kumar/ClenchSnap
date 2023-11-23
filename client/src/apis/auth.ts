@@ -4,10 +4,10 @@ import { ILogCred, IRegCred } from "../types/user";
 import axios from "./axios";
 import {
 	AddTokenToLocalStorage,
-	getTokenFromLocalStorage,
 	removeTokenFromLocalStorage,
 } from "../utils/handleToken";
 import { removeUserFromLocalStorage } from "../utils/handleUser";
+import config from "./config";
 
 // login
 export const login = async (logCred: ILogCred) => {
@@ -51,9 +51,7 @@ export const signup = async (regCred: IRegCred) => {
 // logout
 export const logout = async () => {
 	try {
-		const { data } = (await axios.get("/logout", {
-			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
-		})) as IApiRes;
+		const { data } = (await axios.get("/logout", config)) as IApiRes;
 		removeTokenFromLocalStorage();
 		removeUserFromLocalStorage();
 		toast.success(data.message);
