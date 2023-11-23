@@ -34,8 +34,8 @@ app.use((0, morgan_1.default)("tiny"));
 app.use((0, cors_1.default)({ origin: CLIENT_URL, credentials: true }));
 app.use((0, cookie_parser_1.default)());
 // routers
-app.use(auth_1.default);
-app.use(middleware_1.authenticateUser, user_1.default);
+app.use("/auth", auth_1.default);
+app.use("/user", user_1.default);
 // Test
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).send("<h2>Server Working!👍👍👍</h2>");

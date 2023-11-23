@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authorizedUser = exports.authenticateUser = void 0;
+exports.authenticateUser = void 0;
 const errors_1 = require("../errors");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../models/User"));
@@ -32,13 +32,4 @@ const authenticateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     next();
 });
 exports.authenticateUser = authenticateUser;
-const authorizedUser = (...roles) => {
-    return (req, res, next) => {
-        const { user: { role }, } = req;
-        if (!roles.includes(role))
-            throw new errors_1.UnauthorizedError("Unauthorized to access this route");
-        next();
-    };
-};
-exports.authorizedUser = authorizedUser;
 //# sourceMappingURL=authentication.js.map

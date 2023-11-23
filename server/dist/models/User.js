@@ -16,10 +16,32 @@ const mongoose_1 = require("mongoose");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const UserSchema = new mongoose_1.Schema({
-    name: { type: String, required: [true, "name is required"] },
-    email: { type: String, required: [true, "email is required"], unique: true },
+    fullname: {
+        type: String,
+        required: [true, "fullname is required"],
+        maxlength: 20,
+        minlength: 3,
+    },
+    username: {
+        type: String,
+        required: [true, "username is required"],
+        unique: true,
+        maxlength: 20,
+        minlength: 3,
+    },
+    email: {
+        type: String,
+        required: [true, "email is required"],
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: [true, "password is required"],
+        select: false,
+    },
     avatar: { type: String },
-    password: { type: String, required: [true, "password is required"] },
+    bio: { type: String },
+    website: { type: String },
 }, { timestamps: true });
 UserSchema.pre("save", function () {
     return __awaiter(this, void 0, void 0, function* () {

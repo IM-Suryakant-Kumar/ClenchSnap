@@ -19,10 +19,10 @@ const User_1 = __importDefault(require("../models/User"));
 const sendToken_1 = __importDefault(require("../utils/sendToken"));
 // Create User
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { body: { name, email, avatar, password }, } = req;
-    if (!(name && email && password))
+    const { body: { fullname, username, email, password }, } = req;
+    if (!(fullname && username && email && password))
         throw new errors_1.BadRequestError("Please provide all values");
-    const user = yield User_1.default.create({ name, email, avatar, password });
+    const user = yield User_1.default.create({ fullname, username, email, password });
     (0, sendToken_1.default)(user, http_status_codes_1.StatusCodes.CREATED, res, "Successfully registered");
 });
 exports.createUser = createUser;
@@ -31,7 +31,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body: { email, password }, } = req;
     if (!(email && password))
         throw new errors_1.BadRequestError("Please provide all values");
-    const user = yield User_1.default.findOne({ email });
+    const user = yield User_1.default.findOne({ email }).select("+password");
     if (!user)
         throw new errors_1.UnauthenticatedError("Invalid Credentials!");
     const isPasswordCorrect = yield user.comparePassword(password);
@@ -42,7 +42,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.login = login;
 // guest login
 const guestLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User_1.default.findOne({ email: "clench@gmail.com" });
+    const user = yield User_1.default.findOne({ email: "clenchsnap@gmail.com" }).select("+password");
     if (!user)
         throw new errors_1.UnauthenticatedError("Invalid Credentials!");
     const isPasswordCorrect = yield user.comparePassword("secret");

@@ -32,4 +32,9 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     });
 });
 exports.updateUser = updateUser;
+// export const getAllUsers = async (req: Request, res: Response) => {
+//     const { user: { _id }, query: { q } } = req as IReq
+//     const users = await User.find()
+//     const suggestedUser = users.
+// }
 //# sourceMappingURL=user.js.map
