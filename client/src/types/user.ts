@@ -1,20 +1,9 @@
 export default interface IUser {
-    fullname: string;
+	fullname: string;
 	username: string;
 	email: string;
+	password: string;
 	avatar: string;
 	bio: string;
 	website: string;
-}
-
-export interface ILogCred {
-    email: string;
-    password: string;
-}
-
-export interface IRegCred {
-    name: string;
-    email: string;
-    avatar?: string;
-    password: string;
 }

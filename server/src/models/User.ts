@@ -3,7 +3,7 @@ import IUser from "user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const UserSchema: Schema = new Schema<IUser>(
+const UserSchema = new Schema<IUser>(
 	{
 		fullname: {
 			type: String,

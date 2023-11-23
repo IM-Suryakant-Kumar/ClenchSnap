@@ -4,13 +4,13 @@ import {
 	useNavigate,
 	useSearchParams,
 } from "react-router-dom";
-import { IRegCred } from "../types/user";
 import { Link } from "react-router-dom";
 import { signup } from "../apis/auth";
 import { getUserFromLocalStorage } from "../utils/handleUser";
 import { useLoading, useUser } from "../contexts";
 import { useState } from "react";
 import loadingWrapper from "../utils/loadingWrapper";
+import IUser from "../types/user";
 
 export const loader = ({ request }: LoaderFunctionArgs) => {
 	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
@@ -35,11 +35,12 @@ const Signup = () => {
 		e.preventDefault();
 		const fn = async () => {
 			const formData = new FormData(e.currentTarget);
-			const name = formData.get("name");
+			const fullname = formData.get("fullname");
+			const username = formData.get("username");
 			const email = formData.get("email");
 			const password = formData.get("password");
 
-			const data = await signup({ name, email, password } as IRegCred);
+			const data = await signup({ fullname, username, email, password } as IUser);
 			data.success
 				? (await getProfile(), navigate(pathname, { replace: true }))
 				: setErrorMessage(data.message);
@@ -66,8 +67,14 @@ const Signup = () => {
 				<input
 					className="outline-none border-b-2 border-logo-cl bg-inherit"
 					type="text"
-					name="name"
-					placeholder="name"
+					name="fullname"
+					placeholder="Fullname"
+				/>
+				<input
+					className="outline-none border-b-2 border-logo-cl bg-inherit"
+					type="text"
+					name="username"
+					placeholder="Username"
 				/>
 				<input
 					className="outline-none border-b-2 border-logo-cl bg-inherit"

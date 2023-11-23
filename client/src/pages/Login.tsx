@@ -7,11 +7,11 @@ import {
 } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { guestLogin, login } from "../apis/auth";
-import { ILogCred } from "../types/user";
 import { useLoading, useUser } from "../contexts";
 import loadingWrapper from "../utils/loadingWrapper";
 import { useState } from "react";
 import { getUserFromLocalStorage } from "../utils/handleUser";
+import IUser from "../types/user";
 
 export const loader = ({ request }: LoaderFunctionArgs) => {
 	const searchParams = new URL(request.url).searchParams;
@@ -45,7 +45,7 @@ const Login = () => {
 			const email = formData.get("email");
 			const password = formData.get("password");
 
-			const data = await login({ email, password } as ILogCred);
+			const data = await login({ email, password } as IUser);
 			data.success
 				? (await getProfile(), navigate(pathname, { replace: true }))
 				: setErrorMessage(data.message);
