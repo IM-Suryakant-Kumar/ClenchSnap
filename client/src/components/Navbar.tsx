@@ -32,7 +32,7 @@ const Navbar = () => {
 				>
 					{user ? (
 						<ProfilePic
-							name={user.name}
+							name={user.fullname}
 							avatar={user.avatar}
 							width="1.5rem"
 							height="1.5rem"

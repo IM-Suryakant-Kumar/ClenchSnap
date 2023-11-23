@@ -1,5 +1,5 @@
 import { LoadingContextProvider } from "./Loading";
-import { UserContextProvider } from "./UserContextProvider";
+import { UserContextProvider } from "./User";
 
 type Props = {
 	children: React.ReactNode;
