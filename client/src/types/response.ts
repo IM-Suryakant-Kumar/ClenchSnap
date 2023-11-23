@@ -1,15 +1,19 @@
 import IUser from "./user";
 
+export type TData = {
+	success: boolean;
+	message: string;
+	token: string;
+	user: IUser;
+};
+
 interface SuccessResponse {
-	data: { success: boolean; token: string; message: string; user: IUser };
+	data: TData;
 }
 
 interface FaildResponse {
 	response: {
-		data: {
-			success: boolean;
-			message: string;
-		};
+		data: TData;
 	};
 }
 
