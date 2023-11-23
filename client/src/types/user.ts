@@ -1,7 +1,11 @@
 export default interface IUser {
-    name: string;
-    email: string;
-    avatar: string;
+    fullname: string;
+	username: string;
+	email: string;
+	avatar: string;
+	bio: string;
+	website: string;
+	password: string;
 }
 
 export interface ILogCred {

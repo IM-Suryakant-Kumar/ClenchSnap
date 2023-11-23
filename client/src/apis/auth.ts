@@ -1,13 +1,13 @@
 import { toast } from "react-toastify";
-import IApiRes, { IApiError } from "../types/response";
+import IApiRes from "../types/response";
 import { ILogCred, IRegCred } from "../types/user";
 import axios from "./axios";
 import {
 	AddTokenToLocalStorage,
 	getTokenFromLocalStorage,
 	removeTokenFromLocalStorage,
-} from "./handleToken";
-import { removeUserFromLocalStorage } from "./handleUser";
+} from "../utils/handleToken";
+import { removeUserFromLocalStorage } from "../utils/handleUser";
 
 // login
 export const login = async (logCred: ILogCred) => {
@@ -17,11 +17,9 @@ export const login = async (logCred: ILogCred) => {
 		toast.success(data.message);
 		return data;
 	} catch (error) {
-		const {
-			response: { data },
-		} = error as IApiError;
-		console.log(data);
-		return data;
+		const { response } = error as IApiRes;
+		console.log(response.data);
+		return response.data;
 	}
 };
 // guest login
@@ -32,11 +30,9 @@ export const guestLogin = async () => {
 		toast.success(data.message);
 		return data;
 	} catch (error) {
-		const {
-			response: { data },
-		} = error as IApiError;
-		console.log(data);
-		return data;
+		const { response } = error as IApiRes;
+		console.log(response.data);
+		return response.data;
 	}
 };
 // signup
@@ -47,11 +43,9 @@ export const signup = async (regCred: IRegCred) => {
 		toast.success(data.message);
 		return data;
 	} catch (error) {
-		const {
-			response: { data },
-		} = error as IApiError;
-		console.log(data);
-		return data;
+		const { response } = error as IApiRes;
+		console.log(response.data);
+		return response.data;
 	}
 };
 // logout
@@ -65,10 +59,8 @@ export const logout = async () => {
 		toast.success(data.message);
 		return data;
 	} catch (error) {
-		const {
-			response: { data },
-		} = error as IApiError;
-		console.log(data);
-		return data;
+		const { response } = error as IApiRes;
+		console.log(response.data);
+		return response.data;
 	}
 };

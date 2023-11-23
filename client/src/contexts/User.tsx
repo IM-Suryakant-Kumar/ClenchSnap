@@ -1,10 +1,10 @@
 import { createContext, useReducer, useContext } from "react";
 import { IUserState } from "../types/statesAndActions";
 import { userInitialState, userReducer } from "../reducers/user";
-import { getLoggedInUser, updateUser } from "../utils/userApi";
+import { getLoggedInUser, updateUser } from "../apis/user";
 import { IRes } from "../types/response";
 import IUser from "../types/user";
-import { logout } from "../utils/authApi";
+import { logout } from "../apis/auth";
 
 interface IUserContext {
 	userState: IUserState;

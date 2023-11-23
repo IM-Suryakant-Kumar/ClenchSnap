@@ -26,8 +26,8 @@ app.use(cors({ origin: CLIENT_URL, credentials: true }));
 app.use(cookieParser());
 
 // routers
-app.use(authRouter);
-app.use(userRouter);
+app.use("/auth", authRouter);
+app.use("/user", userRouter);
 
 // Test
 app.get("/", async (req: Request, res: Response) => {

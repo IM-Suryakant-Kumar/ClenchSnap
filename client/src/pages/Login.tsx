@@ -6,7 +6,7 @@ import {
 	useSearchParams,
 } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { guestLogin, login } from "../utils/authApi";
+import { guestLogin, login } from "../apis/auth";
 import { ILogCred } from "../types/user";
 import { useLoading, useUser } from "../contexts";
 import loadingWrapper from "../utils/loadingWrapper";

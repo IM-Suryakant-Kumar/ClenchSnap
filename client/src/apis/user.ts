@@ -1,9 +1,9 @@
 import { toast } from "react-toastify";
-import IApiRes, { IApiError } from "../types/response";
+import IApiRes from "../types/response";
 import IUser from "../types/user";
 import axios from "./axios";
-import { getTokenFromLocalStorage } from "./handleToken";
-import { addUserToLocalStorage } from "./handleUser";
+import { getTokenFromLocalStorage } from "../utils/handleToken";
+import { addUserToLocalStorage } from "../utils/handleUser";
 
 export const getLoggedInUser = async () => {
 	try {
@@ -13,11 +13,9 @@ export const getLoggedInUser = async () => {
 		addUserToLocalStorage(data.user);
 		return data;
 	} catch (error) {
-		const {
-			response: { data },
-		} = error as IApiError;
-		console.log(data);
-		return data;
+		const { response } = error as IApiRes;
+		console.log(response.data);
+		return response.data;
 	}
 };
 
@@ -36,10 +34,8 @@ export const updateUser = async ({ name, email, avatar }: IUser) => {
 		toast.success(data.message);
 		return data;
 	} catch (error) {
-		const {
-			response: { data },
-		} = error as IApiError;
-		console.log(data);
-		return data;
+		const { response } = error as IApiRes;
+		console.log(response.data);
+		return response.data;
 	}
 };
