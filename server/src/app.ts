@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import morgan from "morgan";
 import {
-	authenticateUser,
 	errorHandlerMiddleware,
 	notFoundMiddleware,
 } from "./middleware";
@@ -28,7 +27,7 @@ app.use(cookieParser());
 
 // routers
 app.use(authRouter);
-app.use(authenticateUser, userRouter);
+app.use(userRouter);
 
 // Test
 app.get("/", async (req: Request, res: Response) => {

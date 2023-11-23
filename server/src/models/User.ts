@@ -5,10 +5,28 @@ import jwt from "jsonwebtoken";
 
 const UserSchema: Schema = new Schema(
 	{
-		name: { type: String, required: [true, "name is required"] },
-		email: { type: String, required: [true, "email is required"], unique: true },
-		avatar: { type: String },
+		fullname: {
+			type: String,
+			required: [true, "fullname is required"],
+			maxlength: 20,
+			minlength: 3,
+		},
+		username: {
+			type: String,
+			required: [true, "username is required"],
+			unique: true,
+            maxlength: 20,
+            minlength: 3
+		},
+		email: {
+			type: String,
+			required: [true, "email is required"],
+			unique: true,
+		},
 		password: { type: String, required: [true, "password is required"] },
+		avatar: { type: String },
+		bio: { type: String },
+		website: { type: String },
 	},
 	{ timestamps: true },
 );
@@ -19,7 +37,9 @@ UserSchema.pre("save", async function () {
 	this.password = await bcrypt.hash(this.password, salt);
 });
 
-UserSchema.methods.comparePassword = async function (candidatePassword: string) {
+UserSchema.methods.comparePassword = async function (
+	candidatePassword: string,
+) {
 	return await bcrypt.compare(candidatePassword, this.password);
 };
 

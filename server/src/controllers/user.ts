@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 import { StatusCodes } from "http-status-codes";
+import IUser from "user";
 
 interface IReq extends Request {
-	user: { _id: string };
+	user: IUser;
 }
 
 // get logged-in user
@@ -30,3 +31,10 @@ export const updateUser = async (req: Request, res: Response) => {
 		user,
 	});
 };
+
+// export const getAllUsers = async (req: Request, res: Response) => {
+//     const { user: { _id }, query: { q } } = req as IReq
+//     const users = await User.find()
+
+//     const suggestedUser = users.
+// }

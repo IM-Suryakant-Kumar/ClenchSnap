@@ -1,14 +1,16 @@
 import { Document } from "mongoose";
 
-export type User = {
-	name: string;
+type TUser = {
+	fullname: string;
+	username: string;
 	email: string;
 	avatar: string;
+	bio: string;
+	website: string;
 	password: string;
 };
 
-export default interface IUser extends User, Document {
-    role?: string;
+export default interface IUser extends TUser, Document {
 	comparePassword: (candidatePassword: string) => Promise<boolean>;
 	createJWTToken: () => string;
 }

@@ -32,15 +32,3 @@ export const authenticateUser = async (
 	newReq.user = await User.findById(_id);
 	next();
 };
-
-export const authorizedUser = (...roles: string[]) => {
-	return (req: Request, res: Response, next: NextFunction) => {
-		const {
-			user: { role },
-		} = req as IReq;
-
-		if (!roles.includes(role))
-			throw new UnauthorizedError("Unauthorized to access this route");
-		next();
-	};
-};
