@@ -14,12 +14,14 @@ import Setting from "./pages/Setting";
 import HostLayout, {
 	loader as hostLayoutLoader,
 } from "./components/HostLayout";
+import Error from "./pages/Error"
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route
 			path="/"
 			element={<Layout />}
+            errorElement={<Error />}
 		>
 			<Route
 				index
