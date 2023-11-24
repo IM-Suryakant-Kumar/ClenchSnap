@@ -92,11 +92,11 @@ const Setting = () => {
 			className="flex flex-col items-center gap-[0.5em]"
 			onSubmit={handleSubmit}
 		>
-			<div className="w-[80%] max-w-[16rem] h-[6rem] flex justify-center items-center mb-[2em]">
-				<div className="w-[4.5rem] h-[4.5rem] relative z-0">
+			<div className="w-[80%] max-w-[25rem] h-[8rem] flex justify-center items-center mb-[2em]">
+				<div className="w-[6rem] h-[6rem] relative z-0">
 					<ProfilePic
-						width="4.5rem"
-						height="4.5rem"
+						width="6rem"
+						height="6rem"
 						size="2rem"
 						name={user?.fullname as string}
 						avatar={imagePreview}
@@ -115,12 +115,12 @@ const Setting = () => {
 			{/* fullname */}
 			<label
 				htmlFor="fullname"
-				className="w-[80%] max-w-[16rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
+				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
 			>
 				Full Name
 			</label>
 			<input
-				className="w-[80%] max-w-[16rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
+				className="w-[80%] max-w-[25rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
 				type="text"
 				id="fullname"
 				name="fullname"
@@ -129,12 +129,12 @@ const Setting = () => {
 			{/* username */}
 			<label
 				htmlFor="username"
-				className="w-[80%] max-w-[16rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
+				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
 			>
 				Username
 			</label>
 			<input
-				className="w-[80%] max-w-[16rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
+				className="w-[80%] max-w-[25rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
 				type="text"
 				id="username"
 				name="username"
@@ -143,12 +143,12 @@ const Setting = () => {
 			{/* email */}
 			<label
 				htmlFor="email"
-				className="w-[80%] max-w-[16rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
+				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
 			>
 				Email
 			</label>
 			<input
-				className="w-[80%] max-w-[16rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
+				className="w-[80%] max-w-[25rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
 				id="email"
 				type="email"
 				name="email"
@@ -157,12 +157,12 @@ const Setting = () => {
 			{/* Bio */}
 			<label
 				htmlFor="bio"
-				className="w-[80%] max-w-[16rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
+				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
 			>
 				Bio
 			</label>
 			<textarea
-				className="w-[80%] max-w-[16rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
+				className="w-[80%] max-w-[25rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit resize-none"
 				id="bio"
 				name="bio"
 				defaultValue={user?.bio}
@@ -170,12 +170,12 @@ const Setting = () => {
 			{/* Website */}
 			<label
 				htmlFor="bio"
-				className="w-[80%] max-w-[16rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
+				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
 			>
 				Website
 			</label>
 			<input
-				className="w-[80%] max-w-[16rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
+				className="w-[80%] max-w-[25rem] py-[0.1em] outline-none border-2 border-logo-cl rounded-lg pl-[0.4em] bg-inherit"
 				id="website"
 				type="text"
 				name="website"
@@ -183,13 +183,13 @@ const Setting = () => {
 			/>
 			<button
 				type="submit"
-				className="w-[80%] h-[2rem] max-w-[16rem] bg-logo-cl text-primary-cl rounded-lg mt-[2.5em] mb-[0.4em]"
+				className="w-[80%] h-[2rem] max-w-[25rem] bg-logo-cl text-primary-cl rounded-lg mt-[2.5em] mb-[0.4em]"
 				disabled={submitting}
 			>
 				{submitting ? "SAVING..." : "SAVE"}
 			</button>
 			<button
-				className="w-[80%] h-[2rem] max-w-[16rem] bg-logo-cl text-primary-cl rounded-lg"
+				className="w-[80%] h-[2rem] max-w-[25rem] bg-logo-cl text-primary-cl rounded-lg"
 				onClick={handleLogout}
 				disabled={loading}
 			>
