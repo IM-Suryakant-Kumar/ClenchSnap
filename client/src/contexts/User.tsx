@@ -1,4 +1,9 @@
-import { createContext, useReducer, useContext } from "react";
+import {
+	createContext,
+	useReducer,
+	useContext,
+	useCallback,
+} from "react";
 import { IUserState } from "../types/statesAndActions";
 import { userInitialState, userReducer } from "../reducers/user";
 import { getLoggedInUser, updateUser } from "../apis/user";
@@ -41,14 +46,14 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 			});
 	};
 	// get profile
-	const getProfile = async () => {
+	const getProfile = useCallback(async () => {
 		const { success, user } = await getLoggedInUser();
 		success &&
 			userDispatch({
 				type: "GET_PROFILE",
 				payload: { user },
 			});
-	};
+	}, []);
 	// update profile
 	const updateProfile = async ({
 		fullname,
@@ -66,17 +71,16 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 			bio,
 			website,
 		} as IUser);
-		success ?
-			(userDispatch({
-				type: "UPDATE_PROFILE",
-				payload: { user },
-			})) : (toast.error(message, {
-                    autoClose: 6000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                }))
+		success
+			? userDispatch({
+                type: "UPDATE_PROFILE",
+                payload: { user },}) 
+            : toast.error(message, {
+                autoClose: 6000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
 	};
 
 	// const getFollowers = async () => {};
