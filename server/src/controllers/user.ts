@@ -32,9 +32,7 @@ export const updateUser = async (req: Request, res: Response) => {
 	});
 };
 
-// export const getAllUsers = async (req: Request, res: Response) => {
-//     const { user: { _id }, query: { q } } = req as IReq
-//     const users = await User.find()
-
-//     const suggestedUser = users.
-// }
+export const getAllusers = async (req: Request, res: Response) => {
+    const users = await User.find()
+    res.status(StatusCodes.OK).json({ success: true, users })
+}

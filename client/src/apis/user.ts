@@ -24,3 +24,10 @@ export const updateUser = async (user: IUser) =>
 		toast.success(data.message);
 		return data;
 	});
+
+export const getAllusers = () => async () => {
+	asyncWrapper(async () => {
+		const { data } = (await axios.get("/user")) as IApiRes;
+		return data;
+	});
+};
