@@ -21,28 +21,30 @@ const Profile = () => {
 						/>
 					</div>
 				</div>
-				<div className="w-[65%] flex flex-col items-start sm:items-end">
-					<Link
-						to="/host/settings"
-						className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end"
-					>
-						Edit Profile
-					</Link>
-					<h1 className="text-lg sm:text-2xl font-semibold mt-[0.5em]">
-						{user?.fullname}
-					</h1>
-					<h2 className="text-sm sm:text-lg font-normal -mt-[0.5em]">
-						@{user?.username}
-					</h2>
-					<p className="mt-[0.8em] mb-[0.01em] text-sm sm:text-lg">
-						{user?.bio}
-					</p>
-					<a
-						href={user?.website}
-						className="text-blue-400 text-xs sm:text-sm"
-					>
-						{user?.website}
-					</a>
+				<div className="w-[65%] flex items-start">
+					<div className="flex flex-col">
+						<Link
+							to="/host/settings"
+							className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end"
+						>
+							Edit Profile
+						</Link>
+						<h1 className="text-lg sm:text-2xl font-semibold mt-[0.5em]">
+							{user?.fullname}
+						</h1>
+						<h2 className="text-sm sm:text-lg font-normal -mt-[0.5em]">
+							@{user?.username}
+						</h2>
+						<p className="mt-[0.8em] mb-[0.01em] text-sm sm:text-lg">
+							{user?.bio}
+						</p>
+						<a
+							href={user?.website}
+							className="text-blue-400 text-xs sm:text-sm"
+						>
+							{user?.website}
+						</a>
+					</div>
 				</div>
 			</div>
 			<hr className="h-[2px] bg-gray-400 sm:mt-[1em]" />
