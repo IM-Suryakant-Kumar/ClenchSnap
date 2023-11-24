@@ -24,7 +24,7 @@ const Profile = () => {
 				<div className="w-[65%] flex flex-col items-start sm:items-end">
 					<Link
 						to="/host/settings"
-						className="text-xs border-2 border-secondary-cl px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end"
+						className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end"
 					>
 						Edit Profile
 					</Link>
