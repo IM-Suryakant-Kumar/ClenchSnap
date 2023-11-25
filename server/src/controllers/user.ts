@@ -33,6 +33,6 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 
 export const getAllusers = async (req: Request, res: Response) => {
-    const users = await User.find()
-    res.status(StatusCodes.OK).json({ success: true, users })
-}
+	const users = await User.find();
+	res.status(StatusCodes.OK).json({ success: true, users });
+};

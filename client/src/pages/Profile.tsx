@@ -23,8 +23,8 @@ const Profile = () => {
 				<div className="w-[35%] flex justify-center items-center">
 					<div className="max-w-[4.5rem] sm:max-w-[8rem] max-h-[4.5rem] sm:max-h-[8rem] flex">
 						<ProfilePic
-							width="10rem"
-							height="10ren"
+							width="8rem"
+							height="8ren"
 							size="2rem"
 							name={`${newUser?.fullname}`}
 							avatar={`${newUser?.avatar}`}

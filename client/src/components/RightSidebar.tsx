@@ -1,19 +1,41 @@
+import { Link } from "react-router-dom";
 import { useUser } from "../contexts";
 import ProfilePic from "./ProfilePic";
 
 const RightSidebar = () => {
-    const { userState: { suggestedUsers }, getAllSuggestedUsers } = useUser()
+	const {
+		userState: { users, user },
+		getAllUser,
+	} = useUser();
+	!users && (async () => getAllUser())();
 
-    !suggestedUsers && (async () => getAllSuggestedUsers())()
+    const usersLength = users?.length || 0
 
-    console.log(suggestedUsers)
+    const startIdx = Math.floor(Math.random() * usersLength) / 2
+    const endIdx = startIdx + 8
 
-	return <div className="hidden md:block fixed top-[5em] right-0 z-20 bg-orange-600">
-        <p>You might like</p>
-        { suggestedUsers?.map((item, idx) => <p key={idx}>
-            <ProfilePic width="2rem" height="2rem" size="0.5em" name={item.fullname} avatar={item.avatar}  />
-        </p>) }
-    </div>;
+	const filteredUsers = users?.filter((item) => item._id !== user?._id,);
+	
+	return (
+		<div className="hidden md:block fixed top-[5em] right-0 z-20 p-2">
+			<p className="text-lg text-center text-gray-400">You might like</p>
+			{filteredUsers?.slice(startIdx, endIdx).map((item, idx) => (
+				<div key={idx} className="flex items-center justify-between gap-[0.5em] border-b-[1px] border-gray-400 text-logo-cl">
+					<Link to={`/host/profile/${item._id}`} className="flex items-center gap-[1em] my-[0.5em]">
+						<ProfilePic
+							width="2.5rem"
+							height="2.5rem"
+							size="1em"
+							name={item.fullname}
+							avatar={item.avatar}
+						/>
+                        <span>{item.fullname}</span>
+					</Link>
+                    <button>Follow</button>
+				</div>
+			))}
+		</div>
+	);
 };
 
 export default RightSidebar;
