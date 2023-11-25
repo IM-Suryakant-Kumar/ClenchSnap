@@ -2,7 +2,7 @@ import { IUserAction, IUserState } from "../types/statesAndActions";
 import { getUserFromLocalStorage } from "../utils/handleUser";
 
 export const userInitialState: IUserState = {
-	user: getUserFromLocalStorage() || null,
+	user: getUserFromLocalStorage(),
 	users: null,
 	followers: null,
 	followings: null,
@@ -22,8 +22,8 @@ export const userReducer = (state: IUserState, action: IUserAction) => {
 			};
 		case "UPDATE_PROFILE":
 			return { ...state, user: action.payload.user };
-		case "GET_ALL_SUGGESTED_USERS":
-			return { ...state, suggestedUsers: action.payload.suggestedUsers };
+		case "GET_ALL_USER":
+			return { ...state, users: action.payload.users };
 		case "GET_FOLLOWERS":
 			return {
 				...state,

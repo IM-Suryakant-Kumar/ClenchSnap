@@ -15,7 +15,7 @@ interface IUserContext {
 	userState: IUserState;
 	getLogout: () => Promise<void>;
 	getProfile: () => Promise<void>;
-	getAllSuggestedUsers: () => Promise<void>;
+	getAllUser: () => Promise<void>;
 	updateProfile: ({
 		fullname,
 		username,
@@ -84,14 +84,13 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
             });
 	}, []);
 
-    const getAllSuggestedUsers = useCallback(async () => {
+    const getAllUser = useCallback(async () => {
         const { success, users  } = await getAllusers()
-        const suggestedUsers = users.filter((item) => item._id !== userState.user?._id)
         success && userDispatch({ 
-            type: "GET_ALL_SUGGESTED_USERS",
-            payload: { suggestedUsers }
+            type: "GET_ALL_USER",
+            payload: { users }
          })
-    }, [userState.user?._id]) 
+    }, []) 
 
 	// const getFollowers = async () => {};
 	// const getFollowings = async () => {};
@@ -101,7 +100,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 		getLogout,
 		getProfile,
 		updateProfile,
-        getAllSuggestedUsers,
+        getAllUser,
 		// getFollowers,
 		// getFollowings,
 	};
