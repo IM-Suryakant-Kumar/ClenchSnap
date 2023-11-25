@@ -8,5 +8,6 @@ router
     .route("/me")
     .get(middleware_1.authenticateUser, user_1.getLoggedInUser)
     .patch(middleware_1.authenticateUser, user_1.updateUser);
+router.route("/").get(user_1.getAllusers);
 exports.default = router;
 //# sourceMappingURL=user.js.map

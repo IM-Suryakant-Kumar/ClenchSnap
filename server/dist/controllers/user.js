@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.getLoggedInUser = void 0;
+exports.getAllusers = exports.updateUser = exports.getLoggedInUser = void 0;
 const User_1 = __importDefault(require("../models/User"));
 const http_status_codes_1 = require("http-status-codes");
 // get logged-in user
@@ -32,9 +32,9 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     });
 });
 exports.updateUser = updateUser;
-// export const getAllUsers = async (req: Request, res: Response) => {
-//     const { user: { _id }, query: { q } } = req as IReq
-//     const users = await User.find()
-//     const suggestedUser = users.
-// }
+const getAllusers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const users = yield User_1.default.find();
+    res.status(http_status_codes_1.StatusCodes.OK).json({ success: true, users });
+});
+exports.getAllusers = getAllusers;
 //# sourceMappingURL=user.js.map
