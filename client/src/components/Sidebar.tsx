@@ -5,8 +5,11 @@ import {
 	MdOutlineSettings,
 } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import { useUser } from "../contexts";
 
 const Sidebar = () => {
+    const { userState: { user } } = useUser()
+    
 	return (
 		<div className="fixed bottom-0 h-[3rem] w-full bg-secondary-cl sm:bg-inherit sm:w-[10rem] sm:h-auto sm:top-[5em] ">
 			<div className="h-full flex justify-around items-center text-logo-cl sm:flex-col sm:items-stretch sm:justify-stretch">
@@ -33,7 +36,7 @@ const Sidebar = () => {
 					</div>
 				</NavLink>
 				<NavLink
-					to="/host/profile"
+					to={`/host/profile/${user?._id}`}
 					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
 				>
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
