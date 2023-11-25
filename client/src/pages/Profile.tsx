@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ProfilePic from "../components/ProfilePic";
 import { useUser } from "../contexts";
 
 const Profile = () => {
+    const { userId } = useParams() as { userId: string }
+
 	const {
-		userState: { user },
+		userState: { suggestedUsers }, getAllSuggestedUsers,
 	} = useUser();
+
+    !suggestedUsers && (async () => {
+        await getAllSuggestedUsers()
+    })()
+
+    const user = suggestedUsers?.find(item => item._id === userId)
 
 	return (
 		<div className="sm:max-w-[80%] m-auto">
