@@ -5,6 +5,7 @@ export type TData = {
 	message: string;
 	token: string;
 	user: IUser;
+    users: IUser[];
 };
 
 interface SuccessResponse {

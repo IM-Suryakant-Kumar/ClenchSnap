@@ -6,7 +6,7 @@ import {
 } from "react";
 import { IUserState } from "../types/statesAndActions";
 import { userInitialState, userReducer } from "../reducers/user";
-import { getLoggedInUser, updateUser } from "../apis/user";
+import { getAllusers, getLoggedInUser, updateUser } from "../apis/user";
 import IUser from "../types/user";
 import { logout } from "../apis/auth";
 import { toast } from "react-toastify";
@@ -15,6 +15,7 @@ interface IUserContext {
 	userState: IUserState;
 	getLogout: () => Promise<void>;
 	getProfile: () => Promise<void>;
+	getAllSuggestedUsers: () => Promise<void>;
 	updateProfile: ({
 		fullname,
 		username,
@@ -37,14 +38,14 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 	const [userState, userDispatch] = useReducer(userReducer, userInitialState);
 
 	// get logout
-	const getLogout = async () => {
+	const getLogout = useCallback(async () => {
 		const { success } = await logout();
 		success &&
 			userDispatch({
 				type: "GET_LOGOUT",
 				payload: { user: null },
 			});
-	};
+	}, []);
 	// get profile
 	const getProfile = useCallback(async () => {
 		const { success, user } = await getLoggedInUser();
@@ -55,7 +56,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 			});
 	}, []);
 	// update profile
-	const updateProfile = async ({
+	const updateProfile = useCallback(async ({
 		fullname,
 		username,
 		email,
@@ -81,7 +82,16 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
                 closeOnClick: true,
                 pauseOnHover: true,
             });
-	};
+	}, []);
+
+    const getAllSuggestedUsers = useCallback(async () => {
+        const { success, users  } = await getAllusers()
+        const suggestedUsers = users.filter((item) => item._id !== userState.user?._id)
+        success && userDispatch({ 
+            type: "GET_ALL_SUGGESTED_USERS",
+            payload: { suggestedUsers }
+         })
+    }, [userState.user?._id]) 
 
 	// const getFollowers = async () => {};
 	// const getFollowings = async () => {};
@@ -91,6 +101,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 		getLogout,
 		getProfile,
 		updateProfile,
+        getAllSuggestedUsers,
 		// getFollowers,
 		// getFollowings,
 	};

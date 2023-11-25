@@ -7,10 +7,13 @@ import { useUser } from "../contexts";
 import { useEffect } from "react";
 
 const Layout = () => {
-	const { getProfile } = useUser();
+	const { getProfile, getAllSuggestedUsers } = useUser();
 
 	useEffect(() => {
-		(async () => await getProfile())();
+		(async () => {
+			await getProfile();
+			await getAllSuggestedUsers();
+		})();
 	}, []);
 
 	return (

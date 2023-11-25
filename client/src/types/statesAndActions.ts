@@ -13,6 +13,7 @@ export interface ILoadingAction {
 // user
 export interface IUserState {
 	user?: IUser | null;
+    suggestedUsers?: IUser[] | null;
     followers?: IUser[] | null;
 	followings?: IUser[] | null;
 }
