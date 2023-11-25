@@ -3,17 +3,19 @@ import ProfilePic from "../components/ProfilePic";
 import { useUser } from "../contexts";
 
 const Profile = () => {
-    const { userId } = useParams() as { userId: string }
+	const { userId } = useParams() as { userId: string };
 
 	const {
-		userState: { suggestedUsers }, getAllSuggestedUsers,
+		userState: { user, users },
+		getAllUser,
 	} = useUser();
 
-    !suggestedUsers && (async () => {
-        await getAllSuggestedUsers()
-    })()
+	!users &&
+		(async () => {
+			await getAllUser();
+		})();
 
-    const user = suggestedUsers?.find(item => item._id === userId)
+	const newUser = users?.find((item) => item._id === userId);
 
 	return (
 		<div className="sm:max-w-[80%] m-auto">
@@ -24,33 +26,35 @@ const Profile = () => {
 							width="10rem"
 							height="10ren"
 							size="2rem"
-							name={`${user?.fullname}`}
-							avatar={`${user?.avatar}`}
+							name={`${newUser?.fullname}`}
+							avatar={`${newUser?.avatar}`}
 						/>
 					</div>
 				</div>
 				<div className="w-[65%] flex items-start">
 					<div className="flex flex-col">
-						<Link
-							to="/host/settings"
-							className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end"
-						>
-							Edit Profile
-						</Link>
+						{user?._id === userId && (
+							<Link
+								to="/host/settings"
+								className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end"
+							>
+								Edit Profile
+							</Link>
+						)}
 						<h1 className="text-lg sm:text-2xl font-semibold mt-[0.5em]">
-							{user?.fullname}
+							{newUser?.fullname}
 						</h1>
 						<h2 className="text-sm sm:text-lg font-normal -mt-[0.5em]">
-							@{user?.username}
+							@{newUser?.username}
 						</h2>
 						<p className="mt-[0.8em] mb-[0.01em] text-sm sm:text-lg">
-							{user?.bio}
+							{newUser?.bio}
 						</p>
 						<a
-							href={user?.website}
+							href={newUser?.website}
 							className="text-blue-400 text-xs sm:text-sm"
 						>
-							{user?.website}
+							{newUser?.website}
 						</a>
 					</div>
 				</div>
