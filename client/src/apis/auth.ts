@@ -3,10 +3,10 @@ import IApiRes from "../types/response";
 import axios from "./axios";
 import {
 	AddTokenToLocalStorage,
+	getTokenFromLocalStorage,
 	removeTokenFromLocalStorage,
 } from "../utils/handleToken";
 import { removeUserFromLocalStorage } from "../utils/handleUser";
-import config from "./config";
 import asyncWrapper from "../utils/asyncWrapper";
 import IUser from "../types/user";
 
@@ -40,7 +40,9 @@ export const signup = async (regCred: IUser) =>
 // logout
 export const logout = async () =>
 	asyncWrapper(async () => {
-		const { data } = (await axios.get("/auth/logout", config)) as IApiRes;
+		const { data } = (await axios.get("/auth/logout", {
+			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+		})) as IApiRes;
 		removeTokenFromLocalStorage();
 		removeUserFromLocalStorage();
 		toast.success(data.message);

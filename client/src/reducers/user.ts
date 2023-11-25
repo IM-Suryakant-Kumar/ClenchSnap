@@ -16,7 +16,6 @@ export const userReducer = (state: IUserState, action: IUserAction) => {
 			return {
 				...state,
 				user: null,
-				users: null,
 				followers: null,
 				followings: null,
 			};
