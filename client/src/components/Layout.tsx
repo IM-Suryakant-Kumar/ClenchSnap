@@ -4,17 +4,13 @@ import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
 import { useUser } from "../contexts";
-import { useEffect } from "react";
 
 const Layout = () => {
-	const { getProfile, getAllSuggestedUsers } = useUser();
+	const { userState: { user }, getProfile } = useUser();
 
-	useEffect(() => {
-		(async () => {
-			await getProfile();
-			await getAllSuggestedUsers();
-		})();
-	}, []);
+    !user && (async () => {
+        await getProfile();
+    })();
 
 	return (
 		<div className="min-h-screen">
