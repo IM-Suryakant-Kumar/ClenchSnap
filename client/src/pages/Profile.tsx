@@ -21,15 +21,13 @@ const Profile = () => {
 		<div className="sm:max-w-[80%] m-auto">
 			<div className="flex py-[1em]">
 				<div className="w-[35%] flex justify-center items-center">
-					<div className="max-w-[4.5rem] sm:max-w-[8rem] max-h-[4.5rem] sm:max-h-[8rem] flex">
 						<ProfilePic
-							width="8rem"
-							height="8ren"
+							width="4.6rem"
+							height="4.6rem"
 							size="2rem"
 							name={`${newUser?.fullname}`}
 							avatar={`${newUser?.avatar}`}
 						/>
-					</div>
 				</div>
 				<div className="w-[65%] flex items-start">
 					<div className="flex flex-col">
