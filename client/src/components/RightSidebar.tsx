@@ -16,7 +16,6 @@ const RightSidebar = () => {
 	const endIdx = startIdx + 8;
 
 	const filteredUsers = users?.filter((item) => item._id !== user?._id);
-	// console.log("first")
 
 	return (
 		<div className="hidden md:block fixed top-[5em] right-0 z-20 p-2">
