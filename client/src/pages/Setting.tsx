@@ -47,10 +47,7 @@ const Setting = () => {
 			const file = formData.get("avatar") as File;
 
 			try {
-				if (
-					file &&
-					(file.type === "image/png" || "image/jpg" || "image/jpeg")
-				) {
+				if (file) {
 					const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
 					const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
 					const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
@@ -104,6 +101,7 @@ const Setting = () => {
 					<input
 						className="w-[1.5rem] h-[1.5rem] absolute bottom-[0.5em] right-[0.5em] z-10 rounded-full opacity-0"
 						type="file"
+						accept="image/png, image/jpg, image/jpeg"
 						name="avatar"
 						onChange={handleImagePreview}
 					/>
