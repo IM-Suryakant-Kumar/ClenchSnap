@@ -3,7 +3,7 @@ import ProfilePic from "../components/ProfilePic";
 import { useUser } from "../contexts";
 
 const Profile = () => {
-	const { userId } = useParams() as { userId: string };
+	const { username } = useParams() as { username: string };
 
 	const {
 		userState: { user, users },
@@ -15,7 +15,7 @@ const Profile = () => {
 			await getAllUser();
 		})();
 
-	const newUser = users?.find((item) => item._id === userId);
+	const newUser = users?.find((item) => item.username === username);
 
 	return (
 		<div className="sm:max-w-[80%] m-auto">
@@ -25,13 +25,13 @@ const Profile = () => {
 							width="4.6rem"
 							height="4.6rem"
 							size="2rem"
-							name={`${newUser?.fullname}`}
+							name={`${newUser?.username}`}
 							avatar={`${newUser?.avatar}`}
 						/>
 				</div>
 				<div className="w-[65%] flex items-start">
 					<div className="flex flex-col">
-						{user?._id === userId && (
+						{user?.username === username && (
 							<Link
 								to="/host/settings"
 								className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end"
@@ -40,7 +40,7 @@ const Profile = () => {
 							</Link>
 						)}
 						<h1 className="text-lg sm:text-2xl font-semibold mt-[0.5em]">
-							{newUser?.fullname}
+							{newUser?.username}
 						</h1>
 						<h2 className="text-sm sm:text-lg font-normal -mt-[0.5em]">
 							@{newUser?.username}

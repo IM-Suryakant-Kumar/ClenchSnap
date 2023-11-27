@@ -26,7 +26,7 @@ const RightSidebar = () => {
 					className="flex items-center justify-between gap-[0.5em] border-b-[1px] border-gray-400 text-logo-cl"
 				>
 					<Link
-						to={`/host/profile/${item._id}`}
+						to={`/host/profile/${item.username}`}
 						className="flex items-center gap-[1em] my-[0.5em]"
 					>
 						<ProfilePic

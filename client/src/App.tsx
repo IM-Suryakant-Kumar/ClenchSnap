@@ -42,7 +42,7 @@ const router = createBrowserRouter(
 					element={<h1>explore</h1>}
 				/>
 				<Route
-					path="profile/:userId"
+					path="profile/:username"
 					element={<Profile />}
 				/>
 				<Route
