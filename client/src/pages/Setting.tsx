@@ -4,7 +4,6 @@ import { useLoading, useUser } from "../contexts";
 import { useNavigate } from "react-router-dom";
 import loadingWrapper from "../utils/loadingWrapper";
 import { useState } from "react";
-import axios from "axios";
 import IUser from "../types/user";
 import clodinary from "../apis/cloudinary";
 

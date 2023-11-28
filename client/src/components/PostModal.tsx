@@ -6,6 +6,9 @@ import {
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 
 import { useState } from "react";
+import { postCloudinary } from "../apis/cloudinary";
+import { useLoading } from "../contexts";
+import loadingWrapper from "../utils/loadingWrapper";
 
 type Props = {
 	toggleModal: boolean;
@@ -15,6 +18,12 @@ type Props = {
 const PostModal: React.FC<Props> = ({ toggleModal, handleToggle }) => {
 	const [toggleEmojiPicker, setToggleEmojiPicker] = useState<boolean>(true);
 	const [content, setContent] = useState<string>("");
+
+	const {
+		loadingState: { submitting },
+		submittingStart,
+		submittingStop,
+	} = useLoading();
 
 	// toggle emoji
 	const handleEmojiPicker = () => {
@@ -26,15 +35,21 @@ const PostModal: React.FC<Props> = ({ toggleModal, handleToggle }) => {
 		handleEmojiPicker();
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-        const formData = new FormData(e.currentTarget)
-        const content = formData.get("content") as File
-        // const image = formData.get("image") as FileList
-        // const contentImage = image[0]
+		const fn = async () => {
+			const formData = new FormData(e.currentTarget);
+			const content = formData.get("content");
+			let image = formData.get("image") as File;
 
-        console.log(content)
-        console.log(image)
+			image && (image = await postCloudinary(image));
+
+			console.log(content);
+			console.log(image);
+            handleToggle()
+		};
+
+		loadingWrapper(submittingStart, submittingStop, fn);
 	};
 
 	return (
@@ -81,8 +96,10 @@ const PostModal: React.FC<Props> = ({ toggleModal, handleToggle }) => {
 							onClick={handleEmojiPicker}>
 							<MdOutlineEmojiEmotions />
 						</div>
-						<button className="ml-auto w-[4rem] h-[2rem] rounded-sm bg-logo-cl text-primary-cl cursor-pointer">
-							Post
+						<button
+							className="ml-auto w-[5rem] h-[2rem] rounded-sm bg-logo-cl text-primary-cl cursor-pointer"
+							disabled={submitting}>
+							{submitting ? "Posting..." : "Post"}
 						</button>
 					</div>
 				</form>

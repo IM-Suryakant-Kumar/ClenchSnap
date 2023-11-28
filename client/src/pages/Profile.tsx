@@ -40,7 +40,7 @@ const Profile = () => {
 							</Link>
 						)}
 						<h1 className="text-lg sm:text-2xl font-semibold mt-[0.5em]">
-							{newUser?.username}
+							{newUser?.fullname}
 						</h1>
 						<h2 className="text-sm sm:text-lg font-normal -mt-[0.5em]">
 							@{newUser?.username}
