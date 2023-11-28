@@ -36,7 +36,7 @@ const Sidebar = () => {
 					</div>
 				</NavLink>
 				<NavLink
-					to={`/host/profile/${user?._id}`}
+					to={`/host/profile/${user?.username}`}
 					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
 				>
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
