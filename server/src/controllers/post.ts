@@ -6,7 +6,7 @@ interface IReq extends Request {
 	user: { _id: string };
 }
 
-export const getAllPost = async (req: Request, res: Response) => {
+export const getAllPosts = async (req: Request, res: Response) => {
 	const posts = await Post.find();
 	res.status(StatusCodes.OK).json({ success: true, posts });
 };
@@ -15,7 +15,7 @@ export const createPost = async (req: Request, res: Response) => {
 	const {
 		user: { _id },
 	} = req as IReq;
-	const posts = await Post.create({ userId: { _id }, ...req.body });
+	const posts = await Post.create({ userId: _id, ...req.body });
 	res.status(StatusCodes.OK).json({
 		success: true,
 		message: "Successfully posted",

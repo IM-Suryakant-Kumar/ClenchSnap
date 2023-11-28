@@ -12,6 +12,7 @@ import {
 import connectDB from "./db";
 import authRouter from "./routes/auth";
 import userRouter from "./routes/user";
+import postRouter from "./routes/post";
 
 config();
 const app = express();
@@ -28,6 +29,7 @@ app.use(cookieParser());
 // routers
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
+app.use("/post", postRouter);
 
 // Test
 app.get("/", async (req: Request, res: Response) => {
