@@ -6,6 +6,7 @@ import loadingWrapper from "../utils/loadingWrapper";
 import { useState } from "react";
 import axios from "axios";
 import IUser from "../types/user";
+import clodinary from "../apis/cloudinary";
 
 const Setting = () => {
 	const navigate = useNavigate();
@@ -46,21 +47,7 @@ const Setting = () => {
 			const website = formData.get("website");
 			const file = formData.get("avatar") as File;
 
-			try {
-				if (file) {
-					const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
-					const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
-					const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-					const data = new FormData();
-					data.append("file", file);
-					data.append("upload_preset", UPLOAD_PRESET);
-
-					const res = await axios.post(url, data);
-					avatar = res.data.secure_url;
-				}
-			} catch (error) {
-				console.log("");
-			}
+			file && (avatar = await clodinary(file));
 
 			await updateProfile({
 				fullname,
@@ -87,8 +74,7 @@ const Setting = () => {
 		<form
 			spellCheck={false}
 			className="flex flex-col items-center gap-[0.5em]"
-			onSubmit={handleSubmit}
-		>
+			onSubmit={handleSubmit}>
 			<div className="w-[80%] max-w-[25rem] h-[8rem] flex justify-center items-center mb-[2em]">
 				<div className="w-[6rem] h-[6rem] relative z-0">
 					<ProfilePic
@@ -113,8 +99,7 @@ const Setting = () => {
 			{/* fullname */}
 			<label
 				htmlFor="fullname"
-				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
-			>
+				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]">
 				Full Name
 			</label>
 			<input
@@ -127,8 +112,7 @@ const Setting = () => {
 			{/* username */}
 			<label
 				htmlFor="username"
-				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
-			>
+				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]">
 				Username
 			</label>
 			<input
@@ -141,8 +125,7 @@ const Setting = () => {
 			{/* email */}
 			<label
 				htmlFor="email"
-				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
-			>
+				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]">
 				Email
 			</label>
 			<input
@@ -155,8 +138,7 @@ const Setting = () => {
 			{/* Bio */}
 			<label
 				htmlFor="bio"
-				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
-			>
+				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]">
 				Bio
 			</label>
 			<textarea
@@ -168,8 +150,7 @@ const Setting = () => {
 			{/* Website */}
 			<label
 				htmlFor="bio"
-				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]"
-			>
+				className="w-[80%] max-w-[25rem] pl-[0.2em] mt-[0.5em] -mb-[0.5em]">
 				Website
 			</label>
 			<input
@@ -182,15 +163,13 @@ const Setting = () => {
 			<button
 				type="submit"
 				className="w-[80%] h-[2rem] max-w-[25rem] bg-logo-cl text-primary-cl rounded-lg mt-[2.5em] mb-[0.4em]"
-				disabled={submitting}
-			>
+				disabled={submitting}>
 				{submitting ? "SAVING..." : "SAVE"}
 			</button>
 			<button
 				className="w-[80%] h-[2rem] max-w-[25rem] bg-logo-cl text-primary-cl rounded-lg"
 				onClick={handleLogout}
-				disabled={loading}
-			>
+				disabled={loading}>
 				{loading ? "Logging out..." : "Logout"}
 			</button>
 		</form>

@@ -14,22 +14,27 @@ type Props = {
 
 const PostModal: React.FC<Props> = ({ toggleModal, handleToggle }) => {
 	const [toggleEmojiPicker, setToggleEmojiPicker] = useState<boolean>(true);
+	const [content, setContent] = useState<string>("");
 
-    // toggle emoji
+	// toggle emoji
 	const handleEmojiPicker = () => {
 		setToggleEmojiPicker(prevState => !prevState);
 	};
 
-	const handleEmojiClick = (
-		emojiData: EmojiClickData,
-		event: MouseEvent,
-	) => {
-		console.log(emojiData.emoji);
-        handleEmojiPicker()
+	const handleEmojiClick = (emojiData: EmojiClickData) => {
+		setContent(prevContent => prevContent + emojiData.emoji);
+		handleEmojiPicker();
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+        const formData = new FormData(e.currentTarget)
+        const content = formData.get("content") as File
+        // const image = formData.get("image") as FileList
+        // const contentImage = image[0]
+
+        console.log(content)
+        console.log(image)
 	};
 
 	return (
@@ -53,6 +58,10 @@ const PostModal: React.FC<Props> = ({ toggleModal, handleToggle }) => {
 						className="w-[90%] h-[4rem] outline-none  border-2  border-logo-cl rounded-md
                     "
 						name="content"
+						value={content}
+						onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+							setContent(e.target.value)
+						}
 						placeholder="What is happening?!"></textarea>
 					{/* Action buttons */}
 					<div className="relative w-[90%] mt-[1em] flex">
