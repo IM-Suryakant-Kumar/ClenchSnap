@@ -1,3 +1,4 @@
+import IPost from "./post";
 import IUser from "./user";
 
 export type TData = {
@@ -6,6 +7,7 @@ export type TData = {
 	token: string;
 	user: IUser;
     users: IUser[];
+    posts: IPost[]
 };
 
 interface SuccessResponse {
