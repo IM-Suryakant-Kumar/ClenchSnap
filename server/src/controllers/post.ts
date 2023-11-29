@@ -1,9 +1,10 @@
 import { StatusCodes } from "http-status-codes";
 import Post from "../models/Post";
 import { Request, Response } from "express";
+import IUser from "user";
 
 interface IReq extends Request {
-	user: { _id: string };
+	user: IUser;
 	params: { postId: string };
 }
 
@@ -14,9 +15,15 @@ export const getAllPosts = async (req: Request, res: Response) => {
 
 export const createPost = async (req: Request, res: Response) => {
 	const {
-		user: { _id },
+		user: { _id, fullname, avatar },
 	} = req as IReq;
-	const posts = await Post.create({ userId: _id, ...req.body });
+
+	const posts = await Post.create({
+		userId: _id,
+		userName: fullname,
+		avatar,
+		...req.body,
+	});
 	res.status(StatusCodes.OK).json({
 		success: true,
 		message: "Successfully posted",
