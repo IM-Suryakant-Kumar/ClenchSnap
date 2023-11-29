@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 
 interface IReq extends Request {
 	user: { _id: string };
+	params: { postId: string };
 }
 
 export const getAllPosts = async (req: Request, res: Response) => {
@@ -32,7 +33,21 @@ export const editPost = async (req: Request, res: Response) => {
 	});
 	res.status(StatusCodes.OK).json({
 		success: true,
-		message: "Successfully posted",
+		message: "Successfully updated",
+		posts,
+	});
+};
+
+export const deletePost = async (req: Request, res: Response) => {
+	const {
+		params: { postId },
+	} = req as IReq;
+	const posts = await Post.findByIdAndDelete(postId, {
+		new: true,
+	});
+	res.status(StatusCodes.OK).json({
+		success: true,
+		message: "Successfully deleted",
 		posts,
 	});
 };

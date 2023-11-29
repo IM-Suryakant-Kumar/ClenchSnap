@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import IPost from "../types/post";
 import IApiRes from "../types/response";
 import asyncWrapper from "../utils/asyncWrapper";
@@ -15,6 +16,7 @@ export const createPost = (post: IPost) =>
 		const { data } = (await axios.post("/post", post, {
 			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
 		})) as IApiRes;
+        toast.success(data.message)
 		return data;
 	});
 
@@ -23,5 +25,15 @@ export const editPost = (post: IPost) =>
 		const { data } = (await axios.patch("/post", post, {
 			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
 		})) as IApiRes;
+        toast.success(data.message)
+		return data;
+	});
+
+export const deletePost = (postId: string) =>
+	asyncWrapper(async () => {
+		const { data } = (await axios.delete(`/post/${postId}`, {
+			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+		})) as IApiRes;
+        toast.success(data.message)
 		return data;
 	});
