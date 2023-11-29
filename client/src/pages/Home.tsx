@@ -2,9 +2,15 @@ import { IoPencil } from "react-icons/io5";
 import RightSidebar from "../components/RightSidebar";
 import PostModal from "../components/PostModal";
 import { useState } from "react";
+import { usePost } from "../contexts";
 
 const Home = () => {
 	const [toggleModal, setToggleModal] = useState<boolean>(true);
+
+    const { postState: { posts }, getPosts } = usePost()
+    !posts && getPosts()
+
+    console.log(posts)
 
     const handleToggle = () => {
         setToggleModal(prevState => !prevState)

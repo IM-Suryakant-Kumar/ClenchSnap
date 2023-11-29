@@ -7,8 +7,9 @@ import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 
 import { useState } from "react";
 import { postCloudinary } from "../apis/cloudinary";
-import { useLoading } from "../contexts";
+import { useLoading, usePost } from "../contexts";
 import loadingWrapper from "../utils/loadingWrapper";
+import IPost from "../types/post";
 
 type Props = {
 	toggleModal: boolean;
@@ -18,6 +19,7 @@ type Props = {
 const PostModal: React.FC<Props> = ({ toggleModal, handleToggle }) => {
 	const [toggleEmojiPicker, setToggleEmojiPicker] = useState<boolean>(true);
 	const [content, setContent] = useState<string>("");
+    const { createPost } = usePost()
 
 	const {
 		loadingState: { submitting },
@@ -40,12 +42,11 @@ const PostModal: React.FC<Props> = ({ toggleModal, handleToggle }) => {
 		const fn = async () => {
 			const formData = new FormData(e.currentTarget);
 			const content = formData.get("content");
-			let image = formData.get("image") as File;
+			let image = formData.get("image") as File | string;
 
-			image && (image = await postCloudinary(image));
+			image && (image = await postCloudinary(image as File) as string);
 
-			console.log(content);
-			console.log(image);
+            await createPost({content, image} as IPost)
             handleToggle()
 		};
 
@@ -74,6 +75,7 @@ const PostModal: React.FC<Props> = ({ toggleModal, handleToggle }) => {
                     "
 						name="content"
 						value={content}
+                        required
 						onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
 							setContent(e.target.value)
 						}
