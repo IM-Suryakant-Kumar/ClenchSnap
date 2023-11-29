@@ -20,19 +20,23 @@ const Home = () => {
 
 	return (
 		<div className="relative min-h-screen">
-			<div className="w-[95%] mt-[7em] mx-auto">
-				{posts?.map((post, idx) => (
-					<Post
-						key={idx}
-						post={post}
-					/>
-				))}
+			<div className="flex mt-[7em] sm:mt-[5em]">
+				<div className="mx-auto md:w-[60%]">
+					{posts?.map((post, idx) => (
+						<Post
+							key={idx}
+							post={post}
+						/>
+					))}
+				</div>
+				<div className="hidden md:block md:w-[40%]">
+					<RightSidebar />
+				</div>
 			</div>
 			<PostModal
 				toggleModal={toggleModal}
 				handleToggle={handleToggle}
 			/>
-			<RightSidebar />
 			<div
 				className="w-[3rem] h-[3rem] fixed bottom-[2.5em] sm:bottom-[0.5em] right-[0.5em] z-40  text-[1.5rem] p-[0.5em] text-primary-cl bg-logo-cl rounded-full cursor-pointer"
 				onClick={handleToggle}>
