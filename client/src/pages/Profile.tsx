@@ -15,27 +15,28 @@ const Profile = () => {
 			await getAllUser();
 		})();
 
-	const newUser = users?.find((item) => item.username === username);
+	const newUser = users?.find(
+		item => item.username === username || item._id === username,
+	);
 
 	return (
 		<div className="sm:max-w-[80%] m-auto">
 			<div className="flex py-[1em]">
 				<div className="w-[35%] flex justify-center items-center">
-						<ProfilePic
-							width="4.6rem"
-							height="4.6rem"
-							size="2rem"
-							name={`${newUser?.username}`}
-							avatar={`${newUser?.avatar}`}
-						/>
+					<ProfilePic
+						width="4.6rem"
+						height="4.6rem"
+						size="2rem"
+						name={`${newUser?.username}`}
+						avatar={`${newUser?.avatar}`}
+					/>
 				</div>
 				<div className="w-[65%] flex items-start">
 					<div className="flex flex-col">
 						{user?.username === username && (
 							<Link
 								to="/host/settings"
-								className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end"
-							>
+								className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end">
 								Edit Profile
 							</Link>
 						)}
@@ -50,8 +51,7 @@ const Profile = () => {
 						</p>
 						<a
 							href={newUser?.website}
-							className="text-blue-400 text-xs sm:text-sm"
-						>
+							className="text-blue-400 text-xs sm:text-sm">
 							{newUser?.website}
 						</a>
 					</div>

@@ -20,12 +20,14 @@ const Home = () => {
 
 	return (
 		<div className="relative min-h-screen">
-			{posts?.map((post, idx) => (
-				<Post
-					key={idx}
-					post={post}
-				/>
-			))}
+			<div className="w-[95%] mt-[7em] mx-auto">
+				{posts?.map((post, idx) => (
+					<Post
+						key={idx}
+						post={post}
+					/>
+				))}
+			</div>
 			<PostModal
 				toggleModal={toggleModal}
 				handleToggle={handleToggle}
