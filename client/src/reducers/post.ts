@@ -1,6 +1,6 @@
 import { IPostAction, IPostState } from "../types/statesAndActions";
 
-export const initialPostState: IPostState = {
+export const postInitialState: IPostState = {
 	posts: null
 };
 
