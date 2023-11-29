@@ -1,3 +1,4 @@
+import IPost from "./post";
 import IUser from "./user";
 
 // loading
@@ -21,4 +22,14 @@ export interface IUserState {
 export interface IUserAction {
 	type: string;
 	payload: IUserState;
+}
+
+// post
+export interface IPostState {
+    posts: IPost[] | null;
+}
+
+export interface IPostAction {
+    type: string;
+    payload: IPost[]
 }
