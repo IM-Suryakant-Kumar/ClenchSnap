@@ -23,6 +23,7 @@ const middleware_1 = require("./middleware");
 const db_1 = __importDefault(require("./db"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const user_1 = __importDefault(require("./routes/user"));
+const post_1 = __importDefault(require("./routes/post"));
 (0, dotenv_1.config)();
 const app = (0, express_1.default)();
 const CLIENT_URL = process.env.CLIENT_URL;
@@ -31,11 +32,12 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, helmet_1.default)());
 app.use((0, morgan_1.default)("tiny"));
-app.use((0, cors_1.default)({ origin: [CLIENT_URL], credentials: true }));
+app.use((0, cors_1.default)({ origin: CLIENT_URL, credentials: true }));
 app.use((0, cookie_parser_1.default)());
 // routers
 app.use("/auth", auth_1.default);
 app.use("/user", user_1.default);
+app.use("/post", post_1.default);
 // Test
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).send("<h2>Server Working!👍👍👍</h2>");
