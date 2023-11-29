@@ -5,7 +5,6 @@ type Props = {
 };
 
 const Post: React.FC<Props> = ({ post }) => {
-
 	return <div></div>;
 };
 

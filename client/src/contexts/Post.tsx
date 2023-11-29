@@ -39,9 +39,10 @@ const PostContextProvider: React.FC<Props> = ({ children }) => {
 
 	const createPost = async (post: IPost) => {
 		const data = await createPostApi(post);
+        const postData = await getAllPosts()
         data.success && postDispatch({
             type: "CREATE_POST",
-            payload: data.posts
+            payload: postData.posts
         })
 	};
 
