@@ -18,12 +18,15 @@ export const createPost = async (req: Request, res: Response) => {
 		user: { _id, fullname, avatar },
 	} = req as IReq;
 
-	const posts = await Post.create({
+	await Post.create({
 		userId: _id,
 		userName: fullname,
 		avatar,
 		...req.body,
 	});
+
+	const posts = await Post.find();
+
 	res.status(StatusCodes.OK).json({
 		success: true,
 		message: "Successfully posted",
@@ -35,13 +38,13 @@ export const editPost = async (req: Request, res: Response) => {
 	const {
 		user: { _id },
 	} = req as IReq;
-	const posts = await Post.findByIdAndUpdate(
-		req.body._id,
-		req.body,
-		{
-			new: true,
-		},
-	);
+
+	await Post.findByIdAndUpdate(req.body._id, req.body, {
+		new: true,
+	});
+
+	const posts = await Post.find();
+
 	res.status(StatusCodes.OK).json({
 		success: true,
 		message: "Successfully updated",
@@ -53,9 +56,13 @@ export const deletePost = async (req: Request, res: Response) => {
 	const {
 		params: { postId },
 	} = req as IReq;
-	const posts = await Post.findByIdAndDelete(postId, {
+
+	await Post.findByIdAndDelete(postId, {
 		new: true,
 	});
+
+	const posts = await Post.find();
+
 	res.status(StatusCodes.OK).json({
 		success: true,
 		message: "Successfully deleted",
