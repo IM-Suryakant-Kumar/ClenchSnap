@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { useUser } from "../contexts";
 import ProfilePic from "./ProfilePic";
+import IUser from "../types/user";
 
 const RightSidebar = () => {
 	const {
 		userState: { users, user },
 		getAllUser,
+        updateProfile
 	} = useUser();
 	!users && (async () => getAllUser())();
 
@@ -16,6 +18,10 @@ const RightSidebar = () => {
 	const endIdx = startIdx + 8;
 
 	const filteredUsers = users?.filter(item => item._id !== user?._id);
+
+    const handleFollowing = async (userId: string) => {
+        await updateProfile({_id: user?._id} as IUser)
+    }
 
 	return (
 		<div className="w-[32%] fixed top-[5em] right-0 p-2">
@@ -39,7 +45,7 @@ const RightSidebar = () => {
 							/>
 							<span>{item.fullname}</span>
 						</Link>
-						<button>Follow</button>
+						<button onClick={async () => await handleFollowing(item._id)}>Follow</button>
 					</div>
 				))}
 			</div>

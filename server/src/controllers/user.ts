@@ -23,12 +23,17 @@ export const updateUser = async (req: Request, res: Response) => {
 		body,
 	} = req as IReq;
 
-	const user = await User.findByIdAndUpdate(_id, body, { new: true });
+	const user = await User.findByIdAndUpdate(req.body._id, body, {
+		new: true,
+	});
+
+	const users = await User.find();
 
 	res.status(StatusCodes.OK).json({
 		success: true,
 		message: "Successfully Updated!",
 		user,
+		users,
 	});
 };
 
