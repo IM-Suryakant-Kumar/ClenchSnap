@@ -13,18 +13,31 @@ type Props = {
 
 const Post: React.FC<Props> = ({ post }) => {
 	const { updatePost } = usePost();
-    const { userState: { user } } = useUser()
+	const {
+		userState: { user },
+	} = useUser();
 
 	const handleLike = async () => {
+		const liked = post.liked.includes(user?._id as string)
+			? post.liked.filter(item => item !== user?._id)
+			: [...post.liked, user?._id];
+
 		await updatePost({
 			_id: post._id,
-            saved: [...post.saved, user?._id]
+			liked,
 		} as IPost);
 		toast.success("Successfully Liked!");
 	};
 
 	const handleSave = async () => {
-		await updatePost({ _id: post._id, saved: [...post.saved, user?._id] } as IPost);
+		const saved = post.saved.includes(user?._id as string)
+			? post.saved.filter(item => item !== user?._id)
+			: [...post.saved, user?._id];
+
+		await updatePost({
+			_id: post._id,
+			saved,
+		} as IPost);
 		toast.success("Successfully Saved!");
 	};
 
@@ -65,7 +78,11 @@ const Post: React.FC<Props> = ({ post }) => {
 			)}
 			<div className="p-[0.5em] flex items-center text-xl">
 				<div onClick={handleLike}>
-					{post.liked.includes(user?._id as string) ? <FaHeart /> : <FaRegHeart />}
+					{post.liked.includes(user?._id as string) ? (
+						<FaHeart />
+					) : (
+						<FaRegHeart />
+					)}
 				</div>{" "}
 				<p className="text-[1rem] font-normal ml-[0.5em]">
 					{post.liked.length}
