@@ -4,7 +4,7 @@ import ProfilePic from "./ProfilePic";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { MdBookmark, MdOutlineBookmarkBorder } from "react-icons/md";
-import { usePost } from "../contexts";
+import { usePost, useUser } from "../contexts";
 import { toast } from "react-toastify";
 
 type Props = {
@@ -13,18 +13,18 @@ type Props = {
 
 const Post: React.FC<Props> = ({ post }) => {
 	const { updatePost } = usePost();
+    const { userState: { user } } = useUser()
 
 	const handleLike = async () => {
 		await updatePost({
 			_id: post._id,
-			isLiked: !post.isLiked,
-			Likes: !post.isLiked ? post.Likes + 1 : post.Likes - 1,
+            saved: [...post.saved, user?._id]
 		} as IPost);
 		toast.success("Successfully Liked!");
 	};
 
 	const handleSave = async () => {
-		await updatePost({ _id: post._id, isSaved: !post.isSaved } as IPost);
+		await updatePost({ _id: post._id, saved: [...post.saved, user?._id] } as IPost);
 		toast.success("Successfully Saved!");
 	};
 
@@ -65,10 +65,10 @@ const Post: React.FC<Props> = ({ post }) => {
 			)}
 			<div className="p-[0.5em] flex items-center text-xl">
 				<div onClick={handleLike}>
-					{post.isLiked ? <FaHeart /> : <FaRegHeart />}
+					{post.liked.includes(user?._id as string) ? <FaHeart /> : <FaRegHeart />}
 				</div>{" "}
 				<p className="text-[1rem] font-normal ml-[0.5em]">
-					{post.Likes}
+					{post.liked.length}
 				</p>
 				<div className="ml-[1em]">
 					<FaRegComment />
@@ -79,7 +79,7 @@ const Post: React.FC<Props> = ({ post }) => {
 				<div
 					className="ml-auto"
 					onClick={handleSave}>
-					{post.isSaved ? (
+					{post.saved.includes(user?._id as string) ? (
 						<MdBookmark />
 					) : (
 						<MdOutlineBookmarkBorder />
