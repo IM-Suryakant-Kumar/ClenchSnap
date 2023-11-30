@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { useUser } from "../contexts";
+import { useLoading, useUser } from "../contexts";
 import ProfilePic from "./ProfilePic";
 import IUser from "../types/user";
+import loadingWrapper from "../utils/loadingWrapper";
 
 const RightSidebar = () => {
 	const {
@@ -9,6 +10,13 @@ const RightSidebar = () => {
 		getAllUser,
 		updateProfile,
 	} = useUser();
+
+	const {
+		loadingState: { loading },
+		loadingStart,
+		loadingStop,
+	} = useLoading();
+
 	!users && (async () => getAllUser())();
 
 	const usersLength = users?.length || 0;
@@ -20,16 +28,29 @@ const RightSidebar = () => {
 	const filteredUsers = users?.filter(item => item._id !== user?._id);
 
 	const handleFollowing = async (userId: string) => {
-		// followings
-		await updateProfile({
-			_id: user?._id,
-			followings: [...(user?.followings as string[]), userId],
-		} as IUser);
-		// followers
-		await updateProfile({
-			_id: userId,
-			followers: [...(user?.followers as string[]), user?._id],
-		} as IUser);
+		const fn = async () => {
+			// followers strictly first
+			const followers = user?.followers
+				? [...user.followers, user._id]
+				: [user?._id];
+
+			await updateProfile({
+				_id: userId,
+				followers,
+			} as IUser);
+
+			// followings
+			const followings = user?.followings
+				? [...user.followings, userId]
+				: [userId];
+
+			await updateProfile({
+				_id: user?._id,
+				followings,
+			} as IUser);
+		};
+
+		loadingWrapper(loadingStart, loadingStop, fn);
 	};
 
 	return (
@@ -55,10 +76,13 @@ const RightSidebar = () => {
 							<span>{item.fullname}</span>
 						</Link>
 						<button
+							disabled={loading}
 							onClick={async () =>
 								await handleFollowing(item._id)
 							}>
-							Follow
+							{user?.followings?.includes(item._id)
+								? "Following"
+								: "follow"}
 						</button>
 					</div>
 				))}
