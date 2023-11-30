@@ -6,19 +6,13 @@ import IPost from "../types/post";
 const Post = () => {
 	const { postId } = useParams() as { postId: string };
 
-	const {
-		postState: { posts },
-	} = usePost();
-	const {
-		userState: { user },
-		getProfile,
-	} = useUser();
-
-	!user && getProfile();
-
-	const post = posts?.find(post => post._id === postId) as IPost;
-
-	return <PostC post={post} />;
+    const { postState: { posts } } = usePost()
+    
+    const post = posts?.find(post => post._id === postId) as IPost
+    
+	return <div className="w-[80%] max-w-[40rem] mx-auto mt-[7em] sm:mt-[5em]">
+        {post && <PostC post={post} />}
+    </div>;
 };
 
 export default Post;
