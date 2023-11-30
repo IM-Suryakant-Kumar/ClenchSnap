@@ -49,6 +49,7 @@ const Setting = () => {
 			file && (avatar = await clodinary(file));
 
 			await updateProfile({
+				_id: user?._id,
 				fullname,
 				username,
 				email,
