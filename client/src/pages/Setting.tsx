@@ -6,6 +6,7 @@ import loadingWrapper from "../utils/loadingWrapper";
 import { useState } from "react";
 import IUser from "../types/user";
 import clodinary from "../apis/cloudinary";
+import { toast } from "react-toastify";
 
 const Setting = () => {
 	const navigate = useNavigate();
@@ -57,6 +58,8 @@ const Setting = () => {
 				bio,
 				website,
 			} as IUser);
+
+            toast.success("Successfully Updated!")
 		};
 
 		loadingWrapper(submittingStart, submittingStop, fn);

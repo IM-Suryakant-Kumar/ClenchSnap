@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import IApiRes from "../types/response";
 import IUser from "../types/user";
 import axios from "./axios";
@@ -21,7 +20,6 @@ export const updateUser = async (user: IUser) =>
 			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
 		})) as IApiRes;
 		addUserToLocalStorage(data.user);
-		toast.success(data.message);
 		return data;
 	});
 
