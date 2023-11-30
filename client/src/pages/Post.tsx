@@ -60,7 +60,7 @@ const Post = () => {
 					<ProfilePic
 						width="2rem"
 						height="2rem"
-						size="1rem"
+						size="0,8rem"
 						avatar={user?.avatar as string}
 						name={user?.fullname as string}
 					/>
@@ -96,7 +96,7 @@ const Post = () => {
 								<ProfilePic
 									width="2rem"
 									height="2rem"
-									size="1rem"
+									size="0.8rem"
 									avatar={c.avatar as string}
 									name={c.userName as string}
 								/>
