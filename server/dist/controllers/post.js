@@ -22,7 +22,8 @@ const getAllPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getAllPosts = getAllPosts;
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user: { _id, fullname, avatar }, } = req;
-    const posts = yield Post_1.default.create(Object.assign({ userId: _id, userName: fullname, avatar }, req.body));
+    yield Post_1.default.create(Object.assign({ userId: _id, userName: fullname, avatar }, req.body));
+    const posts = yield Post_1.default.find();
     res.status(http_status_codes_1.StatusCodes.OK).json({
         success: true,
         message: "Successfully posted",
@@ -32,9 +33,10 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.createPost = createPost;
 const editPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user: { _id }, } = req;
-    const posts = yield Post_1.default.findOneAndUpdate({ userId: _id }, req.body, {
+    yield Post_1.default.findByIdAndUpdate(req.body._id, req.body, {
         new: true,
     });
+    const posts = yield Post_1.default.find();
     res.status(http_status_codes_1.StatusCodes.OK).json({
         success: true,
         message: "Successfully updated",
@@ -44,9 +46,10 @@ const editPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.editPost = editPost;
 const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { params: { postId }, } = req;
-    const posts = yield Post_1.default.findByIdAndDelete(postId, {
+    yield Post_1.default.findByIdAndDelete(postId, {
         new: true,
     });
+    const posts = yield Post_1.default.find();
     res.status(http_status_codes_1.StatusCodes.OK).json({
         success: true,
         message: "Successfully deleted",

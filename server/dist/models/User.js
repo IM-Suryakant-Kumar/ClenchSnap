@@ -42,6 +42,8 @@ const UserSchema = new mongoose_1.Schema({
     avatar: { type: String },
     bio: { type: String },
     website: { type: String },
+    followers: [{ type: String, required: true }],
+    followings: [{ type: String, required: true }]
 }, { timestamps: true });
 UserSchema.pre("save", function () {
     return __awaiter(this, void 0, void 0, function* () {

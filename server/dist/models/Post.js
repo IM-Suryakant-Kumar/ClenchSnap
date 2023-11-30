@@ -7,9 +7,8 @@ const PostSchema = new mongoose_1.Schema({
     avatar: { type: String, required: true },
     content: { type: String, required: true },
     image: { type: String, default: "" },
-    isLiked: { type: Boolean, default: false },
-    isSaved: { type: Boolean, default: false },
-    Likes: { type: Number, default: 0 },
+    liked: [{ type: String, required: true }],
+    saved: [{ type: String, required: true }],
     comments: [
         {
             userName: { type: String, required: true },
