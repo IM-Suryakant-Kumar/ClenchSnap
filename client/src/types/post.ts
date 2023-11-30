@@ -5,6 +5,7 @@ interface IComment {
 }
 
 export default interface IPost {
+    _id: string;
 	userId: string;
 	userName: string;
 	avatar: string;

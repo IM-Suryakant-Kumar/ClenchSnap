@@ -4,12 +4,19 @@ import ProfilePic from "./ProfilePic";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { MdBookmark, MdOutlineBookmarkBorder } from "react-icons/md";
+import { usePost } from "../contexts";
 
 type Props = {
 	post: IPost;
 };
 
 const Post: React.FC<Props> = ({ post }) => {
+	const { updatePost } = usePost();
+
+	const handleLike = async () => {
+		await updatePost({ _id: post._id, isLiked: true } as IPost);
+	};
+
 	return (
 		<div className="w-[95%] mx-auto bg-secondary-cl mb-[1em] rounded-lg">
 			<div className="flex items-center p-[0.5em]">
@@ -32,7 +39,7 @@ const Post: React.FC<Props> = ({ post }) => {
 				</div>
 			</div>
 			<p className="p-[0.5em]">
-				{(post.content.length >= 100)
+				{post.content.length >= 100
 					? post.content.substring(0, 99) + "..."
 					: post.content}
 			</p>
@@ -46,7 +53,9 @@ const Post: React.FC<Props> = ({ post }) => {
 				</div>
 			)}
 			<div className="p-[0.5em] flex items-center text-xl">
-				<div>{post.isLiked ? <FaHeart /> : <FaRegHeart />}</div>{" "}
+				<div onClick={handleLike}>
+					{post.isLiked ? <FaHeart /> : <FaRegHeart />}
+				</div>{" "}
 				<p className="text-[1rem] font-normal ml-[0.5em]">
 					{post.Likes}
 				</p>

@@ -35,9 +35,13 @@ export const editPost = async (req: Request, res: Response) => {
 	const {
 		user: { _id },
 	} = req as IReq;
-	const posts = await Post.findOneAndUpdate({ userId: _id }, req.body, {
-		new: true,
-	});
+	const posts = await Post.findByIdAndUpdate(
+		req.body._id,
+		req.body,
+		{
+			new: true,
+		},
+	);
 	res.status(StatusCodes.OK).json({
 		success: true,
 		message: "Successfully updated",
