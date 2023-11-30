@@ -5,7 +5,6 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { MdBookmark, MdOutlineBookmarkBorder } from "react-icons/md";
 import { usePost, useUser } from "../contexts";
-import { toast } from "react-toastify";
 
 type Props = {
 	post: IPost;
@@ -26,7 +25,6 @@ const Post: React.FC<Props> = ({ post }) => {
 			_id: post._id,
 			liked,
 		} as IPost);
-		toast.success("Successfully Liked!");
 	};
 
 	const handleSave = async () => {
@@ -38,7 +36,6 @@ const Post: React.FC<Props> = ({ post }) => {
 			_id: post._id,
 			saved,
 		} as IPost);
-		toast.success("Successfully Saved!");
 	};
 
 	return (
