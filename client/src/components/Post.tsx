@@ -5,6 +5,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { MdBookmark, MdOutlineBookmarkBorder } from "react-icons/md";
 import { usePost } from "../contexts";
+import { toast } from "react-toastify";
 
 type Props = {
 	post: IPost;
@@ -14,7 +15,17 @@ const Post: React.FC<Props> = ({ post }) => {
 	const { updatePost } = usePost();
 
 	const handleLike = async () => {
-		await updatePost({ _id: post._id, isLiked: true } as IPost);
+		await updatePost({
+			_id: post._id,
+			isLiked: !post.isLiked,
+			Likes: !post.isLiked ? post.Likes + 1 : post.Likes - 1,
+		} as IPost);
+		toast.success("Successfully Liked!");
+	};
+
+	const handleSave = async () => {
+		await updatePost({ _id: post._id, isSaved: !post.isSaved } as IPost);
+		toast.success("Successfully Saved!");
 	};
 
 	return (
@@ -62,7 +73,12 @@ const Post: React.FC<Props> = ({ post }) => {
 				<div className="ml-[1em]">
 					<FaRegComment />
 				</div>
-				<div className="ml-auto">
+				<p className="text-[1rem] font-normal ml-[0.5em]">
+					{post.comments.length}
+				</p>
+				<div
+					className="ml-auto"
+					onClick={handleSave}>
 					{post.isSaved ? (
 						<MdBookmark />
 					) : (

@@ -25,7 +25,6 @@ export const editPost = (post: IPost) =>
 		const { data } = (await axios.patch("/post", post, {
 			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
 		})) as IApiRes;
-        toast.success(data.message)
 		return data;
 	});
 
