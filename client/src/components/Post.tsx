@@ -76,7 +76,7 @@ const Post: React.FC<Props> = ({ post }) => {
 				</div>
 			)}
 			<div className="p-[0.5em] flex items-center text-xl">
-				<div onClick={handleLike}>
+				<div className="cursor-pointer" onClick={handleLike}>
 					{post.liked.includes(user?._id as string) ? (
 						<FaHeart />
 					) : (
@@ -86,7 +86,7 @@ const Post: React.FC<Props> = ({ post }) => {
 				<p className="text-[1rem] font-normal ml-[0.5em]">
 					{post.liked.length}
 				</p>
-				<div className="ml-[1em]">
+				<div className="cursor-pointer ml-[1em]">
 					<Link to={`/host/post/${post._id}`}>
 						<FaRegComment />
 					</Link>
@@ -95,7 +95,7 @@ const Post: React.FC<Props> = ({ post }) => {
 					{post.comments.length}
 				</p>
 				<div
-					className="ml-auto"
+					className="cursor-pointer ml-auto"
 					onClick={handleSave}>
 					{post.saved.includes(user?._id as string) ? (
 						<MdBookmark />
