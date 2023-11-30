@@ -10,8 +10,8 @@ export default interface IPost {
 	avatar: string;
 	content: string;
 	image: string;
-	isLiked: boolean;
+	likeUIds: string[];
 	isSaved: boolean;
-	Likes: number;
+	likes: number;
 	comments: IComment[];
 }

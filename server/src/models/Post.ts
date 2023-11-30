@@ -8,9 +8,9 @@ const PostSchema = new Schema<IPost>(
 		avatar: { type: String, required: true },
 		content: { type: String, required: true },
 		image: { type: String, default: "" },
-		isLiked: { type: Boolean, default: false },
+		likeUIds: [{ type: String, required: true }],
 		isSaved: { type: Boolean, default: false },
-		Likes: { type: Number, default: 0 },
+		likes: { type: Number, default: 0 },
 		comments: [
 			{
 				userName: { type: String, required: true },
