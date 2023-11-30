@@ -3,14 +3,21 @@ import Navbar from "./Navbar";
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
-import { useUser } from "../contexts";
+import { usePost, useUser } from "../contexts";
 
 const Layout = () => {
-	const { userState: { user }, getProfile } = useUser();
+	const {
+		userState: { user },
+		getProfile,
+	} = useUser();
 
-    !user && (async () => {
-        await getProfile();
-    })();
+	const {
+		postState: { posts },
+		getPosts,
+	} = usePost();
+
+	!user && getProfile();
+	!posts && getPosts();
 
 	return (
 		<div className="min-h-screen">

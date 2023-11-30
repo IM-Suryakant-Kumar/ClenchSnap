@@ -10,9 +10,7 @@ const Home = () => {
 
 	const {
 		postState: { posts },
-		getPosts,
 	} = usePost();
-	!posts && getPosts();
 
 	const handleToggle = () => {
 		setToggleModal(prevState => !prevState);
