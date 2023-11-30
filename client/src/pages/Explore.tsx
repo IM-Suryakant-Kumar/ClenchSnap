@@ -1,11 +1,10 @@
-import { IoPencil } from "react-icons/io5";
-import RightSidebar from "../components/RightSidebar";
-import PostModal from "../components/PostModal";
-import Post from "../components/Post";
 import { useState } from "react";
 import { usePost } from "../contexts";
+import Post from "../components/Post";
+import RightSidebar from "../components/RightSidebar";
+import PostModal from "../components/PostModal";
 
-const Home = () => {
+const Explore = () => {
 	const [toggleModal, setToggleModal] = useState<boolean>(true);
 
 	const {
@@ -35,13 +34,8 @@ const Home = () => {
 				toggleModal={toggleModal}
 				handleToggle={handleToggle}
 			/>
-			<div
-				className="w-[3rem] h-[3rem] fixed bottom-[2.5em] sm:bottom-[0.5em] right-[1.5em] z-40  text-[1.5rem] p-[0.5em] text-primary-cl bg-logo-cl rounded-full cursor-pointer"
-				onClick={handleToggle}>
-				<IoPencil />
-			</div>
 		</div>
 	);
 };
 
-export default Home;
+export default Explore;

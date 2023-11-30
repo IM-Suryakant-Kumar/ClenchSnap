@@ -17,6 +17,7 @@ import HostLayout, {
 } from "./components/HostLayout";
 import Profile from "./pages/Profile"
 import Post from "./pages/Post"
+import Explore from "./pages/Explore"
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -27,7 +28,7 @@ const router = createBrowserRouter(
 		>
 			<Route
 				index
-				element={<Home />}
+				element={<Navigate to="host" />}
 			/>
 			<Route
 				path="host"
@@ -36,7 +37,7 @@ const router = createBrowserRouter(
 			>
 				<Route
 					index
-					element={<Navigate to="explore" />}
+					element={<Home />}
 				/>
 				<Route
 					path="post/:postId"
@@ -44,7 +45,7 @@ const router = createBrowserRouter(
 				/>
 				<Route
 					path="explore"
-					element={<h1>explore</h1>}
+					element={<Explore />}
 				/>
 				<Route
 					path="profile/:username"
