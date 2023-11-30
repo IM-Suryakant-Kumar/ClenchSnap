@@ -16,8 +16,10 @@ const Layout = () => {
 		getPosts,
 	} = usePost();
 
-	!user && getProfile();
-	!posts && getPosts();
+	(async () => {
+		!user && (await getProfile());
+		!posts && (await getPosts());
+	})();
 
 	return (
 		<div className="min-h-screen">
