@@ -7,7 +7,7 @@ const RightSidebar = () => {
 	const {
 		userState: { users, user },
 		getAllUser,
-        updateProfile
+		updateProfile,
 	} = useUser();
 	!users && (async () => getAllUser())();
 
@@ -19,9 +19,18 @@ const RightSidebar = () => {
 
 	const filteredUsers = users?.filter(item => item._id !== user?._id);
 
-    const handleFollowing = async (userId: string) => {
-        await updateProfile({_id: user?._id} as IUser)
-    }
+	const handleFollowing = async (userId: string) => {
+		// followings
+		await updateProfile({
+			_id: user?._id,
+			followings: [...(user?.followings as string[]), userId],
+		} as IUser);
+		// followers
+		await updateProfile({
+			_id: userId,
+			followers: [...(user?.followers as string[]), user?._id],
+		} as IUser);
+	};
 
 	return (
 		<div className="w-[32%] fixed top-[5em] right-0 p-2">
@@ -45,7 +54,12 @@ const RightSidebar = () => {
 							/>
 							<span>{item.fullname}</span>
 						</Link>
-						<button onClick={async () => await handleFollowing(item._id)}>Follow</button>
+						<button
+							onClick={async () =>
+								await handleFollowing(item._id)
+							}>
+							Follow
+						</button>
 					</div>
 				))}
 			</div>

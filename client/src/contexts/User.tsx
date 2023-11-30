@@ -1,9 +1,5 @@
-import {
-	createContext,
-	useReducer,
-	useContext,
-	useCallback,
-} from "react";
+/* eslint-disable no-mixed-spaces-and-tabs */
+import { createContext, useReducer, useContext, useCallback } from "react";
 import { IUserState } from "../types/statesAndActions";
 import { userInitialState, userReducer } from "../reducers/user";
 import { getAllusers, getLoggedInUser, updateUser } from "../apis/user";
@@ -56,41 +52,31 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 			});
 	}, []);
 	// update profile
-	const updateProfile = useCallback(async ({
-		fullname,
-		username,
-		email,
-		avatar,
-		bio,
-		website,
-	}: IUser) => {
-		const { success, user, message } = await updateUser({
-			fullname,
-			username,
-			email,
-			avatar,
-			bio,
-			website,
-		} as IUser);
+	const updateProfile = useCallback(async (newUser: IUser) => {
+		const { success, user, users, message } = await updateUser(
+			newUser as IUser,
+		);
 		success
 			? userDispatch({
-                type: "UPDATE_PROFILE",
-                payload: { user },}) 
-            : toast.error(message, {
-                autoClose: 6000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-            });
+					type: "UPDATE_PROFILE",
+					payload: { user, users },
+			  })
+			: toast.error(message, {
+					autoClose: 6000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+			  });
 	}, []);
 
-    const getAllUser = useCallback(async () => {
-        const { success, users  } = await getAllusers()
-        success && userDispatch({ 
-            type: "GET_ALL_USER",
-            payload: { users }
-         })
-    }, []) 
+	const getAllUser = useCallback(async () => {
+		const { success, users } = await getAllusers();
+		success &&
+			userDispatch({
+				type: "GET_ALL_USER",
+				payload: { users },
+			});
+	}, []);
 
 	// const getFollowers = async () => {};
 	// const getFollowings = async () => {};
@@ -100,7 +86,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 		getLogout,
 		getProfile,
 		updateProfile,
-        getAllUser,
+		getAllUser,
 		// getFollowers,
 		// getFollowings,
 	};
