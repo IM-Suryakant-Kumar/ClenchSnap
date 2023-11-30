@@ -16,6 +16,7 @@ import HostLayout, {
 	loader as hostLayoutLoader,
 } from "./components/HostLayout";
 import Profile from "./pages/Profile"
+import Post from "./pages/Post"
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -36,6 +37,10 @@ const router = createBrowserRouter(
 				<Route
 					index
 					element={<Navigate to="explore" />}
+				/>
+				<Route
+					path="post/:postId"
+					element={<Post />}
 				/>
 				<Route
 					path="explore"

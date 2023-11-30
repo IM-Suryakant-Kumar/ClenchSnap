@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { Link } from "react-router-dom";
 import IPost from "../types/post";
 import ProfilePic from "./ProfilePic";
@@ -61,7 +62,8 @@ const Post: React.FC<Props> = ({ post }) => {
 			</div>
 			<p className="p-[0.5em]">
 				{post.content.length >= 100
-					? post.content.substring(0, 99) + "..."
+					? post.content.substring(0, 99) +
+					  <Link to={`/host/post/${post._id}`}>&nbsp;...</Link>
 					: post.content}
 			</p>
 			{post.image && (
@@ -85,7 +87,9 @@ const Post: React.FC<Props> = ({ post }) => {
 					{post.liked.length}
 				</p>
 				<div className="ml-[1em]">
-					<FaRegComment />
+					<Link to={`/host/post/${post._id}`}>
+						<FaRegComment />
+					</Link>
 				</div>
 				<p className="text-[1rem] font-normal ml-[0.5em]">
 					{post.comments.length}
