@@ -7,4 +7,6 @@ export default interface IUser {
 	avatar: string;
 	bio: string;
 	website: string;
+    followers: string[];
+    followings: string[];
 }

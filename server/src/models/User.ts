@@ -31,6 +31,8 @@ const UserSchema = new Schema<IUser>(
 		avatar: { type: String },
 		bio: { type: String },
 		website: { type: String },
+        followers: [ { type: String, required: true } ],
+        followings: [ { type: String, required: true } ]
 	},
 	{ timestamps: true },
 );

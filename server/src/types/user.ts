@@ -8,6 +8,8 @@ type TUser = {
 	bio: string;
 	website: string;
 	password: string;
+    followers: string[];
+    followings: string[];
 };
 
 export default interface IUser extends TUser, Document {
