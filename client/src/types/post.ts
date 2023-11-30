@@ -11,8 +11,7 @@ export default interface IPost {
 	avatar: string;
 	content: string;
 	image: string;
-	likeUIds: string[];
-	isSaved: boolean;
-	likes: number;
+	liked: string[];
+	saved: string[];
 	comments: IComment[];
 }

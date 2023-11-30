@@ -5,13 +5,13 @@ interface IComment {
 }
 
 export default interface IPost {
+    _id: string;
 	userId: string;
 	userName: string;
 	avatar: string;
 	content: string;
 	image: string;
-	likeUIds: string[];
-	isSaved: boolean;
-	likes: number;
+	liked: string[];
+	saved: string[];
 	comments: IComment[];
 }
