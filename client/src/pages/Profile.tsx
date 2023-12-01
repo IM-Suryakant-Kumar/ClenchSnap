@@ -108,7 +108,7 @@ const Profile = () => {
 				</nav>
 			</div>
 			{/* outlet */}
-			<div className="w-[95%] max-w-[30rem] mx-auto mt-[1.5em] pb-[1em]">
+			<div className="w-[95%] max-w-[35rem] mx-auto mt-[1.5em] pb-[1em]">
 				<Outlet
 					context={{
 						posts: newUserPosts,

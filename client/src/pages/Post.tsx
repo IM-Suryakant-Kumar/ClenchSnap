@@ -50,8 +50,6 @@ const Post = () => {
 		loadingWrapper(submittingStart, submittingStop, fn);
 	};
 
-	console.log("Post page render!");
-
 	return (
 		<div className="max-w-[40rem] mx-auto mt-[7em] sm:mt-[5em]">
 			{post && <PostC post={post} />}
