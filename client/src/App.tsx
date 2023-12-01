@@ -19,6 +19,7 @@ import Profile from "./pages/Profile";
 import Post from "./pages/Post";
 import Explore from "./pages/Explore";
 import ProfilePost from "./pages/ProfilePost";
+import ProfileLikedPost from "./pages/ProfileLikedPost";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -59,7 +60,7 @@ const router = createBrowserRouter(
 					/>
 					<Route
 						path="liked"
-						element={<h1>Liked</h1>}
+						element={<ProfileLikedPost />}
 					/>
 					<Route
 						path="saved"

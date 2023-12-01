@@ -1,19 +1,17 @@
-// const post
-
 import { useOutletContext } from "react-router-dom";
 import IPost from "../types/post";
 import Post from "../components/Post";
 
-const ProfilePost = () => {
-	const { posts } = useOutletContext() as { posts: IPost[] };
+const ProfileLikedPost = () => {
+	const { likedPosts } = useOutletContext() as { likedPosts: IPost[] };
 
 	// console.log(posts);
 
 	return (
 		<div>
-			{posts && (
+			{likedPosts && (
 				<div>
-					{posts.map((post, idx) => (
+					{likedPosts.map((post, idx) => (
 						<Post
 							key={idx}
 							post={post}
@@ -25,4 +23,4 @@ const ProfilePost = () => {
 	);
 };
 
-export default ProfilePost;
+export default ProfileLikedPost;
