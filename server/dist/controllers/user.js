@@ -24,9 +24,10 @@ const getLoggedInUser = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.getLoggedInUser = getLoggedInUser;
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user: { _id }, body, } = req;
-    const user = yield User_1.default.findByIdAndUpdate(req.body._id, body, {
+    yield User_1.default.findByIdAndUpdate(req.body._id, body, {
         new: true,
     });
+    const user = yield User_1.default.findById(_id);
     const users = yield User_1.default.find();
     res.status(http_status_codes_1.StatusCodes.OK).json({
         success: true,
