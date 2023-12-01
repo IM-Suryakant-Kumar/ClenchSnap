@@ -27,22 +27,26 @@ const RightSidebar = () => {
 
 	const filteredUsers = users?.filter(item => item._id !== user?._id);
 
-	const handleFollowing = async (userId: string) => {
+	const handleFollowing = async (item: IUser) => {
 		const fn = async () => {
-			// followers strictly first
-			const followers = user?.followers
-				? [...user.followers, user._id]
+			// followers
+			const followers = item?.followers
+				? item.followers.includes(user?._id as string)
+					? item.followers.filter(userId => userId !== user?._id)
+					: [...item.followers, user?._id]
 				: [user?._id];
 
 			await updateProfile({
-				_id: userId,
+				_id: item._id,
 				followers,
 			} as IUser);
 
 			// followings
 			const followings = user?.followings
-				? [...user.followings, userId]
-				: [userId];
+				? user.followings.includes(item._id)
+					? user.followings.filter(userId => item._id !== userId)
+					: [...user.followings, item._id]
+				: [item._id];
 
 			await updateProfile({
 				_id: user?._id,
@@ -77,9 +81,7 @@ const RightSidebar = () => {
 						</Link>
 						<button
 							disabled={loading}
-							onClick={async () =>
-								await handleFollowing(item._id)
-							}>
+							onClick={async () => await handleFollowing(item)}>
 							{user?.followings?.includes(item._id)
 								? "Following"
 								: "follow"}
