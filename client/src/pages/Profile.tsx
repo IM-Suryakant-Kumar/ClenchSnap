@@ -25,8 +25,16 @@ const Profile = () => {
 	);
 
 	const newUserPosts = posts?.filter(p => p.userId === newUser?._id);
+	const newUserLikedPosts = posts?.filter(p =>
+		p.liked.includes(newUser?._id as string),
+	);
+	const newUserSavedPosts = posts?.filter(p =>
+		p.saved.includes(newUser?._id as string),
+	);
 
-	console.log(newUserPosts);
+	// console.log(newUserPosts);
+	// console.log(newUserLikedPost);
+	// console.log(newUserSavedPost);
 
 	return (
 		<div className="sm:max-w-[80%] m-auto">
@@ -100,8 +108,14 @@ const Profile = () => {
 				</nav>
 			</div>
 			{/* outlet */}
-			<div className="max-w-[30rem] mx-auto mt-[1em]">
-				<Outlet />
+			<div className="w-[95%] max-w-[30rem] mx-auto mt-[1.5em] pb-[1em]">
+				<Outlet
+					context={{
+						posts: newUserPosts,
+						likedPosts: newUserLikedPosts,
+						savedPosts: newUserSavedPosts,
+					}}
+				/>
 			</div>
 		</div>
 	);

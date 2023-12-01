@@ -18,6 +18,7 @@ import HostLayout, {
 import Profile from "./pages/Profile";
 import Post from "./pages/Post";
 import Explore from "./pages/Explore";
+import ProfilePost from "./pages/ProfilePost";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -54,7 +55,7 @@ const router = createBrowserRouter(
 					/>
 					<Route
 						path="posts"
-						element={<h1>posts</h1>}
+						element={<ProfilePost />}
 					/>
 					<Route
 						path="liked"
