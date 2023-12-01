@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import ProfilePic from "../components/ProfilePic";
-import { useUser } from "../contexts";
+import { usePost, useUser } from "../contexts";
+import { NavLink } from "react-router-dom";
 
 const Profile = () => {
 	const { username } = useParams() as { username: string };
@@ -10,6 +11,10 @@ const Profile = () => {
 		getAllUser,
 	} = useUser();
 
+	const {
+		postState: { posts },
+	} = usePost();
+
 	!users &&
 		(async () => {
 			await getAllUser();
@@ -18,6 +23,10 @@ const Profile = () => {
 	const newUser = users?.find(
 		item => item.username === username || item._id === username,
 	);
+
+	const newUserPosts = posts?.filter(p => p.userId === newUser?._id);
+
+	console.log(newUserPosts);
 
 	return (
 		<div className="sm:max-w-[80%] m-auto">
@@ -54,10 +63,38 @@ const Profile = () => {
 							className="text-blue-400 text-xs sm:text-sm">
 							{newUser?.website}
 						</a>
+						{/* activity section */}
+						<div className="mt-[0.5em]">
+							<span className="mr-[1em] text-xs sm:text-sm">{`${
+								newUserPosts?.length
+							} ${
+								(newUserPosts?.length as number) > 1
+									? " posts"
+									: " post"
+							}`}</span>
+							<span className="mr-[1em] text-xs sm:text-sm">{`${
+								newUser?.followers?.length
+							} ${
+								(newUser?.followers?.length as number) > 1
+									? " followers"
+									: " follower"
+							}`}</span>
+							<span className="text-xs sm:text-sm">{`${
+								newUser?.followings?.length
+							} ${
+								(newUser?.followings?.length as number) > 1
+									? " followings"
+									: " following"
+							}`}</span>
+						</div>
 					</div>
 				</div>
 			</div>
-			<hr className="h-[2px] bg-gray-400 sm:mt-[1em]" />
+			<hr className="h-[2px] bg-gray-400" />
+            {/* main section
+            <nav>
+                <NavLink
+            </nav> */}
 		</div>
 	);
 };
