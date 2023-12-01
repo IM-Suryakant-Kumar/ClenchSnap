@@ -13,14 +13,22 @@
 }
 
 a.active {
-	border: 1px solid;
+	border: 1px solid #3a86ff;
+}
+
+.profile-nav > a.active {
+    background: none;
+    color: #3a86ff;
+    border: 0;
+    border-radius: 0;
+	border-bottom: 2px solid #3a86ff;
 }
 
 @media screen and (min-width: 640px) {
-    a.active {
-        border: none;
-        border-radius: 0 0.5em 0.5em 0;
-        background-color: #3a86ff;
-        color: #ebf2fa;
-    }
+	a.active {
+		border: none;
+		border-radius: 0 0.5em 0.5em 0;
+		background-color: #3a86ff;
+		color: #ebf2fa;
+	}
 }

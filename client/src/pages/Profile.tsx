@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import ProfilePic from "../components/ProfilePic";
 import { usePost, useUser } from "../contexts";
 import { NavLink } from "react-router-dom";
@@ -91,10 +91,18 @@ const Profile = () => {
 				</div>
 			</div>
 			<hr className="h-[2px] bg-gray-400" />
-            {/* main section
-            <nav>
-                <NavLink
-            </nav> */}
+			{/* main section */}
+			<div className="max-w-[40rem] mx-auto mt-[0.5em]">
+				<nav className="profile-nav flex justify-evenly">
+					<NavLink to="posts">Posts</NavLink>
+					<NavLink to="liked">Liked</NavLink>
+					<NavLink to="saved">Saved</NavLink>
+				</nav>
+			</div>
+			{/* outlet */}
+			<div className="max-w-[30rem] mx-auto mt-[1em]">
+				<Outlet />
+			</div>
 		</div>
 	);
 };

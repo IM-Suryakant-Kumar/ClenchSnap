@@ -11,21 +11,20 @@ import Login, { loader as loginLoader } from "./pages/Login";
 import Signup, { loader as signupLoader } from "./pages/Signup";
 import Home from "./pages/Home";
 import Setting from "./pages/Setting";
-import Error from "./pages/Error"
+import Error from "./pages/Error";
 import HostLayout, {
 	loader as hostLayoutLoader,
 } from "./components/HostLayout";
-import Profile from "./pages/Profile"
-import Post from "./pages/Post"
-import Explore from "./pages/Explore"
+import Profile from "./pages/Profile";
+import Post from "./pages/Post";
+import Explore from "./pages/Explore";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route
 			path="/"
 			element={<Layout />}
-            errorElement={<Error />}
-		>
+			errorElement={<Error />}>
 			<Route
 				index
 				element={<Navigate to="host" />}
@@ -33,8 +32,7 @@ const router = createBrowserRouter(
 			<Route
 				path="host"
 				element={<HostLayout />}
-				loader={hostLayoutLoader}
-			>
+				loader={hostLayoutLoader}>
 				<Route
 					index
 					element={<Home />}
@@ -49,8 +47,24 @@ const router = createBrowserRouter(
 				/>
 				<Route
 					path="profile/:username"
-					element={<Profile />}
-				/>
+					element={<Profile />}>
+					<Route
+						index
+						element={<Navigate to="posts" />}
+					/>
+					<Route
+						path="posts"
+						element={<h1>posts</h1>}
+					/>
+					<Route
+						path="liked"
+						element={<h1>Liked</h1>}
+					/>
+					<Route
+						path="saved"
+						element={<h1>saved</h1>}
+					/>
+				</Route>
 				<Route
 					path="settings"
 					element={<Setting />}

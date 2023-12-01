@@ -11,7 +11,7 @@ const Sidebar = () => {
     const { userState: { user } } = useUser()
     
 	return (
-		<div className="fixed bottom-0 h-[3rem] w-full bg-secondary-cl sm:bg-inherit sm:w-[10rem] sm:h-auto sm:top-[5em] z-50">
+		<div className="sidebar fixed bottom-0 h-[3rem] w-full bg-secondary-cl sm:bg-inherit sm:w-[10rem] sm:h-auto sm:top-[5em] z-50">
 			<div className="h-full flex justify-around items-center text-logo-cl sm:flex-col sm:items-stretch sm:justify-stretch">
 				<NavLink
 					to="/"
