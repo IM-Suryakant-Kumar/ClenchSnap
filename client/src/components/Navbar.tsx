@@ -43,12 +43,13 @@ const Navbar = () => {
 					)}
 				</div>
 				<div className="w-[100%] sm:w-[56%] flex items-center justify-center sm:justify-end sm:order-2">
-					<form className="w-[90%] sm:max-w-[30rem] h-[1.6rem] sm:h-[1.8rem] bg-primary-cl rounded-md flex">
+					<div className="w-[90%] sm:max-w-[30rem] h-[1.6rem] sm:h-[1.8rem] bg-primary-cl rounded-md flex">
 						<input
 							className="w-[85%] bg-inherit text-gray-400 outline-none text-sm ml-3"
 							type="search"
 							name="search"
 							placeholder="Search..."
+                            // onChange={}
 						/>
 						<button className="w-[15%] pr-[1em] flex justify-end items-center">
 							<MdSearch
@@ -56,7 +57,7 @@ const Navbar = () => {
 								color="#3a86ff"
 							/>
 						</button>
-					</form>
+					</div>
 				</div>
 			</nav>
 		</header>
