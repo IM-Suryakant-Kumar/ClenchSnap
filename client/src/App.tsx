@@ -38,6 +38,10 @@ const router = createBrowserRouter(
 				loader={hostLayoutLoader}>
 				<Route
 					index
+					element={<Navigate to="home" />}
+				/>
+				<Route
+					path="home"
 					element={<Home />}
 				/>
 				<Route
