@@ -48,7 +48,7 @@ const Post: React.FC<Props> = ({ post }) => {
 	};
 
 	return (
-		<div className="w-[95%] mx-auto bg-secondary-cl mb-[1em] rounded-lg">
+		<div className="w-[95%] mx-auto bg-secondary-cl mb-[1em] rounded-lg relative">
 			<div className="flex items-center p-[0.5em]">
 				<Link
 					to={`/host/profile/${post.userId}`}
@@ -65,17 +65,16 @@ const Post: React.FC<Props> = ({ post }) => {
 					</h1>
 				</Link>
 				<div
-					className="ml-auto cursor-pointer text-md relative"
+					className="ml-auto cursor-pointer text-md"
 					onClick={() => handleActionModal(post._id)}>
 					<HiOutlineDotsVertical />
-					{/* action modals */}
-					{showModalId === post._id && (
-						<ActionModal
-							userId={user?._id as string}
-							postUserId={post.userId}
-						/>
-					)}
 				</div>
+				{/* action modals */}
+				{showModalId === post._id && (
+					<ActionModal
+						postUserId={post.userId}
+					/>
+				)}
 			</div>
 			<p className="p-[0.5em]">
 				{post.content.length >= 100
