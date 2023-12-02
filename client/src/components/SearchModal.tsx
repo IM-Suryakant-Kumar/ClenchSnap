@@ -7,7 +7,7 @@ type Props = {
 };
 
 const SearchModal: React.FC<Props> = ({ users }) => {
-	console.log(users);
+	// console.log(users);
 	return (
 		<div className="overflow-auto w-[80%] max-w-[20rem] max-h-[20rem] px-[1em] py-[0.4em] absolute top-[1.3em] left-0 right-0 mx-auto shadow-lg bg-secondary-cl">
 			<div className="flex flex-col justify-center gap-[0.5em]">
