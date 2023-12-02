@@ -5,6 +5,7 @@ import IPost from "../types/post";
 import ProfilePic from "../components/ProfilePic";
 import loadingWrapper from "../utils/loadingWrapper";
 import { useState } from "react";
+import { HiOutlineDotsVertical } from "react-icons/hi";
 
 const Post = () => {
 	const { postId } = useParams() as { postId: string };
@@ -102,6 +103,9 @@ const Post = () => {
 							<div className="pl-[0.5em]">
 								<p className="text-md">{c.userName}</p>
 								<p className="text-sm">{c.content}</p>
+							</div>
+							<div className="ml-auto cursor-pointer text-md">
+								<HiOutlineDotsVertical />
 							</div>
 						</div>
 					))}

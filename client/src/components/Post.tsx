@@ -6,6 +6,8 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { MdBookmark, MdOutlineBookmarkBorder } from "react-icons/md";
 import { usePost, useUser } from "../contexts";
+import { useState } from "react";
+import ActionModal from "./ActionModal.tsx";
 
 type Props = {
 	post: IPost;
@@ -16,6 +18,8 @@ const Post: React.FC<Props> = ({ post }) => {
 	const {
 		userState: { user },
 	} = useUser();
+
+	const [showModalId, setShowModalId] = useState<string>("");
 
 	const handleLike = async () => {
 		const liked = post.liked.includes(user?._id as string)
@@ -39,6 +43,10 @@ const Post: React.FC<Props> = ({ post }) => {
 		} as IPost);
 	};
 
+	const handleActionModal = (postId: string) => {
+		setShowModalId(prevId => (prevId === postId ? "" : postId));
+	};
+
 	return (
 		<div className="w-[95%] mx-auto bg-secondary-cl mb-[1em] rounded-lg">
 			<div className="flex items-center p-[0.5em]">
@@ -56,8 +64,17 @@ const Post: React.FC<Props> = ({ post }) => {
 						{post.userName}
 					</h1>
 				</Link>
-				<div className="ml-auto cursor-pointer text-md">
+				<div
+					className="ml-auto cursor-pointer text-md relative"
+					onClick={() => handleActionModal(post._id)}>
 					<HiOutlineDotsVertical />
+					{/* action modals */}
+					{showModalId === post._id && (
+						<ActionModal
+							userId={user?._id as string}
+							postUserId={post.userId}
+						/>
+					)}
 				</div>
 			</div>
 			<p className="p-[0.5em]">
@@ -76,7 +93,9 @@ const Post: React.FC<Props> = ({ post }) => {
 				</div>
 			)}
 			<div className="p-[0.5em] flex items-center text-xl">
-				<div className="cursor-pointer" onClick={handleLike}>
+				<div
+					className="cursor-pointer"
+					onClick={handleLike}>
 					{post.liked.includes(user?._id as string) ? (
 						<FaHeart />
 					) : (
