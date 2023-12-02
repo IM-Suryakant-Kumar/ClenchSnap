@@ -58,7 +58,7 @@ const ActionModal: React.FC<Props> = ({ postUserId }) => {
 			)}
 			{user?._id !== postUserId && (
 				<button
-					className="w-full text-center hover:bg-green-200 py-[0.5em]"
+					className="w-full text-center hover:bg-secondary-cl py-[0.5em]"
 					onClick={handleFollowing}
 					disabled={loading}>
 					{user?.followings?.includes(postUserId)
