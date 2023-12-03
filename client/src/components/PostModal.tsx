@@ -7,15 +7,12 @@ import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 
 import { useState } from "react";
 import { postCloudinary } from "../apis/cloudinary";
-import { useLoading, usePost } from "../contexts";
+import { useLoading, usePost, usePostModal } from "../contexts";
 import loadingWrapper from "../utils/loadingWrapper";
 import IPost from "../types/post";
 
-type Props = {
-	handleToggle: () => void;
-};
-
-const PostModal: React.FC<Props> = ({ toggleModal, handleToggle }) => {
+const PostModal = () => {
+    const { toggleModal, handleToggle } = usePostModal()
 	const [toggleEmojiPicker, setToggleEmojiPicker] = useState<boolean>(true);
 	const [content, setContent] = useState<string>("");
     const { createPost } = usePost()
