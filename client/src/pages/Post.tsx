@@ -19,9 +19,11 @@ const Post = () => {
 	} | null>(null);
 
 	const {
-		loadingState: { submitting },
+		loadingState: { submitting, loading },
 		submittingStart,
 		submittingStop,
+		loadingStart,
+		loadingStop,
 	} = useLoading();
 
 	const {
@@ -74,12 +76,20 @@ const Post = () => {
 	};
 
 	const HandleDeleteComment = async (userName: string, content: string) => {
-		const UpdatedComments = post.comments.filter(c => {
-			if (c.userName === userName && c.content === content) return false;
-			return true;
-		});
-		console.log(UpdatedComments);
-		setToggleModalIdx(null);
+		const fn = async () => {
+			const updatedComments = post.comments.filter(c => {
+				if (c.userName === userName && c.content === content)
+					return false;
+				return true;
+			});
+			await updatePost({
+				_id: post._id,
+				comments: updatedComments,
+			} as IPost);
+			setToggleModalIdx(null);
+		};
+
+		loadingWrapper(loadingStart, loadingStop, fn);
 	};
 
 	return (
@@ -156,7 +166,7 @@ const Post = () => {
 							{/* ActionModals */}
 							{toggleModalIdx === idx &&
 								user?.fullname === c.userName && (
-									<div className="w-[8rem] p-[0.2em] absolute top-[2em] right-[0.8em] bg-primary-cl shadow-md">
+									<div className="w-[8rem] p-[0.2em] absolute top-[2.5em] right-[0.8em] z-40 bg-primary-cl shadow-md">
 										<button
 											className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]"
 											onClick={() =>
@@ -169,6 +179,7 @@ const Post = () => {
 										</button>
 										<button
 											className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]"
+											disabled={loading}
 											onClick={() =>
 												HandleDeleteComment(
 													c.userName,
