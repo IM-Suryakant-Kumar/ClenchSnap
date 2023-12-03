@@ -1,15 +1,19 @@
 import { IoPencil } from "react-icons/io5";
 import RightSidebar from "../components/RightSidebar";
-import PostModal from "../components/PostModal";
 import Post from "../components/Post";
 import { usePost, usePostModal } from "../contexts";
 
 const Home = () => {
-	const { handleToggle } = usePostModal();
+	const { handleToggle, setPostToEdit } = usePostModal();
 
 	const {
 		postState: { posts },
 	} = usePost();
+
+	const handlePencilClick = () => {
+		setPostToEdit(null);
+		handleToggle();
+	};
 
 	return (
 		<div className="relative min-h-screen">
@@ -28,7 +32,7 @@ const Home = () => {
 			</div>
 			<div
 				className="w-[3rem] h-[3rem] fixed bottom-[2.5em] sm:bottom-[0.5em] right-[1.5em] z-40  text-[1.5rem] p-[0.5em] text-primary-cl bg-logo-cl rounded-full cursor-pointer"
-				onClick={handleToggle}>
+				onClick={handlePencilClick}>
 				<IoPencil />
 			</div>
 		</div>
