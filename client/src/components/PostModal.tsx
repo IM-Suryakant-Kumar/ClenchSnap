@@ -6,20 +6,18 @@ import {
 } from "react-icons/md";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { postCloudinary } from "../apis/cloudinary";
 import { useLoading, usePost, usePostModal } from "../contexts";
 import loadingWrapper from "../utils/loadingWrapper";
 import IPost from "../types/post";
 
 const PostModal = () => {
-	const { toggleModal, handleToggle, postToEdit } = usePostModal();
+	const { toggleModal, handleToggle, postToEdit, content } = usePostModal();
 	const [toggleEmojiPicker, setToggleEmojiPicker] = useState<boolean>(true);
-	const [content, setContent] = useState<string>("");
-	const {
-		createPost,
-		updatePost,
-	} = usePost();
+	const [currcontent, setCurrContent] = useState<string>("");
+
+	const { createPost, updatePost } = usePost();
 
 	const {
 		loadingState: { submitting },
@@ -33,7 +31,7 @@ const PostModal = () => {
 	};
 
 	const handleEmojiClick = (emojiData: EmojiClickData) => {
-		setContent(prevContent => prevContent + emojiData.emoji);
+		setCurrContent(prevContent => prevContent + emojiData.emoji);
 		handleEmojiPicker();
 	};
 
@@ -61,6 +59,8 @@ const PostModal = () => {
 		loadingWrapper(submittingStart, submittingStop, fn);
 	};
 
+	useEffect(() => setCurrContent(content), [content]);
+
 	return (
 		<div
 			className={`${
@@ -82,10 +82,10 @@ const PostModal = () => {
 						className="w-[90%] h-[4rem] outline-none  border-2  border-logo-cl rounded-md
                     "
 						name="content"
-						value={postToEdit?.content || content}
+						value={currcontent}
 						required
 						onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-							setContent(e.target.value)
+							setCurrContent(e.target.value)
 						}
 						placeholder="What is happening?!"></textarea>
 					{/* Action buttons */}

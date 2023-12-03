@@ -11,9 +11,11 @@ const MainContextProvider: React.FC<Props> = ({ children }) => {
 	return (
 		<LoadingContextProvider>
 			<UserContextProvider>
-				<PostModalContextProvider>
-					<PostContextProvider>{children}</PostContextProvider>
-				</PostModalContextProvider>
+				<PostContextProvider>
+					<PostModalContextProvider>
+						{children}
+					</PostModalContextProvider>
+				</PostContextProvider>
 			</UserContextProvider>
 		</LoadingContextProvider>
 	);
