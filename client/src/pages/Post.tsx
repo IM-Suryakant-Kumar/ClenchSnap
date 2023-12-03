@@ -4,11 +4,19 @@ import { default as PostC } from "../components/Post";
 import IPost from "../types/post";
 import ProfilePic from "../components/ProfilePic";
 import loadingWrapper from "../utils/loadingWrapper";
+import CommentModal from "../components/CommentModal";
 import { useState } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
 const Post = () => {
 	const { postId } = useParams() as { postId: string };
+	const [toggleModalIdx, setToggleModalIdx] = useState<number | null>(null);
+	const [toggleCommentModal, setToggleCommentModal] =
+		useState<boolean>(false);
+	const [commentToEdit, setCommentToEdit] = useState<{
+		userName: string;
+		content: string;
+	} | null>(null);
 
 	const {
 		loadingState: { submitting },
@@ -51,8 +59,35 @@ const Post = () => {
 		loadingWrapper(submittingStart, submittingStop, fn);
 	};
 
+	// Action Modal
+	const handleModal = (idx: number) => {
+		setToggleModalIdx(prevIdx => (prevIdx === null ? idx : null));
+	};
+
+	const handleCommentModal = () =>
+		setToggleCommentModal(prevState => !prevState);
+
+	const handleEdit = (userName: string, content: string) => {
+		setCommentToEdit({ userName, content });
+		handleCommentModal();
+		setToggleModalIdx(null);
+	};
+
 	return (
 		<div className="max-w-[40rem] mx-auto mt-[7em] sm:mt-[5em]">
+			{/* ModalToEditComment */}
+			{toggleCommentModal && (
+				<CommentModal
+					handleCommentModal={handleCommentModal}
+					commentToEdit={
+						commentToEdit as {
+							userName: string;
+							content: string;
+						}
+					}
+					post={post}
+				/>
+			)}
 			{post && <PostC post={post} />}
 			<div className="w-[95%] h-[3rem] mx-auto bg-secondary-cl flex items-center">
 				<div className="w-[10%] min-w-[3rem] flex justify-center">
@@ -90,7 +125,7 @@ const Post = () => {
 					{post.comments.map((c, idx) => (
 						<div
 							key={idx}
-							className="py-[0.5em] border-b-[1px] border-logo-cl flex">
+							className="py-[0.5em] border-b-[1px] border-logo-cl flex relative">
 							<div className="w-[10%] min-w-[3rem] flex justify-center">
 								<ProfilePic
 									width="2rem"
@@ -104,9 +139,31 @@ const Post = () => {
 								<p className="text-md">{c.userName}</p>
 								<p className="text-sm">{c.content}</p>
 							</div>
-							<div className="ml-auto cursor-pointer text-md">
+							<div
+								className="ml-auto cursor-pointer text-md"
+								onClick={() => handleModal(idx)}>
 								<HiOutlineDotsVertical />
 							</div>
+							{/* ActionModals */}
+							{toggleModalIdx === idx &&
+								user?._id &&
+								post.userId && (
+									<div className="w-[8rem] p-[0.2em] absolute top-[2em] right-[0.8em] bg-primary-cl shadow-md">
+										<button
+											className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]"
+											onClick={() =>
+												handleEdit(
+													c.userName,
+													c.content,
+												)
+											}>
+											Edit
+										</button>
+										<button className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]">
+											Delete
+										</button>
+									</div>
+								)}
 						</div>
 					))}
 				</div>
