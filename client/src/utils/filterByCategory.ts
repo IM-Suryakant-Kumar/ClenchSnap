@@ -1,6 +1,6 @@
 import IPost from "../types/post";
 
-export const filteredByCategory = (posts: IPost[], cat: string) => {
+export const filteredByCategory = (posts: IPost[] , cat: string) => {
     let filteredPosts: IPost[] | [] = [];
 
     cat === "older" && (filteredPosts = posts);
