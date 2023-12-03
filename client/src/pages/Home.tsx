@@ -23,6 +23,11 @@ const Home = () => {
 		<div className="relative min-h-screen">
 			<div className="flex mt-[7em] sm:mt-[5em]">
 				<div className="mx-auto md:w-[60%] max-w-[40rem]">
+                    <div className="w-[95%] h-[2rem] mx-auto flex justify-between text-center bg-secondary-cl mb-[0.5em] rounded-md">
+                        <span className="w-[30%]" onClick={() => setFilterCat("recent")}>recent</span>
+                        <span className="w-[30%]" onClick={() => setFilterCat("older")}>older</span>
+                        <span className="w-[30%]" onClick={() => setFilterCat("trending")}>trending</span>
+                    </div>
 					{posts &&
 						filteredByCategory(posts, filterCat)?.map(
 							(post, idx) => (

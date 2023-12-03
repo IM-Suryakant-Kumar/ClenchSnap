@@ -1,14 +1,14 @@
 import IPost from "../types/post";
 
-export const filteredByCategory = (posts: IPost[] , cat: string) => {
-    let filteredPosts: IPost[] | [] = [];
+export const filteredByCategory = (posts: IPost[], cat: string) => {
+	let filteredPosts: IPost[] = posts.map(p => p);
 
-    cat === "older" && (filteredPosts = posts);
-    cat === "recent" && (filteredPosts = posts.map(p => p).reverse());
-    cat === "trending" &&
-        (filteredPosts = posts.sort(
-            (a, b) => b.liked.length - a.liked.length,
-        ));
+	cat === "recent" && (filteredPosts = filteredPosts.reverse());
+	cat === "older" && (filteredPosts = posts);
+	cat === "trending" &&
+		(filteredPosts = filteredPosts.sort(
+			(a, b) => b.liked.length - a.liked.length,
+		));
 
-    return filteredPosts;
+	return filteredPosts;
 };
