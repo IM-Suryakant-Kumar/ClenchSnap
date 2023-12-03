@@ -4,7 +4,7 @@ import Post from "../components/Post";
 import { usePost, usePostModal } from "../contexts";
 
 const Home = () => {
-	const { handleToggle, setPostToEdit } = usePostModal();
+	const { handleToggle, setPostToEdit, setContent } = usePostModal();
 
 	const {
 		postState: { posts },
@@ -12,6 +12,7 @@ const Home = () => {
 
 	const handlePencilClick = () => {
 		setPostToEdit(null);
+		setContent("");
 		handleToggle();
 	};
 
