@@ -23,11 +23,35 @@ const Home = () => {
 		<div className="relative min-h-screen">
 			<div className="flex mt-[7em] sm:mt-[5em]">
 				<div className="mx-auto md:w-[60%] max-w-[40rem]">
-                    <div className="w-[95%] h-[2rem] mx-auto flex justify-between text-center bg-secondary-cl mb-[0.5em] rounded-md">
-                        <span className="w-[30%]" onClick={() => setFilterCat("recent")}>recent</span>
-                        <span className="w-[30%]" onClick={() => setFilterCat("older")}>older</span>
-                        <span className="w-[30%]" onClick={() => setFilterCat("trending")}>trending</span>
-                    </div>
+					<div className="w-[95%] h-[3rem] mx-auto flex items-center justify-around text-center  mb-[1em]">
+						<span
+							className={`text-logo-cl uppercase text-sm flex-1 py-[0.5em] border-b-[3px] ${
+								filterCat === "recent"
+									? "border-logo-cl"
+									: "border-blue-300"
+							}`}
+							onClick={() => setFilterCat("recent")}>
+							recent
+						</span>
+						<span
+							className={`text-logo-cl uppercase text-sm flex-1 py-[0.5em] border-b-[3px] ${
+								filterCat === "older"
+									? "border-logo-cl"
+									: "border-blue-300"
+							}`}
+							onClick={() => setFilterCat("older")}>
+							older
+						</span>
+						<span
+							className={`text-logo-cl uppercase text-sm flex-1 py-[0.5em] border-b-[3px] ${
+								filterCat === "trending"
+									? "border-logo-cl"
+									: "border-blue-300"
+							}`}
+							onClick={() => setFilterCat("trending")}>
+							trending
+						</span>
+					</div>
 					{posts &&
 						filteredByCategory(posts, filterCat)?.map(
 							(post, idx) => (
