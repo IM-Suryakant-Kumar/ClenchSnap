@@ -1,14 +1,23 @@
 import { Link, Outlet, useParams } from "react-router-dom";
 import ProfilePic from "../components/ProfilePic";
-import { usePost, useUser } from "../contexts";
+import { useLoading, usePost, useUser } from "../contexts";
 import { NavLink } from "react-router-dom";
+import IUser from "../types/user";
+import loadingWrapper from "../utils/loadingWrapper";
 
 const Profile = () => {
 	const { username } = useParams() as { username: string };
 
 	const {
+		loadingState: { loading },
+		loadingStart,
+		loadingStop,
+	} = useLoading();
+
+	const {
 		userState: { user, users },
 		getAllUser,
+		updateProfile,
 	} = useUser();
 
 	const {
@@ -32,6 +41,33 @@ const Profile = () => {
 		p.saved.includes(newUser?._id as string),
 	);
 
+	// handleFollowing
+	const handleFollowing = async (item: IUser) => {
+		const fn = async () => {
+			// followers
+			const followers = item.followers.includes(user?._id as string)
+				? item.followers.filter(userId => userId !== user?._id)
+				: [...item.followers, user?._id];
+
+			await updateProfile({
+				_id: item._id,
+				followers,
+			} as IUser);
+
+			// followings
+			const followings = user?.followings.includes(item._id)
+				? user.followings.filter(userId => item._id !== userId)
+				: [...(user?.followings as string[]), item._id];
+
+			await updateProfile({
+				_id: user?._id,
+				followings,
+			} as IUser);
+		};
+
+		loadingWrapper(loadingStart, loadingStop, fn);
+	};
+
 	// console.log(newUserPosts);
 	// console.log(newUserLikedPost);
 	// console.log(newUserSavedPost);
@@ -50,12 +86,25 @@ const Profile = () => {
 				</div>
 				<div className="w-[65%] flex items-start">
 					<div className="flex flex-col">
-						{user?.username === username && (
+						{user?.username === username ? (
 							<Link
 								to="/host/settings"
 								className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end">
 								Edit Profile
 							</Link>
+						) : (
+							<button
+								className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end"
+								onClick={async () =>
+									handleFollowing(newUser as IUser)
+								}
+								disabled={loading}>
+								{user?.followings?.includes(
+									newUser?._id as string,
+								)
+									? "Following"
+									: "follow"}
+							</button>
 						)}
 						<h1 className="text-lg sm:text-2xl font-semibold mt-[0.5em]">
 							{newUser?.fullname}
