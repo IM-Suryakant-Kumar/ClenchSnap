@@ -2,19 +2,14 @@ import { IoPencil } from "react-icons/io5";
 import RightSidebar from "../components/RightSidebar";
 import PostModal from "../components/PostModal";
 import Post from "../components/Post";
-import { useState } from "react";
-import { usePost } from "../contexts";
+import { usePost, usePostModal } from "../contexts";
 
 const Home = () => {
-	const [toggleModal, setToggleModal] = useState<boolean>(true);
+	const { handleToggle } = usePostModal();
 
 	const {
 		postState: { posts },
 	} = usePost();
-
-	const handleToggle = () => {
-		setToggleModal(prevState => !prevState);
-	};
 
 	return (
 		<div className="relative min-h-screen">
@@ -31,10 +26,7 @@ const Home = () => {
 					<RightSidebar />
 				</div>
 			</div>
-			<PostModal
-				toggleModal={toggleModal}
-				handleToggle={handleToggle}
-			/>
+			<PostModal />
 			<div
 				className="w-[3rem] h-[3rem] fixed bottom-[2.5em] sm:bottom-[0.5em] right-[1.5em] z-40  text-[1.5rem] p-[0.5em] text-primary-cl bg-logo-cl rounded-full cursor-pointer"
 				onClick={handleToggle}>
