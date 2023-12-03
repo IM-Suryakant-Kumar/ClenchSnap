@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import {
 	MdClose,
 	MdOutlineEmojiEmotions,
@@ -12,16 +13,22 @@ import loadingWrapper from "../utils/loadingWrapper";
 import IPost from "../types/post";
 
 const PostModal = () => {
-    const { toggleModal, handleToggle } = usePostModal()
+	const { toggleModal, handleToggle, postId } = usePostModal();
 	const [toggleEmojiPicker, setToggleEmojiPicker] = useState<boolean>(true);
 	const [content, setContent] = useState<string>("");
-    const { createPost } = usePost()
+	const {
+		createPost,
+		updatePost,
+		postState: { posts },
+	} = usePost();
 
 	const {
 		loadingState: { submitting },
 		submittingStart,
 		submittingStop,
 	} = useLoading();
+
+	const postToEdit = posts?.find(post => post._id === postId);
 
 	// toggle emoji
 	const handleEmojiPicker = () => {
@@ -38,12 +45,20 @@ const PostModal = () => {
 		const fn = async () => {
 			const formData = new FormData(e.currentTarget);
 			const content = formData.get("content");
-			let image = formData.get("image") as File | string;
+			let image =
+				(formData.get("image") as File | string) || postToEdit?.image;
 
-			image && (image = await postCloudinary(image as File) as string);
+			image && (image = (await postCloudinary(image as File)) as string);
 
-            await createPost({content, image} as IPost)
-            handleToggle()
+			postToEdit
+				? await updatePost({
+						_id: postToEdit._id,
+						content,
+						image,
+				  } as IPost)
+				: await createPost({ content, image } as IPost);
+
+			handleToggle();
 		};
 
 		loadingWrapper(submittingStart, submittingStop, fn);
@@ -70,8 +85,8 @@ const PostModal = () => {
 						className="w-[90%] h-[4rem] outline-none  border-2  border-logo-cl rounded-md
                     "
 						name="content"
-						value={content}
-                        required
+						value={content || postToEdit?.content}
+						required
 						onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
 							setContent(e.target.value)
 						}

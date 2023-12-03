@@ -72,7 +72,7 @@ const Post: React.FC<Props> = ({ post }) => {
 				{/* action modals */}
 				{showModalId === post._id && (
 					<ActionModal
-                        postId={post._id}
+                        postToEdit={post}
 						postUserId={post.userId}
 					/>
 				)}
