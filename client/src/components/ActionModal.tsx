@@ -9,7 +9,7 @@ type Props = {
 };
 
 const ActionModal: React.FC<Props> = ({ postToEdit, postUserId }) => {
-	const { handleToggle, setPostToEdit } = usePostModal();
+	const { handleToggle, setPostToEdit, setContent } = usePostModal();
 
 	const {
 		userState: { user, users },
@@ -50,8 +50,9 @@ const ActionModal: React.FC<Props> = ({ postToEdit, postUserId }) => {
 	};
 
 	const handleEdit = async () => {
-		handleToggle();
         setPostToEdit(postToEdit)
+        setContent(postToEdit.content)
+		handleToggle();
 	};
 
 	return (
