@@ -1,13 +1,15 @@
-import { useLoading, useUser } from "../contexts";
+import { useLoading, usePostModal, useUser } from "../contexts";
 import IUser from "../types/user";
 import loadingWrapper from "../utils/loadingWrapper";
 
 type Props = {
-    postId: string;
+	postId: string;
 	postUserId: string;
 };
 
 const ActionModal: React.FC<Props> = ({ postId, postUserId }) => {
+	const { handleToggle } = usePostModal();
+
 	const {
 		userState: { user, users },
 		updateProfile,
@@ -45,14 +47,16 @@ const ActionModal: React.FC<Props> = ({ postId, postUserId }) => {
 		loadingWrapper(loadingStart, loadingStop, fn);
 	};
 
-    const handleEdit = async () => {
-        
-    }
+	const handleEdit = async () => {
+		handleToggle();
+	};
 
 	return (
 		<div className="w-[10rem] p-[0.2em] absolute top-[2.5em] right-[0.8em] bg-primary-cl shadow-md">
 			{user?._id === postUserId && (
-				<button className="w-full text-center hover:bg-secondary-cl py-[0.5em]" onClick={handleEdit}>
+				<button
+					className="w-full text-center hover:bg-secondary-cl py-[0.5em]"
+					onClick={handleEdit}>
 					Edit
 				</button>
 			)}
