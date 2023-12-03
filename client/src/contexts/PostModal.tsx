@@ -1,10 +1,11 @@
 import { createContext, useContext, useState } from "react";
+import IPost from "../types/post";
 
 interface IPosPostModalContext {
 	toggleModal: boolean;
 	handleToggle: () => void;
-	postId: string;
-	setPostId: React.Dispatch<React.SetStateAction<string>>;
+	postToEdit: IPost | null;
+	setPostToEdit: React.Dispatch<React.SetStateAction<IPost | null>>;
 }
 
 const PostModalContext = createContext<IPosPostModalContext | null>(null);
@@ -15,7 +16,7 @@ type Props = {
 
 const PostModalContextProvider: React.FC<Props> = ({ children }) => {
 	const [toggleModal, setToggleModal] = useState<boolean>(true);
-	const [postId, setPostId] = useState<string>("");
+	const [postToEdit, setPostToEdit] = useState<IPost | null>(null);
 
 	const handleToggle = () => {
 		setToggleModal(prevState => !prevState);
@@ -23,7 +24,7 @@ const PostModalContextProvider: React.FC<Props> = ({ children }) => {
 
 	return (
 		<PostModalContext.Provider
-			value={{ toggleModal, handleToggle, postId, setPostId }}>
+			value={{ toggleModal, handleToggle, postToEdit, setPostToEdit }}>
 			{children}
 		</PostModalContext.Provider>
 	);
