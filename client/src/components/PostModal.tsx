@@ -13,13 +13,12 @@ import loadingWrapper from "../utils/loadingWrapper";
 import IPost from "../types/post";
 
 const PostModal = () => {
-	const { toggleModal, handleToggle, postId } = usePostModal();
+	const { toggleModal, handleToggle, postToEdit } = usePostModal();
 	const [toggleEmojiPicker, setToggleEmojiPicker] = useState<boolean>(true);
 	const [content, setContent] = useState<string>("");
 	const {
 		createPost,
 		updatePost,
-		postState: { posts },
 	} = usePost();
 
 	const {
@@ -27,8 +26,6 @@ const PostModal = () => {
 		submittingStart,
 		submittingStop,
 	} = useLoading();
-
-	const postToEdit = posts?.find(post => post._id === postId);
 
 	// toggle emoji
 	const handleEmojiPicker = () => {
@@ -85,7 +82,7 @@ const PostModal = () => {
 						className="w-[90%] h-[4rem] outline-none  border-2  border-logo-cl rounded-md
                     "
 						name="content"
-						value={content || postToEdit?.content}
+						value={postToEdit?.content || content}
 						required
 						onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
 							setContent(e.target.value)
