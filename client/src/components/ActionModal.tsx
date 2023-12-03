@@ -1,13 +1,14 @@
 import { useLoading, usePostModal, useUser } from "../contexts";
+import IPost from "../types/post";
 import IUser from "../types/user";
 import loadingWrapper from "../utils/loadingWrapper";
 
 type Props = {
-	postId: string;
+	postToEdit: IPost;
 	postUserId: string;
 };
 
-const ActionModal: React.FC<Props> = ({ postId, postUserId }) => {
+const ActionModal: React.FC<Props> = ({ postToEdit, postUserId }) => {
 	const { handleToggle, setPostId } = usePostModal();
 
 	const {
@@ -50,7 +51,7 @@ const ActionModal: React.FC<Props> = ({ postId, postUserId }) => {
 
 	const handleEdit = async () => {
 		handleToggle();
-        setPostId(postId)
+        // setPostId(postToEdit)
 	};
 
 	return (
