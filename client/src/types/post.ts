@@ -14,4 +14,5 @@ export default interface IPost {
 	liked: string[];
 	saved: string[];
 	comments: IComment[];
+    createdAt: string;
 }

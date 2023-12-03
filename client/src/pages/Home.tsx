@@ -2,6 +2,7 @@ import { IoPencil } from "react-icons/io5";
 import RightSidebar from "../components/RightSidebar";
 import Post from "../components/Post";
 import { usePost, usePostModal } from "../contexts";
+import IPost from "../types/post";
 
 const Home = () => {
 	const { handleToggle, setPostToEdit, setContent } = usePostModal();
@@ -16,16 +17,23 @@ const Home = () => {
 		handleToggle();
 	};
 
+	// posts && console.log(filteredByCategory(posts as IPost[], "recent"));
+	// posts && console.log(filteredByCategory(posts as IPost[], "older"));
+	posts && console.log();
+
 	return (
 		<div className="relative min-h-screen">
 			<div className="flex mt-[7em] sm:mt-[5em]">
 				<div className="mx-auto md:w-[60%] max-w-[40rem]">
-					{posts?.map((post, idx) => (
-						<Post
-							key={idx}
-							post={post}
-						/>
-					))}
+					{posts &&
+						filteredByCategory(posts as IPost[], "older")?.map(
+							(post, idx) => (
+								<Post
+									key={idx}
+									post={post}
+								/>
+							),
+						)}
 				</div>
 				<div className="hidden md:block md:w-[40%]">
 					<RightSidebar />
