@@ -26,7 +26,6 @@ const Home = () => {
 					<RightSidebar />
 				</div>
 			</div>
-			<PostModal />
 			<div
 				className="w-[3rem] h-[3rem] fixed bottom-[2.5em] sm:bottom-[0.5em] right-[1.5em] z-40  text-[1.5rem] p-[0.5em] text-primary-cl bg-logo-cl rounded-full cursor-pointer"
 				onClick={handleToggle}>
