@@ -73,6 +73,15 @@ const Post = () => {
 		setToggleModalIdx(null);
 	};
 
+	const HandleDeleteComment = async (userName: string, content: string) => {
+		const UpdatedComments = post.comments.filter(c => {
+			if (c.userName === userName && c.content === content) return false;
+			return true;
+		});
+		console.log(UpdatedComments);
+		setToggleModalIdx(null);
+	};
+
 	return (
 		<div className="max-w-[40rem] mx-auto mt-[7em] sm:mt-[5em]">
 			{/* ModalToEditComment */}
@@ -146,8 +155,7 @@ const Post = () => {
 							</div>
 							{/* ActionModals */}
 							{toggleModalIdx === idx &&
-								user?._id &&
-								post.userId && (
+								user?.fullname === c.userName && (
 									<div className="w-[8rem] p-[0.2em] absolute top-[2em] right-[0.8em] bg-primary-cl shadow-md">
 										<button
 											className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]"
@@ -159,7 +167,14 @@ const Post = () => {
 											}>
 											Edit
 										</button>
-										<button className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]">
+										<button
+											className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]"
+											onClick={() =>
+												HandleDeleteComment(
+													c.userName,
+													c.content,
+												)
+											}>
 											Delete
 										</button>
 									</div>
