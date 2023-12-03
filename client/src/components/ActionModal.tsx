@@ -1,4 +1,4 @@
-import { useLoading, usePostModal, useUser } from "../contexts";
+import { useLoading, usePost, usePostModal, useUser } from "../contexts";
 import IPost from "../types/post";
 import IUser from "../types/user";
 import loadingWrapper from "../utils/loadingWrapper";
@@ -16,11 +16,21 @@ const ActionModal: React.FC<Props> = ({ postToEdit, postUserId }) => {
 		updateProfile,
 	} = useUser();
 
+	const { deletePost } = usePost();
+
 	const {
 		loadingState: { loading },
 		loadingStart,
 		loadingStop,
 	} = useLoading();
+
+	const handleEdit = async () => {
+		setPostToEdit(postToEdit);
+		setContent(postToEdit.content);
+		handleToggle();
+	};
+
+	const handleDelete = async () => await deletePost(postToEdit._id);
 
 	const handleFollowing = async () => {
 		const postUser = users?.find(item => item._id === postUserId);
@@ -49,12 +59,6 @@ const ActionModal: React.FC<Props> = ({ postToEdit, postUserId }) => {
 		loadingWrapper(loadingStart, loadingStop, fn);
 	};
 
-	const handleEdit = async () => {
-        setPostToEdit(postToEdit)
-        setContent(postToEdit.content)
-		handleToggle();
-	};
-
 	return (
 		<div className="w-[10rem] p-[0.2em] absolute top-[2.5em] right-[0.8em] bg-primary-cl shadow-md">
 			{user?._id === postUserId && (
@@ -65,7 +69,9 @@ const ActionModal: React.FC<Props> = ({ postToEdit, postUserId }) => {
 				</button>
 			)}
 			{user?._id === postUserId && (
-				<button className="w-full text-center hover:bg-secondary-cl py-[0.5em]">
+				<button
+					className="w-full text-center hover:bg-secondary-cl py-[0.5em]"
+					onClick={handleDelete}>
 					Delete
 				</button>
 			)}
