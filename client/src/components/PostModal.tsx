@@ -12,7 +12,6 @@ import loadingWrapper from "../utils/loadingWrapper";
 import IPost from "../types/post";
 
 type Props = {
-	toggleModal: boolean;
 	handleToggle: () => void;
 };
 

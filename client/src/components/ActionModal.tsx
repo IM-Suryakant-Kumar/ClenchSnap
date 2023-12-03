@@ -3,10 +3,11 @@ import IUser from "../types/user";
 import loadingWrapper from "../utils/loadingWrapper";
 
 type Props = {
+    postId: string;
 	postUserId: string;
 };
 
-const ActionModal: React.FC<Props> = ({ postUserId }) => {
+const ActionModal: React.FC<Props> = ({ postId, postUserId }) => {
 	const {
 		userState: { user, users },
 		updateProfile,
@@ -44,10 +45,14 @@ const ActionModal: React.FC<Props> = ({ postUserId }) => {
 		loadingWrapper(loadingStart, loadingStop, fn);
 	};
 
+    const handleEdit = async () => {
+        
+    }
+
 	return (
 		<div className="w-[10rem] p-[0.2em] absolute top-[2.5em] right-[0.8em] bg-primary-cl shadow-md">
 			{user?._id === postUserId && (
-				<button className="w-full text-center hover:bg-secondary-cl py-[0.5em]">
+				<button className="w-full text-center hover:bg-secondary-cl py-[0.5em]" onClick={handleEdit}>
 					Edit
 				</button>
 			)}
