@@ -5,15 +5,6 @@ import RightSidebar from "../components/RightSidebar";
 import PostModal from "../components/PostModal";
 
 const Explore = () => {
-	const [toggleModal, setToggleModal] = useState<boolean>(true);
-
-	const {
-		postState: { posts },
-	} = usePost();
-
-	const handleToggle = () => {
-		setToggleModal(prevState => !prevState);
-	};
 
 	return (
 		<div className="relative min-h-screen">
@@ -30,10 +21,6 @@ const Explore = () => {
 					<RightSidebar />
 				</div>
 			</div>
-			<PostModal
-				toggleModal={toggleModal}
-				handleToggle={handleToggle}
-			/>
 		</div>
 	);
 };
