@@ -22,6 +22,7 @@ A Social media app made using mern stack with TypeScript
 - Add, edit and delete comment management on single post
 - Like, Dislike and Save to Bookmark management
 - Search users with debounce implementation
+- Filter posts by trending, oldest and recent first
 - User Friendly toast
 
 ## Tech Stack
