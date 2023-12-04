@@ -1,11 +1,11 @@
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
-import { getUserFromLocalStorage } from "./handleUser";
+import { getLoggedInUser } from "../apis/user";
 
-const requireAuth = ({ request }: LoaderFunctionArgs) => {
+const requireAuth = async ({ request }: LoaderFunctionArgs) => {
 	const pathname = new URL(request.url).pathname;
-	const user = getUserFromLocalStorage();
+	const data = await getLoggedInUser();
 
-	if (!user) {
+	if (!data.success) {
 		throw redirect(
 			`/login?message="You must login first&redirectTo=${pathname}`,
 		);

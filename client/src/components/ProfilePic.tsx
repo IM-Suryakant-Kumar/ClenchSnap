@@ -11,9 +11,10 @@ const ProfilePic: React.FC<Props> = ({ name, avatar, width, height, size }) => {
 	const randomIndex = Math.floor(Math.random() * colors.length);
 	const color = `#${colors[randomIndex]}`;
     
-    const newAvatar = avatar === "undefined" || !avatar ? "" : avatar
+    const newAvatar = avatar !== "undefined" ? avatar : ""
 
-    // console.log(Boolean(avatar), avatar)
+    // console.log(Boolean(avatar))
+    // console.log(newAvatar)
 
 	return (
 		<div
@@ -27,7 +28,7 @@ const ProfilePic: React.FC<Props> = ({ name, avatar, width, height, size }) => {
 				>
 					<img
 						className="w-full h-full rounded-full object-cover"
-						src={avatar}
+						src={newAvatar}
 					/>
 				</div>
 			) : (
@@ -35,7 +36,7 @@ const ProfilePic: React.FC<Props> = ({ name, avatar, width, height, size }) => {
 					className="text-primary-cl w-full h-full rounded-full flex justify-center items-center"
 					style={{ backgroundColor: color, fontSize: size }}
 				>
-					{name.charAt(0).toUpperCase()}
+					{name?.charAt(0).toUpperCase()}
 				</div>
 			)}
 		</div>

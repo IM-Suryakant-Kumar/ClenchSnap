@@ -10,16 +10,16 @@ import { guestLogin, login } from "../apis/auth";
 import { useLoading, useUser } from "../contexts";
 import loadingWrapper from "../utils/loadingWrapper";
 import { useState } from "react";
-import { getUserFromLocalStorage } from "../utils/handleUser";
 import IUser from "../types/user";
+import { getLoggedInUser } from "../apis/user";
 
-export const loader = ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const searchParams = new URL(request.url).searchParams;
 	const message = searchParams.get("message");
 	const pathname = searchParams.get("redirectTo") || "/";
 
-	const user = getUserFromLocalStorage();
-	return user ? redirect(pathname) : message;
+	const data = await getLoggedInUser()
+	return data.success ? redirect(pathname) : message;
 };
 
 const Login = () => {

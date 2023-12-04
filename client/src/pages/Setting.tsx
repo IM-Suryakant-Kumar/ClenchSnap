@@ -23,9 +23,7 @@ const Setting = () => {
 		submittingStop,
 	} = useLoading();
 
-	const [imagePreview, setImagePreview] = useState<string>(
-		user?.avatar || "",
-	);
+	const [imagePreview, setImagePreview] = useState<string>("");
 
 	const handleImagePreview = async (
 		e: React.ChangeEvent<HTMLInputElement>,
@@ -59,7 +57,7 @@ const Setting = () => {
 				website,
 			} as IUser);
 
-            toast.success("Successfully Updated!")
+			toast.success("Successfully Updated!");
 		};
 
 		loadingWrapper(submittingStart, submittingStop, fn);
@@ -85,7 +83,7 @@ const Setting = () => {
 						height="6rem"
 						size="2rem"
 						name={user?.fullname as string}
-						avatar={imagePreview}
+						avatar={imagePreview || (user?.avatar as string)}
 					/>
 					<input
 						className="w-[1.5rem] h-[1.5rem] absolute bottom-[0.5em] right-[0.5em] z-10 rounded-full opacity-0"

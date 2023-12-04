@@ -1,8 +1,7 @@
 import { IUserAction, IUserState } from "../types/statesAndActions";
-import { getUserFromLocalStorage } from "../utils/handleUser";
 
 export const userInitialState: IUserState = {
-	user: getUserFromLocalStorage(),
+	user: null,
 	users: null,
 	followers: null,
 	followings: null,

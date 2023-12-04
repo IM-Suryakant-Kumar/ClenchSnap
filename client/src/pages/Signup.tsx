@@ -6,16 +6,16 @@ import {
 } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { signup } from "../apis/auth";
-import { getUserFromLocalStorage } from "../utils/handleUser";
 import { useLoading, useUser } from "../contexts";
 import { useState } from "react";
 import loadingWrapper from "../utils/loadingWrapper";
 import IUser from "../types/user";
+import { getLoggedInUser } from "../apis/user";
 
-export const loader = ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const pathname = new URL(request.url).searchParams.get("redirectTo") || "/";
-	const user = getUserFromLocalStorage();
-	return user ? redirect(pathname) : null;
+	const data = await getLoggedInUser();
+	return data.success ? redirect(pathname) : null;
 };
 
 const Signup = () => {

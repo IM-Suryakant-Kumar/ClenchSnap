@@ -6,7 +6,6 @@ import {
 	getTokenFromLocalStorage,
 	removeTokenFromLocalStorage,
 } from "../utils/handleToken";
-import { removeUserFromLocalStorage } from "../utils/handleUser";
 import asyncWrapper from "../utils/asyncWrapper";
 import IUser from "../types/user";
 
@@ -44,7 +43,6 @@ export const logout = async () =>
 			headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
 		})) as IApiRes;
 		removeTokenFromLocalStorage();
-		removeUserFromLocalStorage();
 		toast.success(data.message);
 		return data;
 	});
