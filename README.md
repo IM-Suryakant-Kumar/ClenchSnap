@@ -6,7 +6,6 @@ A Social media app made using mern stack with TypeScript
 
 </div>
 
-<!-- ## Demo -->
 
 ## Features
 
@@ -36,3 +35,10 @@ A Social media app made using mern stack with TypeScript
 - MongoDB, Express, Mongoose, Node for backend
 - JWT for authentication
 - bcryptjs for password hashing
+
+## Demo
+
+
+https://github.com/IM-Suryakant-Kumar/ClenchSnap/assets/66691162/daba7225-f5ec-4538-8d76-2436b48d7db3
+
+
