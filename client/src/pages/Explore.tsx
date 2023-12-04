@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { usePost } from "../contexts";
 import Post from "../components/Post";
 import RightSidebar from "../components/RightSidebar";
-import PostModal from "../components/PostModal";
 
 const Explore = () => {
+	const {
+		postState: { posts },
+	} = usePost();
 
 	return (
 		<div className="relative min-h-screen">
