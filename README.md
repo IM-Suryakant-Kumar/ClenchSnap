@@ -27,6 +27,7 @@ A Social media app made using mern stack with TypeScript
 ## Tech Stack
 
 - React for UI
+- ContextAPI with useReducer
 - React Toastify for notifications
 - TypeScript in development
 - React Router Dom with new Data APIs to fetching data
