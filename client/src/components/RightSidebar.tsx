@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useLoading, useUser } from "../contexts";
-import ProfilePic from "./ProfilePic";
-import IUser from "../types/user";
-import loadingWrapper from "../utils/loadingWrapper";
+import { ProfilePic } from ".";
+import { IUser } from "../types";
+import { loadingWrapper } from "../utils";
 
 const RightSidebar = () => {
 	const {
@@ -56,15 +56,13 @@ const RightSidebar = () => {
 	return (
 		<div className="w-[32%] fixed top-[5em] right-0 p-2">
 			<div className="w-[15rem] mx-auto">
-				<p className="text-lg text-center text-gray-400">
-					You might like
-				</p>
+				<p className="text-lg text-center text-gray-400">You might like</p>
 				{filteredUsers?.slice(startIdx, endIdx).map((item, idx) => (
 					<div
 						key={idx}
 						className="flex items-center justify-between gap-[0.5em] border-b-[1px] border-gray-400 text-logo-cl">
 						<Link
-							to={`/host/profile/${item.username}`}
+							to={`/profile/${item.username}/post`}
 							className="flex items-center gap-[1em] my-[0.5em]">
 							<ProfilePic
 								width="2.5rem"
@@ -78,9 +76,7 @@ const RightSidebar = () => {
 						<button
 							disabled={loading}
 							onClick={async () => await handleFollowing(item)}>
-							{user?.followings?.includes(item._id)
-								? "Following"
-								: "follow"}
+							{user?.followings?.includes(item._id) ? "Following" : "follow"}
 						</button>
 					</div>
 				))}

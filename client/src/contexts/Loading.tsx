@@ -1,6 +1,6 @@
 import { createContext, useReducer, useContext } from "react";
-import { ILoadingState } from "../types/statesAndActions";
-import { loadingInitialState, loadingReducer } from "../reducers/loading";
+import { ILoadingState } from "../types";
+import { loadingInitialState, loadingReducer } from "../reducers";
 
 export interface ILoadingContext {
 	loadingState: ILoadingState;
@@ -19,7 +19,7 @@ type Props = {
 const LoadingContextProvider: React.FC<Props> = ({ children }) => {
 	const [loadingState, loadingDispatch] = useReducer(
 		loadingReducer,
-		loadingInitialState,
+		loadingInitialState
 	);
 
 	const loadingStart = () => {

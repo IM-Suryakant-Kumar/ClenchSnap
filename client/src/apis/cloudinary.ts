@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const clodinary = async (file: File) => {
+export const clodinary = async (file: File) => {
 	try {
 		const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
 		const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
@@ -31,5 +31,3 @@ export const postCloudinary = async (file: File) => {
 		// console.log(error);
 	}
 };
-
-export default clodinary;

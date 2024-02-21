@@ -13,17 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.logout = exports.guestLogin = exports.login = exports.createUser = void 0;
-const http_status_codes_1 = require("http-status-codes");
 const errors_1 = require("../errors");
-const User_1 = __importDefault(require("../models/User"));
-const sendToken_1 = __importDefault(require("../utils/sendToken"));
+const models_1 = require("../models");
+const utils_1 = __importDefault(require("../utils"));
 // Create User
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body: { fullname, username, email, password }, } = req;
     if (!(fullname && username && email && password))
         throw new errors_1.BadRequestError("Please provide all values");
-    const user = yield User_1.default.create({ fullname, username, email, password });
-    (0, sendToken_1.default)(user, http_status_codes_1.StatusCodes.CREATED, res, "Successfully registered");
+    const user = yield models_1.User.create({ fullname, username, email, password });
+    (0, utils_1.default)(user, 200, res, "Successfully registered");
 });
 exports.createUser = createUser;
 // Login user
@@ -31,30 +30,31 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body: { email, password }, } = req;
     if (!(email && password))
         throw new errors_1.BadRequestError("Please provide all values");
-    const user = yield User_1.default.findOne({ email }).select("+password");
+    const user = yield models_1.User.findOne({ email }).select("+password");
     if (!user)
         throw new errors_1.UnauthenticatedError("Invalid Credentials!");
     const isPasswordCorrect = yield user.comparePassword(password);
     if (!isPasswordCorrect)
         throw new errors_1.UnauthorizedError("Invalid credentials!");
-    (0, sendToken_1.default)(user, http_status_codes_1.StatusCodes.CREATED, res, "Successfully logged in");
+    (0, utils_1.default)(user, 200, res, "Successfully logged in");
 });
 exports.login = login;
 // guest login
 const guestLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User_1.default.findOne({ email: "clenchsnap@gmail.com" }).select("+password");
+    const user = yield models_1.User.findOne({ email: "clenchsnap@gmail.com" }).select("+password");
     if (!user)
         throw new errors_1.UnauthenticatedError("Invalid Credentials!");
     const isPasswordCorrect = yield user.comparePassword("secret");
     if (!isPasswordCorrect)
         throw new errors_1.UnauthorizedError("Invalid credentials!");
-    (0, sendToken_1.default)(user, http_status_codes_1.StatusCodes.CREATED, res, "Successfully logged in");
+    (0, utils_1.default)(user, 200, res, "Successfully logged in");
 });
 exports.guestLogin = guestLogin;
 // Logout user
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.cookie("token", null, { maxAge: 0, httpOnly: true })
-        .status(http_status_codes_1.StatusCodes.OK)
+    res
+        .cookie("token", null, { maxAge: 0, httpOnly: true })
+        .status(200)
         .json({ success: true, message: "Logged out successfully!" });
 });
 exports.logout = logout;

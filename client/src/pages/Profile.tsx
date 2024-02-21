@@ -1,9 +1,9 @@
 import { Link, Outlet, useParams } from "react-router-dom";
-import ProfilePic from "../components/ProfilePic";
 import { useLoading, usePost, useUser } from "../contexts";
 import { NavLink } from "react-router-dom";
-import IUser from "../types/user";
-import loadingWrapper from "../utils/loadingWrapper";
+import { ProfilePic } from "../components";
+import { IUser } from "../types";
+import { loadingWrapper } from "../utils";
 
 const Profile = () => {
 	const { username } = useParams() as { username: string };
@@ -30,15 +30,15 @@ const Profile = () => {
 		})();
 
 	const newUser = users?.find(
-		item => item.username === username || item._id === username,
+		item => item.username === username || item._id === username
 	);
 
 	const newUserPosts = posts?.filter(p => p.userId === newUser?._id);
 	const newUserLikedPosts = posts?.filter(p =>
-		p.liked.includes(newUser?._id as string),
+		p.liked.includes(newUser?._id as string)
 	);
 	const newUserSavedPosts = posts?.filter(p =>
-		p.saved.includes(newUser?._id as string),
+		p.saved.includes(newUser?._id as string)
 	);
 
 	// handleFollowing
@@ -88,20 +88,16 @@ const Profile = () => {
 					<div className="flex flex-col">
 						{user?.username === username ? (
 							<Link
-								to="/host/settings"
+								to="/settings"
 								className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end">
 								Edit Profile
 							</Link>
 						) : (
 							<button
 								className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end"
-								onClick={async () =>
-									handleFollowing(newUser as IUser)
-								}
+								onClick={async () => handleFollowing(newUser as IUser)}
 								disabled={loading}>
-								{user?.followings?.includes(
-									newUser?._id as string,
-								)
+								{user?.followings?.includes(newUser?._id as string)
 									? "Following"
 									: "follow"}
 							</button>
@@ -125,9 +121,7 @@ const Profile = () => {
 							<span className="mr-[1em] text-xs sm:text-sm">{`${
 								newUserPosts?.length
 							} ${
-								(newUserPosts?.length as number) > 1
-									? " posts"
-									: " post"
+								(newUserPosts?.length as number) > 1 ? " posts" : " post"
 							}`}</span>
 							<span className="mr-[1em] text-xs sm:text-sm">{`${
 								newUser?.followers?.length
@@ -151,9 +145,9 @@ const Profile = () => {
 			{/* main section */}
 			<div className="max-w-[40rem] mx-auto mt-[0.5em]">
 				<nav className="profile-nav flex justify-evenly">
-					<NavLink to="posts">Posts</NavLink>
-					<NavLink to="liked">Liked</NavLink>
-					<NavLink to="saved">Saved</NavLink>
+					<NavLink to={`/profile/${username}/post`}>Posts</NavLink>
+					<NavLink to={`profile/${username}/liked`}>Liked</NavLink>
+					<NavLink to={`profile/${username}/saved`}>Saved</NavLink>
 				</nav>
 			</div>
 			{/* outlet */}

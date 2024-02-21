@@ -8,15 +8,16 @@ import { NavLink } from "react-router-dom";
 import { useUser } from "../contexts";
 
 const Sidebar = () => {
-    const { userState: { user } } = useUser()
-    
+	const {
+		userState: { user },
+	} = useUser();
+
 	return (
 		<div className="sidebar fixed bottom-0 h-[3rem] w-full bg-secondary-cl sm:bg-inherit sm:w-[10rem] sm:h-auto sm:top-[5em] z-50">
 			<div className="h-full flex justify-around items-center text-logo-cl sm:flex-col sm:items-stretch sm:justify-stretch">
 				<NavLink
-					to="/host/home"
-					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
-				>
+					to="/home"
+					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none">
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
 						<MdOutlineHome />
 						<span className="hidden sm:inline-block text-[1.2rem] pl-[1.5em]">
@@ -25,9 +26,8 @@ const Sidebar = () => {
 					</div>
 				</NavLink>
 				<NavLink
-					to="/host/explore"
-					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
-				>
+					to="/explore"
+					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none">
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
 						<MdOutlineExplore />
 						<span className="hidden sm:inline-block text-[1.2rem] pl-[1.5em]">
@@ -36,9 +36,8 @@ const Sidebar = () => {
 					</div>
 				</NavLink>
 				<NavLink
-					to={`/host/profile/${user?.username}`}
-					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
-				>
+					to={`/profile/${user?.username}/post`}
+					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none">
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
 						<MdOutlinePersonOutline />
 						<span className="hidden sm:inline-block text-[1.2rem] pl-[1.5em]">
@@ -47,9 +46,8 @@ const Sidebar = () => {
 					</div>
 				</NavLink>
 				<NavLink
-					to="/host/settings"
-					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none"
-				>
+					to="/settings"
+					className="w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[50%] sm:w-full sm:h-[3.5rem] sm:rounded-none">
 					<div className="sm:w-full sm:h-full sm:flex sm:items-center sm:pl-[1em] text-[1.2rem] sm:text-[1.5rem]">
 						<MdOutlineSettings />
 						<span className="hidden sm:inline-block text-[1.2rem] pl-[1.5em]">

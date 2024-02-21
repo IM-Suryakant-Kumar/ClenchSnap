@@ -7,10 +7,10 @@ import {
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 
 import { useEffect, useState } from "react";
-import { postCloudinary } from "../apis/cloudinary";
+import { postCloudinary } from "../apis";
 import { useLoading, usePost, usePostModal } from "../contexts";
-import loadingWrapper from "../utils/loadingWrapper";
-import IPost from "../types/post";
+import { IPost } from "../types";
+import { loadingWrapper } from "../utils";
 
 const PostModal = () => {
 	const { toggleModal, handleToggle, postToEdit, content } = usePostModal();
@@ -40,8 +40,7 @@ const PostModal = () => {
 		const fn = async () => {
 			const formData = new FormData(e.currentTarget);
 			const content = formData.get("content");
-			let image =
-				(formData.get("image") as File | string) || postToEdit?.image;
+			let image = (formData.get("image") as File | string) || postToEdit?.image;
 
 			image && (image = (await postCloudinary(image as File)) as string);
 

@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import IPost from "post";
+import { IPost } from "post";
 
 const PostSchema = new Schema<IPost>(
 	{
@@ -18,7 +18,7 @@ const PostSchema = new Schema<IPost>(
 			},
 		],
 	},
-	{ timestamps: true },
+	{ timestamps: true }
 );
 
 export default model<IPost>("Post", PostSchema);

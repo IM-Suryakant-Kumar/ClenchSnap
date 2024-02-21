@@ -1,7 +1,6 @@
-import { StatusCodes } from "http-status-codes";
-import Post from "../models/Post";
+import { IUser } from "user";
 import { Request, Response } from "express";
-import IUser from "user";
+import { Post } from "../models";
 
 interface IReq extends Request {
 	user: IUser;
@@ -10,7 +9,7 @@ interface IReq extends Request {
 
 export const getAllPosts = async (req: Request, res: Response) => {
 	const posts = await Post.find();
-	res.status(StatusCodes.OK).json({ success: true, posts });
+	res.status(200).json({ success: true, posts });
 };
 
 export const createPost = async (req: Request, res: Response) => {
@@ -27,7 +26,7 @@ export const createPost = async (req: Request, res: Response) => {
 
 	const posts = await Post.find();
 
-	res.status(StatusCodes.OK).json({
+	res.status(200).json({
 		success: true,
 		message: "Successfully posted",
 		posts,
@@ -45,7 +44,7 @@ export const editPost = async (req: Request, res: Response) => {
 
 	const posts = await Post.find();
 
-	res.status(StatusCodes.OK).json({
+	res.status(200).json({
 		success: true,
 		message: "Successfully updated",
 		posts,
@@ -63,7 +62,7 @@ export const deletePost = async (req: Request, res: Response) => {
 
 	const posts = await Post.find();
 
-	res.status(StatusCodes.OK).json({
+	res.status(200).json({
 		success: true,
 		message: "Successfully deleted",
 		posts,

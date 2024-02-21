@@ -1,26 +1,10 @@
-import {
-	LoaderFunctionArgs,
-	redirect,
-	useLoaderData,
-	useNavigate,
-	useSearchParams,
-} from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { guestLogin, login } from "../apis/auth";
 import { useLoading, useUser } from "../contexts";
-import loadingWrapper from "../utils/loadingWrapper";
-import { useState } from "react";
-import IUser from "../types/user";
-import { getLoggedInUser } from "../apis/user";
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const searchParams = new URL(request.url).searchParams;
-	const message = searchParams.get("message");
-	const pathname = searchParams.get("redirectTo") || "/";
-
-	const data = await getLoggedInUser()
-	return data.success ? redirect(pathname) : message;
-};
+import { IUser } from "../types";
+import { loadingWrapper } from "../utils";
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -34,7 +18,7 @@ const Login = () => {
 		loadingStop,
 	} = useLoading();
 
-	const message = useLoaderData() as string;
+	const message = searchParams.get("message");
 	const [errorMessage, setErrorMessage] = useState<string>("");
 	const pathname = searchParams.get("redirectTo") || "/";
 
@@ -68,16 +52,13 @@ const Login = () => {
 		<div className="min-h-screen flex justify-center items-center">
 			<form
 				className="w-[90%] max-w-[24rem] bg-secondary-cl flex flex-col gap-[1em] py-[2em] px-[1em] rounded-md"
-				onSubmit={handleSubmit}
-			>
+				onSubmit={handleSubmit}>
 				<h1 className="text-2xl font-semibold font-cinzel text-center text-logo-cl mb-[1em]">
 					Log In
 				</h1>
 				{/* messages */}
 				{message && (
-					<span className="text-red-500 text-center text-sm">
-						{message}
-					</span>
+					<span className="text-red-500 text-center text-sm">{message}</span>
 				)}
 				{errorMessage && (
 					<span className="text-red-500 text-center text-sm">
@@ -98,24 +79,19 @@ const Login = () => {
 				/>
 				<button
 					className="w-full h-[2rem] bg-logo-cl text-sm text-primary-cl rounded-md mt-[2em]"
-					disabled={submitting}
-				>
+					disabled={submitting}>
 					{submitting ? "Logging in..." : "Log in"}
 				</button>
 				<button
 					type="button"
 					className="w-full h-[2rem] bg-blue-400 text-sm text-primary-cl rounded-md -mt-[0.5em]"
 					onClick={handleGuestLogin}
-					disabled={loading}
-				>
+					disabled={loading}>
 					{loading ? "Guest Loging in..." : "Guest Login"}
 				</button>
 				<span className="text-sm text-gray-400 text-center mt-[1em]">
 					Don't have an account?&nbsp;
-					<Link
-						to={`/signup?redirectTo=${pathname}`}
-						className="text-logo-cl"
-					>
+					<Link to={`/signup?redirectTo=${pathname}`} className="text-logo-cl">
 						Create now
 					</Link>{" "}
 				</span>

@@ -1,7 +1,6 @@
 import { useLoading, usePost, usePostModal, useUser } from "../contexts";
-import IPost from "../types/post";
-import IUser from "../types/user";
-import loadingWrapper from "../utils/loadingWrapper";
+import { IPost, IUser } from "../types";
+import { loadingWrapper } from "../utils";
 
 type Props = {
 	postToEdit: IPost;
@@ -80,9 +79,7 @@ const ActionModal: React.FC<Props> = ({ postToEdit, postUserId }) => {
 					className="w-full text-center hover:bg-secondary-cl py-[0.5em]"
 					onClick={handleFollowing}
 					disabled={loading}>
-					{user?.followings?.includes(postUserId)
-						? "Following"
-						: "follow"}
+					{user?.followings?.includes(postUserId) ? "Following" : "follow"}
 				</button>
 			)}
 		</div>

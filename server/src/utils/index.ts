@@ -1,5 +1,5 @@
 import { Response } from "express";
-import IUser from "user";
+import { IUser } from "user";
 
 const sendToken = (user: IUser, statusCode: number, res: Response, message: string) => {
 	const token: string = user.createJWTToken();

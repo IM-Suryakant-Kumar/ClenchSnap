@@ -8,23 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePost = exports.editPost = exports.createPost = exports.getAllPosts = void 0;
-const http_status_codes_1 = require("http-status-codes");
-const Post_1 = __importDefault(require("../models/Post"));
+const models_1 = require("../models");
 const getAllPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const posts = yield Post_1.default.find();
-    res.status(http_status_codes_1.StatusCodes.OK).json({ success: true, posts });
+    const posts = yield models_1.Post.find();
+    res.status(200).json({ success: true, posts });
 });
 exports.getAllPosts = getAllPosts;
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user: { _id, fullname, avatar }, } = req;
-    yield Post_1.default.create(Object.assign({ userId: _id, userName: fullname, avatar }, req.body));
-    const posts = yield Post_1.default.find();
-    res.status(http_status_codes_1.StatusCodes.OK).json({
+    yield models_1.Post.create(Object.assign({ userId: _id, userName: fullname, avatar }, req.body));
+    const posts = yield models_1.Post.find();
+    res.status(200).json({
         success: true,
         message: "Successfully posted",
         posts,
@@ -33,11 +29,11 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.createPost = createPost;
 const editPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user: { _id }, } = req;
-    yield Post_1.default.findByIdAndUpdate(req.body._id, req.body, {
+    yield models_1.Post.findByIdAndUpdate(req.body._id, req.body, {
         new: true,
     });
-    const posts = yield Post_1.default.find();
-    res.status(http_status_codes_1.StatusCodes.OK).json({
+    const posts = yield models_1.Post.find();
+    res.status(200).json({
         success: true,
         message: "Successfully updated",
         posts,
@@ -46,11 +42,11 @@ const editPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.editPost = editPost;
 const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { params: { postId }, } = req;
-    yield Post_1.default.findByIdAndDelete(postId, {
+    yield models_1.Post.findByIdAndDelete(postId, {
         new: true,
     });
-    const posts = yield Post_1.default.find();
-    res.status(http_status_codes_1.StatusCodes.OK).json({
+    const posts = yield models_1.Post.find();
+    res.status(200).json({
         success: true,
         message: "Successfully deleted",
         posts,

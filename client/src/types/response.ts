@@ -1,13 +1,12 @@
-import IPost from "./post";
-import IUser from "./user";
+import { IPost, IUser } from ".";
 
 export type TData = {
 	success: boolean;
 	message: string;
 	token: string;
 	user: IUser;
-    users: IUser[];
-    posts: IPost[]
+	users: IUser[];
+	posts: IPost[];
 };
 
 interface SuccessResponse {
@@ -22,4 +21,4 @@ interface FaildResponse {
 	};
 }
 
-export default interface IApiRes extends SuccessResponse, FaildResponse {}
+export interface IApiRes extends SuccessResponse, FaildResponse {}

@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authenticateUser = void 0;
 const errors_1 = require("../errors");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const User_1 = __importDefault(require("../models/User"));
+const models_1 = require("../models");
 const authenticateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const newReq = req;
     let { token } = newReq.cookies;
@@ -28,7 +28,7 @@ const authenticateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         throw new errors_1.UnauthenticatedError("Authentication failed!");
     const JWT_SECRET = process.env.JWT_SECRET;
     const { _id } = jsonwebtoken_1.default.verify(token, JWT_SECRET);
-    newReq.user = yield User_1.default.findById(_id);
+    newReq.user = yield models_1.User.findById(_id);
     next();
 });
 exports.authenticateUser = authenticateUser;

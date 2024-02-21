@@ -1,9 +1,7 @@
 import { toast } from "react-toastify";
-import IPost from "../types/post";
-import IApiRes from "../types/response";
-import asyncWrapper from "../utils/asyncWrapper";
-import { getTokenFromLocalStorage } from "../utils/handleToken";
 import axios from "./axios";
+import { asyncWrapper, getTokenFromLocalStorage } from "../utils";
+import { IApiRes, IPost } from "../types";
 
 export const getAllPosts = () =>
 	asyncWrapper(async () => {

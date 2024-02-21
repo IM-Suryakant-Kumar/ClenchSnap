@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { UnauthenticatedError, UnauthorizedError } from "../errors";
+import { UnauthenticatedError } from "../errors";
 import jwt from "jsonwebtoken";
-import User from "../models/User";
-import IUser from "user";
+import { IUser } from "user";
+import { User } from "../models";
 
 interface IReq extends Request {
 	user: IUser;

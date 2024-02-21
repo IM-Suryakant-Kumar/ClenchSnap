@@ -3,11 +3,10 @@ import Logo from "../assets/share.svg";
 import { MdSearch } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { useUser } from "../contexts";
-import ProfilePic from "./ProfilePic";
-import SearchModal from "./SearchModal";
-import debounce from "../utils/debounce";
 import { useEffect, useMemo, useState } from "react";
-import IUser from "../types/user";
+import { ProfilePic, SearchModal } from ".";
+import { IUser } from "../types";
+import { debounce } from "../utils";
 
 const Navbar = () => {
 	const navigate = useNavigate();
@@ -23,42 +22,32 @@ const Navbar = () => {
 
 	const debounceChangeHandler = useMemo(
 		() => debounce(changeHandler, 1000),
-		[],
+		[]
 	);
 
 	useEffect(() => {
 		if (searchedText) {
 			setSearchedUsers(
 				users?.filter(user => {
-					if (
-						user.fullname
-							.toLowerCase()
-							.includes(searchedText.toLowerCase())
-					)
+					if (user.fullname.toLowerCase().includes(searchedText.toLowerCase()))
 						return true;
 					else if (
-						user.username
-							.toLowerCase()
-							.includes(searchedText.toLowerCase())
+						user.username.toLowerCase().includes(searchedText.toLowerCase())
 					)
 						return true;
 					return false;
-				}) as IUser[],
+				}) as IUser[]
 			);
 		} else {
 			setSearchedUsers([]);
 		}
-	}, [searchedText]);
+	}, [searchedText, users]);
 
 	return (
 		<header className="h-[6rem] w-full sm:h-[4rem] bg-secondary-cl px-1 fixed top-0 z-10">
 			<nav className="h-full flex flex-wrap ">
 				<div className="w-[75%] sm:w-[34%] flex items-center gap-[0.3125em] sm:gap-2 py-1">
-					<img
-						className="w-7 h-7 sm:h-9 sm:w-9"
-						src={Logo}
-						alt="Logo"
-					/>
+					<img className="w-7 h-7 sm:h-9 sm:w-9" src={Logo} alt="Logo" />
 					<Link to="/">
 						<span className="text-xl sm:text-2xl font-semibold font-cinzel text-logo-cl">
 							ClenchSnap
@@ -67,7 +56,7 @@ const Navbar = () => {
 				</div>
 				<div
 					className="w-[25%] sm:w-[10%] sm:order-3 flex items-center justify-end pr-[1em] text-[1.5rem] sm:text-[1.8rem] cursor-pointer"
-					onClick={() => navigate("/host/settings")}>
+					onClick={() => navigate("/settings")}>
 					{user ? (
 						<ProfilePic
 							name={user.fullname}
@@ -90,10 +79,7 @@ const Navbar = () => {
 							onChange={debounceChangeHandler}
 						/>
 						<button className="w-[15%] pr-[1em] flex justify-end items-center">
-							<MdSearch
-								size="1rem"
-								color="#3a86ff"
-							/>
+							<MdSearch size="1rem" color="#3a86ff" />
 						</button>
 						{searchedUsers.length > 0 && (
 							<div

@@ -12,7 +12,7 @@ type TUser = {
     followings: string[];
 };
 
-export default interface IUser extends TUser, Document {
+export interface IUser extends TUser, Document {
 	comparePassword: (candidatePassword: string) => Promise<boolean>;
 	createJWTToken: () => string;
 }
