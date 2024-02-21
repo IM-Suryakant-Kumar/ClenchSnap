@@ -41,7 +41,7 @@ const Navbar = () => {
 		} else {
 			setSearchedUsers([]);
 		}
-	}, [searchedText]);
+	}, [searchedText, users]);
 
 	return (
 		<header className="h-[6rem] w-full sm:h-[4rem] bg-secondary-cl px-1 fixed top-0 z-10">

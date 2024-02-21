@@ -15,7 +15,7 @@ const SearchModal: React.FC<Props> = ({ users }) => {
 					<Link
 						className="my-[0.4em] flex items-center gap-[1em]"
 						key={user._id}
-						to={`/host/profile/${user._id}`}>
+						to={`/profile/${user._id}/post`}>
 						<ProfilePic
 							width="2rem"
 							height="2rem"
