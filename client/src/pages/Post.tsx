@@ -1,18 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useLoading, usePost, useUser } from "../contexts";
-import { default as PostC } from "../components/Post";
-import IPost from "../types/post";
-import ProfilePic from "../components/ProfilePic";
-import loadingWrapper from "../utils/loadingWrapper";
-import CommentModal from "../components/CommentModal";
 import { useState } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import { CommentModal, Post as PostC, ProfilePic } from "../components";
+import { IPost } from "../types";
+import { loadingWrapper } from "../utils";
 
 const Post = () => {
 	const { postId } = useParams() as { postId: string };
 	const [toggleModalIdx, setToggleModalIdx] = useState<number | null>(null);
-	const [toggleCommentModal, setToggleCommentModal] =
-		useState<boolean>(false);
+	const [toggleCommentModal, setToggleCommentModal] = useState<boolean>(false);
 	const [commentToEdit, setCommentToEdit] = useState<{
 		userName: string;
 		content: string;
@@ -78,8 +75,7 @@ const Post = () => {
 	const HandleDeleteComment = async (userName: string, content: string) => {
 		const fn = async () => {
 			const updatedComments = post.comments.filter(c => {
-				if (c.userName === userName && c.content === content)
-					return false;
+				if (c.userName === userName && c.content === content) return false;
 				return true;
 			});
 			await updatePost({
@@ -164,32 +160,21 @@ const Post = () => {
 								<HiOutlineDotsVertical />
 							</div>
 							{/* ActionModals */}
-							{toggleModalIdx === idx &&
-								user?.fullname === c.userName && (
-									<div className="w-[8rem] p-[0.2em] absolute top-[2.5em] right-[0.8em] z-40 bg-primary-cl shadow-md">
-										<button
-											className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]"
-											onClick={() =>
-												handleEdit(
-													c.userName,
-													c.content,
-												)
-											}>
-											Edit
-										</button>
-										<button
-											className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]"
-											disabled={loading}
-											onClick={() =>
-												HandleDeleteComment(
-													c.userName,
-													c.content,
-												)
-											}>
-											Delete
-										</button>
-									</div>
-								)}
+							{toggleModalIdx === idx && user?.fullname === c.userName && (
+								<div className="w-[8rem] p-[0.2em] absolute top-[2.5em] right-[0.8em] z-40 bg-primary-cl shadow-md">
+									<button
+										className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]"
+										onClick={() => handleEdit(c.userName, c.content)}>
+										Edit
+									</button>
+									<button
+										className="w-full text-sm text-center hover:bg-secondary-cl py-[0.2em]"
+										disabled={loading}
+										onClick={() => HandleDeleteComment(c.userName, c.content)}>
+										Delete
+									</button>
+								</div>
+							)}
 						</div>
 					))}
 				</div>

@@ -1,9 +1,9 @@
 import { LoaderFunctionArgs, Outlet } from "react-router-dom";
-import requireAuth from "../utils/requireAuth";
+import { requireAuth } from "../utils";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	await requireAuth({ request } as LoaderFunctionArgs);
-    return null
+	return null;
 };
 
 const HostLayout = () => {

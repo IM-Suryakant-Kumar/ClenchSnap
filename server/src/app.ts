@@ -5,14 +5,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import morgan from "morgan";
-import {
-	errorHandlerMiddleware,
-	notFoundMiddleware,
-} from "./middleware";
+import { errorHandlerMiddleware, notFoundMiddleware } from "./middleware";
 import connectDB from "./db";
-import authRouter from "./routes/auth";
-import userRouter from "./routes/user";
-import postRouter from "./routes/post";
+import { authRouter, postRouter, userRouter } from "./routes";
 
 config();
 const app = express();
@@ -44,7 +39,7 @@ const start = async () => {
 		const MONGO_URL: string = process.env.MONGO_URL;
 		await connectDB(MONGO_URL);
 		app.listen(PORT, () =>
-			console.log(`Server is listening on port ${PORT}...`),
+			console.log(`Server is listening on port ${PORT}...`)
 		);
 	} catch (error) {
 		console.log(error);

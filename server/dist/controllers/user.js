@@ -8,28 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllusers = exports.updateUser = exports.getLoggedInUser = void 0;
-const User_1 = __importDefault(require("../models/User"));
-const http_status_codes_1 = require("http-status-codes");
+const models_1 = require("../models");
 // get logged-in user
 const getLoggedInUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user: { _id }, } = req;
-    const user = yield User_1.default.findById(_id);
-    res.status(http_status_codes_1.StatusCodes.OK).json({ success: true, user });
+    const user = yield models_1.User.findById(_id);
+    res.status(200).json({ success: true, user });
 });
 exports.getLoggedInUser = getLoggedInUser;
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user: { _id }, body, } = req;
-    yield User_1.default.findByIdAndUpdate(req.body._id, body, {
+    yield models_1.User.findByIdAndUpdate(req.body._id, body, {
         new: true,
     });
-    const user = yield User_1.default.findById(_id);
-    const users = yield User_1.default.find();
-    res.status(http_status_codes_1.StatusCodes.OK).json({
+    const user = yield models_1.User.findById(_id);
+    const users = yield models_1.User.find();
+    res.status(200).json({
         success: true,
         message: "Successfully Updated!",
         user,
@@ -38,8 +34,8 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.updateUser = updateUser;
 const getAllusers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield User_1.default.find();
-    res.status(http_status_codes_1.StatusCodes.OK).json({ success: true, users });
+    const users = yield models_1.User.find();
+    res.status(200).json({ success: true, users });
 });
 exports.getAllusers = getAllusers;
 //# sourceMappingURL=user.js.map

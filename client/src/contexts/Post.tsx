@@ -1,13 +1,12 @@
 import { createContext, useContext, useMemo, useReducer } from "react";
-import { IPostState } from "../types/statesAndActions";
-import { postInitialState, postReducer } from "../reducers/post";
+import { IPost, IPostState } from "../types";
+import { postInitialState, postReducer } from "../reducers";
 import {
 	getAllPosts,
 	createPost as createPostApi,
 	editPost,
 	deletePost as deletePostApi,
-} from "../apis/post";
-import IPost from "../types/post";
+} from "../apis";
 
 interface IPostContext {
 	postState: IPostState;
@@ -39,37 +38,44 @@ const PostContextProvider: React.FC<Props> = ({ children }) => {
 
 	const createPost = async (post: IPost) => {
 		const data = await createPostApi(post);
-        data.success && postDispatch({
-            type: "CREATE_POST",
-            payload: data.posts
-        })
+		data.success &&
+			postDispatch({
+				type: "CREATE_POST",
+				payload: data.posts,
+			});
 	};
 
 	const updatePost = async (post: IPost) => {
 		const data = await editPost(post);
-        data.success && postDispatch({
-            type: "UPDATE_POST",
-            payload: data.posts
-        })
+		data.success &&
+			postDispatch({
+				type: "UPDATE_POST",
+				payload: data.posts,
+			});
 	};
 
 	const deletePost = async (postId: string) => {
 		const data = await deletePostApi(postId);
-        data.success && postDispatch({
-            type: "DELETE_POST",
-            payload: data.posts
-        })
+		data.success &&
+			postDispatch({
+				type: "DELETE_POST",
+				payload: data.posts,
+			});
 	};
 
-	const providerItem = { postState: memoizedState, getPosts, createPost, updatePost, deletePost };
+	const providerItem = {
+		postState: memoizedState,
+		getPosts,
+		createPost,
+		updatePost,
+		deletePost,
+	};
 
 	return (
-		<PostContext.Provider value={providerItem}>
-			{children}
-		</PostContext.Provider>
+		<PostContext.Provider value={providerItem}>{children}</PostContext.Provider>
 	);
 };
 
-const usePost = () => useContext(PostContext) as IPostContext
+const usePost = () => useContext(PostContext) as IPostContext;
 
-export { PostContextProvider, usePost  }
+export { PostContextProvider, usePost };

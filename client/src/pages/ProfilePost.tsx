@@ -1,8 +1,8 @@
 // const post
 
 import { useOutletContext } from "react-router-dom";
-import IPost from "../types/post";
-import Post from "../components/Post";
+import { Post } from "../components";
+import { IPost } from "../types";
 
 const ProfilePost = () => {
 	const { posts } = useOutletContext() as { posts: IPost[] };
@@ -14,10 +14,7 @@ const ProfilePost = () => {
 			{posts && (
 				<div>
 					{posts.map((post, idx) => (
-						<Post
-							key={idx}
-							post={post}
-						/>
+						<Post key={idx} post={post} />
 					))}
 				</div>
 			)}

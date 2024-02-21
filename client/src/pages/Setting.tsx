@@ -1,12 +1,12 @@
-import { MdOutlineModeEditOutline } from "react-icons/md";
-import ProfilePic from "../components/ProfilePic";
-import { useLoading, useUser } from "../contexts";
 import { useNavigate } from "react-router-dom";
-import loadingWrapper from "../utils/loadingWrapper";
+import { MdOutlineModeEditOutline } from "react-icons/md";
+import { useLoading, useUser } from "../contexts";
 import { useState } from "react";
-import IUser from "../types/user";
-import clodinary from "../apis/cloudinary";
+import { clodinary } from "../apis";
 import { toast } from "react-toastify";
+import { ProfilePic } from "../components";
+import { IUser } from "../types";
+import { loadingWrapper } from "../utils";
 
 const Setting = () => {
 	const navigate = useNavigate();
@@ -25,9 +25,7 @@ const Setting = () => {
 
 	const [imagePreview, setImagePreview] = useState<string>("");
 
-	const handleImagePreview = async (
-		e: React.ChangeEvent<HTMLInputElement>,
-	) => {
+	const handleImagePreview = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const fileList = e.target.files as FileList;
 		const file = fileList[0];
 		setImagePreview(URL.createObjectURL(file));

@@ -1,10 +1,8 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { createContext, useReducer, useContext, useCallback } from "react";
-import { IUserState } from "../types/statesAndActions";
-import { userInitialState, userReducer } from "../reducers/user";
-import { getAllusers, getLoggedInUser, updateUser } from "../apis/user";
-import IUser from "../types/user";
-import { logout } from "../apis/auth";
+import { IUser, IUserState } from "../types";
+import { userInitialState, userReducer } from "../reducers";
+import { getAllusers, getLoggedInUser, logout, updateUser } from "../apis";
 import { toast } from "react-toastify";
 
 interface IUserContext {
@@ -54,7 +52,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 	// update profile
 	const updateProfile = useCallback(async (newUser: IUser) => {
 		const { success, user, users, message } = await updateUser(
-			newUser as IUser,
+			newUser as IUser
 		);
 		success
 			? userDispatch({
@@ -92,9 +90,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
 	};
 
 	return (
-		<UserContext.Provider value={providerItem}>
-			{children}
-		</UserContext.Provider>
+		<UserContext.Provider value={providerItem}>{children}</UserContext.Provider>
 	);
 };
 

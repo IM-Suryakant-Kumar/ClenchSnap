@@ -1,4 +1,4 @@
-import IPost from "../types/post";
+import { IPost } from "../types";
 
 export const filteredByCategory = (posts: IPost[], cat: string) => {
 	let filteredPosts: IPost[] = posts.map(p => p);
@@ -7,7 +7,7 @@ export const filteredByCategory = (posts: IPost[], cat: string) => {
 	cat === "older" && (filteredPosts = posts);
 	cat === "trending" &&
 		(filteredPosts = filteredPosts.sort(
-			(a, b) => b.liked.length - a.liked.length,
+			(a, b) => b.liked.length - a.liked.length
 		));
 
 	return filteredPosts;

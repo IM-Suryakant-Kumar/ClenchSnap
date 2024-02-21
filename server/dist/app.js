@@ -21,9 +21,7 @@ const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const middleware_1 = require("./middleware");
 const db_1 = __importDefault(require("./db"));
-const auth_1 = __importDefault(require("./routes/auth"));
-const user_1 = __importDefault(require("./routes/user"));
-const post_1 = __importDefault(require("./routes/post"));
+const routes_1 = require("./routes");
 (0, dotenv_1.config)();
 const app = (0, express_1.default)();
 const CLIENT_URL = process.env.CLIENT_URL;
@@ -35,9 +33,9 @@ app.use((0, morgan_1.default)("tiny"));
 app.use((0, cors_1.default)({ origin: CLIENT_URL, credentials: true }));
 app.use((0, cookie_parser_1.default)());
 // routers
-app.use("/auth", auth_1.default);
-app.use("/user", user_1.default);
-app.use("/post", post_1.default);
+app.use("/auth", routes_1.authRouter);
+app.use("/user", routes_1.userRouter);
+app.use("/post", routes_1.postRouter);
 // Test
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).send("<h2>Server Working!👍👍👍</h2>");

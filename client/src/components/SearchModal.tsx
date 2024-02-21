@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import IUser from "../types/user";
-import ProfilePic from "./ProfilePic";
+import { ProfilePic } from ".";
+import { IUser } from "../types";
 
 type Props = {
 	users: IUser[];

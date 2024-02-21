@@ -4,7 +4,7 @@ interface IComment {
 	content: string;
 }
 
-export default interface IPost {
+export interface IPost {
     _id: string;
 	userId: string;
 	userName: string;

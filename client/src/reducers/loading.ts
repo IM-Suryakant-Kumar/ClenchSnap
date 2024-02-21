@@ -1,4 +1,4 @@
-import { ILoadingAction, ILoadingState } from "../types/statesAndActions";
+import { ILoadingAction, ILoadingState } from "../types";
 
 export const loadingInitialState: ILoadingState = {
 	loading: false,
@@ -7,7 +7,7 @@ export const loadingInitialState: ILoadingState = {
 
 export const loadingReducer = (
 	state: ILoadingState,
-	action: ILoadingAction,
+	action: ILoadingAction
 ) => {
 	switch (action.type) {
 		case "LOADING":

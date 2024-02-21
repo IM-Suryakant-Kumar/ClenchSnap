@@ -1,13 +1,12 @@
 import { toast } from "react-toastify";
-import IApiRes from "../types/response";
 import axios from "./axios";
+import { IApiRes, IUser } from "../types";
 import {
 	AddTokenToLocalStorage,
+	asyncWrapper,
 	getTokenFromLocalStorage,
 	removeTokenFromLocalStorage,
-} from "../utils/handleToken";
-import asyncWrapper from "../utils/asyncWrapper";
-import IUser from "../types/user";
+} from "../utils";
 
 // login
 export const login = (logCred: IUser) =>
@@ -28,10 +27,7 @@ export const guestLogin = async () =>
 // signup
 export const signup = async (regCred: IUser) =>
 	asyncWrapper(async () => {
-		const { data } = (await axios.post(
-			"/auth/register",
-			regCred,
-		)) as IApiRes;
+		const { data } = (await axios.post("/auth/register", regCred)) as IApiRes;
 		AddTokenToLocalStorage(data.token);
 		toast.success(data.message);
 		return data;

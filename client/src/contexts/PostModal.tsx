@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import IPost from "../types/post";
+import { IPost } from "../types";
 
 interface IPosPostModalContext {
 	toggleModal: boolean;

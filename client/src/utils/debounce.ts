@@ -1,4 +1,7 @@
-const debounce = (fn: (...args: React.ChangeEvent<HTMLInputElement>[]) => void, delay: number) => {
+export const debounce = (
+	fn: (...args: React.ChangeEvent<HTMLInputElement>[]) => void,
+	delay: number
+) => {
 	let timeoutId: NodeJS.Timeout;
 	return (...args: React.ChangeEvent<HTMLInputElement>[]) => {
 		const context = this || debounce;
@@ -6,5 +9,3 @@ const debounce = (fn: (...args: React.ChangeEvent<HTMLInputElement>[]) => void, 
 		timeoutId = setTimeout(() => fn.apply(context, [...args]), delay);
 	};
 };
-
-export default debounce;

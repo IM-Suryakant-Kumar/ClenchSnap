@@ -1,13 +1,12 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import IPost from "../types/post";
-import ProfilePic from "./ProfilePic";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { MdBookmark, MdOutlineBookmarkBorder } from "react-icons/md";
 import { usePost, useUser } from "../contexts";
-import { useState } from "react";
-import ActionModal from "./ActionModal.tsx";
+import { ActionModal, ProfilePic } from ".";
+import { IPost } from "../types";
 
 type Props = {
 	post: IPost;
@@ -50,9 +49,7 @@ const Post: React.FC<Props> = ({ post }) => {
 	return (
 		<div className="w-[95%] mx-auto bg-secondary-cl mb-[1em] rounded-lg relative">
 			<div className="flex items-center p-[0.5em]">
-				<Link
-					to={`/host/profile/${post.userId}`}
-					className="flex items-center">
+				<Link to={`/host/profile/${post.userId}`} className="flex items-center">
 					<ProfilePic
 						width="2rem"
 						height="2rem"
@@ -60,9 +57,7 @@ const Post: React.FC<Props> = ({ post }) => {
 						name={post.userName}
 						avatar={post.avatar}
 					/>
-					<h1 className="ml-[1em] font-medium text-md">
-						{post.userName}
-					</h1>
+					<h1 className="ml-[1em] font-medium text-md">{post.userName}</h1>
 				</Link>
 				<div
 					className="ml-auto cursor-pointer text-md"
@@ -71,10 +66,7 @@ const Post: React.FC<Props> = ({ post }) => {
 				</div>
 				{/* action modals */}
 				{showModalId === post._id && (
-					<ActionModal
-                        postToEdit={post}
-						postUserId={post.userId}
-					/>
+					<ActionModal postToEdit={post} postUserId={post.userId} />
 				)}
 			</div>
 			<p className="p-[0.5em]">
@@ -85,17 +77,11 @@ const Post: React.FC<Props> = ({ post }) => {
 			</p>
 			{post.image && (
 				<div className="my-[0.5em] border-[1px] border-gray-400">
-					<img
-						className="w-full h-full object-cover"
-						src={post.image}
-						alt=""
-					/>
+					<img className="w-full h-full object-cover" src={post.image} alt="" />
 				</div>
 			)}
 			<div className="p-[0.5em] flex items-center text-xl">
-				<div
-					className="cursor-pointer"
-					onClick={handleLike}>
+				<div className="cursor-pointer" onClick={handleLike}>
 					{post.liked.includes(user?._id as string) ? (
 						<FaHeart />
 					) : (
@@ -113,9 +99,7 @@ const Post: React.FC<Props> = ({ post }) => {
 				<p className="text-[1rem] font-normal ml-[0.5em]">
 					{post.comments.length}
 				</p>
-				<div
-					className="cursor-pointer ml-auto"
-					onClick={handleSave}>
+				<div className="cursor-pointer ml-auto" onClick={handleSave}>
 					{post.saved.includes(user?._id as string) ? (
 						<MdBookmark />
 					) : (

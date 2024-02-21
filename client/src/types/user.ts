@@ -1,5 +1,5 @@
-export default interface IUser {
-    _id: string;
+export interface IUser {
+	_id: string;
 	fullname: string;
 	username: string;
 	email: string;
@@ -7,6 +7,6 @@ export default interface IUser {
 	avatar: string;
 	bio: string;
 	website: string;
-    followers: string[];
-    followings: string[];
+	followers: string[];
+	followings: string[];
 }

@@ -2,9 +2,9 @@
 import { MdClose } from "react-icons/md";
 
 import { useEffect, useState } from "react";
-import loadingWrapper from "../utils/loadingWrapper";
 import { useLoading, usePost } from "../contexts";
-import IPost from "../types/post";
+import { IPost } from "../types";
+import { loadingWrapper } from "../utils";
 
 type Props = {
 	handleCommentModal: () => void;
@@ -48,7 +48,7 @@ const CommentModal: React.FC<Props> = ({
 
 	useEffect(
 		() => setCurrContent(commentToEdit.content),
-		[commentToEdit.content],
+		[commentToEdit.content]
 	);
 
 	return (

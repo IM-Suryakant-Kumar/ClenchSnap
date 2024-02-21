@@ -1,8 +1,7 @@
-import IApiRes from "../types/response";
-import IUser from "../types/user";
 import axios from "./axios";
-import asyncWrapper from "../utils/asyncWrapper";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
+import { asyncWrapper } from "../utils";
+import { IApiRes, IUser } from "../types";
 
 export const getLoggedInUser = async () =>
 	asyncWrapper(async () => {

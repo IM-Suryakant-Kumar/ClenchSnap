@@ -1,5 +1,5 @@
-import IPost from "./post";
-import IUser from "./user";
+import { IPost, IUser } from ".";
+
 
 // loading
 export interface ILoadingState {

@@ -1,6 +1,6 @@
-import IApiRes, { TData } from "../types/response";
+import { IApiRes, TData } from "../types";
 
-const asyncWrapper = async (fn: () => Promise<TData>) => {
+export const asyncWrapper = async (fn: () => Promise<TData>) => {
 	try {
 		return await fn();
 	} catch (error) {
@@ -9,5 +9,3 @@ const asyncWrapper = async (fn: () => Promise<TData>) => {
 		return response.data;
 	}
 };
-
-export default asyncWrapper;
