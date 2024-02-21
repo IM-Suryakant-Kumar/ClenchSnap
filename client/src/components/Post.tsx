@@ -49,7 +49,7 @@ const Post: React.FC<Props> = ({ post }) => {
 	return (
 		<div className="w-[95%] mx-auto bg-secondary-cl mb-[1em] rounded-lg relative">
 			<div className="flex items-center p-[0.5em]">
-				<Link to={`/host/profile/${post.userId}`} className="flex items-center">
+				<Link to={`/profile/${post.userId}/post`} className="flex items-center">
 					<ProfilePic
 						width="2rem"
 						height="2rem"
@@ -72,7 +72,7 @@ const Post: React.FC<Props> = ({ post }) => {
 			<p className="p-[0.5em]">
 				{post.content.length >= 100
 					? post.content.substring(0, 99) +
-					  <Link to={`/host/post/${post._id}`}>&nbsp;...</Link>
+					  <Link to={`/post/${post._id}`}>&nbsp;...</Link>
 					: post.content}
 			</p>
 			{post.image && (
@@ -92,7 +92,7 @@ const Post: React.FC<Props> = ({ post }) => {
 					{post.liked.length}
 				</p>
 				<div className="cursor-pointer ml-[1em]">
-					<Link to={`/host/post/${post._id}`}>
+					<Link to={`/post/${post._id}`}>
 						<FaRegComment />
 					</Link>
 				</div>

@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { guestLogin, login } from "../apis/auth";
@@ -18,7 +18,7 @@ const Login = () => {
 		loadingStop,
 	} = useLoading();
 
-	const message = useLoaderData() as string;
+	const message = searchParams.get("message");
 	const [errorMessage, setErrorMessage] = useState<string>("");
 	const pathname = searchParams.get("redirectTo") || "/";
 

@@ -1,5 +1,4 @@
 import {
-	Navigate,
 	Route,
 	RouterProvider,
 	createBrowserRouter,
@@ -18,7 +17,6 @@ import {
 	Home,
 	Landing,
 	Login,
-	LoginLoader,
 	NotFound,
 	Post,
 	Profile,
@@ -27,34 +25,9 @@ import {
 	ProfileSavedPost,
 	Setting,
 	Signup,
-	SignupLoader,
 } from "./pages";
 
 function App() {
-	// const router = createBrowserRouter(
-	// 	createRoutesFromElements(
-	// 		<Route path="/" element={<Layout />} errorElement={<Error />}>
-	// 			<Route index element={<Navigate to="host" />} />
-	// 			<Route path="host" element={<HostLayout />} loader={HostLayoutLoader}>
-	// 				<Route index element={<Navigate to="home" />} />
-	// 				<Route path="home" element={<Home />} />
-	// 				<Route path="post/:postId" element={<Post />} />
-	// 				<Route path="explore" element={<Explore />} />
-	// 				<Route path="profile/:username" element={<Profile />}>
-	// 					<Route index element={<Navigate to="posts" />} />
-	// 					<Route path="posts" element={<ProfilePost />} />
-	// 					<Route path="liked" element={<ProfileLikedPost />} />
-	// 					<Route path="saved" element={<ProfileSavedPost />} />
-	// 				</Route>
-	// 				<Route path="settings" element={<Setting />} />
-	// 			</Route>
-	// 			<Route path="login" element={<Login />} loader={LoginLoader} />
-	// 			<Route path="signup" element={<Signup />} loader={SignupLoader} />
-	// 			<Route path="*" element={<NotFound />} />
-	// 		</Route>
-	// 	)
-	// );
-
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path="/" element={<Layout />} errorElement={<Error />}>
@@ -62,6 +35,19 @@ function App() {
 				<Route element={<HostLayout />} loader={hostLayoutLoader}>
 					<Route path="home" element={<Home />} />
 					<Route path="explore" element={<Explore />} />
+					<Route element={<Profile />}>
+						<Route path="profile/:username/post" element={<ProfilePost />} />
+						<Route
+							path="profile/:username/liked"
+							element={<ProfileLikedPost />}
+						/>
+						<Route
+							path="profile/:username/saved"
+							element={<ProfileSavedPost />}
+						/>
+					</Route>
+					<Route path="settings" element={<Setting />} />
+					<Route path="post/:postId" element={<Post />} />
 				</Route>
 				<Route element={<AuthLayout />} loader={authLayoutLoader}>
 					<Route path="login" element={<Login />} />

@@ -88,7 +88,7 @@ const Profile = () => {
 					<div className="flex flex-col">
 						{user?.username === username ? (
 							<Link
-								to="/host/settings"
+								to="/settings"
 								className="text-xs border-2 border-secondary-cl mr-[1em] sm:m-0 px-[1em] py-[0.2em] rounded-lg text-primary-cl bg-logo-cl self-end">
 								Edit Profile
 							</Link>
@@ -145,9 +145,9 @@ const Profile = () => {
 			{/* main section */}
 			<div className="max-w-[40rem] mx-auto mt-[0.5em]">
 				<nav className="profile-nav flex justify-evenly">
-					<NavLink to="posts">Posts</NavLink>
-					<NavLink to="liked">Liked</NavLink>
-					<NavLink to="saved">Saved</NavLink>
+					<NavLink to={`/profile/${username}/post`}>Posts</NavLink>
+					<NavLink to={`profile/${username}/liked`}>Liked</NavLink>
+					<NavLink to={`profile/${username}/saved`}>Saved</NavLink>
 				</nav>
 			</div>
 			{/* outlet */}

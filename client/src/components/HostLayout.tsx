@@ -7,7 +7,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const data = await getLoggedInUser();
 	return data.success
 		? null
-		: redirect(`/login?message="You must login first&redirectTo=${pathname}`);
+		: redirect(`/login?message=You must login first&redirectTo=${pathname}`);
 };
 
 const HostLayout = () => {
