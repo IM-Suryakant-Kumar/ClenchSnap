@@ -1,26 +1,10 @@
-import {
-	LoaderFunctionArgs,
-	redirect,
-	useLoaderData,
-	useNavigate,
-	useSearchParams,
-} from "react-router-dom";
+import { useLoaderData, useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { guestLogin, login } from "../apis/auth";
 import { useLoading, useUser } from "../contexts";
-import { getLoggedInUser } from "../apis/user";
 import { IUser } from "../types";
 import { loadingWrapper } from "../utils";
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const searchParams = new URL(request.url).searchParams;
-	const message = searchParams.get("message");
-	const pathname = searchParams.get("redirectTo") || "/";
-
-	const data = await getLoggedInUser();
-	return data.success ? redirect(pathname) : message;
-};
 
 const Login = () => {
 	const navigate = useNavigate();

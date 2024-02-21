@@ -3,4 +3,3 @@ export * from "./debounce";
 export * from "./filterByCategory";
 export * from "./handleToken";
 export * from "./loadingWrapper";
-export * from "./requireAuth";
