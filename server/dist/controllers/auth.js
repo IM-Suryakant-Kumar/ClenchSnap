@@ -21,6 +21,10 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const { body: { fullname, username, email, password }, } = req;
     if (!(fullname && username && email && password))
         throw new errors_1.BadRequestError("Please provide all values");
+    const emailAlreadyExists = yield models_1.User.findOne({ email });
+    if (emailAlreadyExists) {
+        throw new errors_1.BadRequestError("Email is already exists");
+    }
     const user = yield models_1.User.create({ fullname, username, email, password });
     (0, utils_1.default)(user, 200, res, "Successfully registered");
 });
