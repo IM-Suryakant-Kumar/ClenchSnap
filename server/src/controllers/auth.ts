@@ -21,6 +21,11 @@ export const createUser = async (req: Request, res: Response) => {
 	if (!(fullname && username && email && password))
 		throw new BadRequestError("Please provide all values");
 
+	const emailAlreadyExists = await User.findOne({ email });
+	if (emailAlreadyExists) {
+		throw new BadRequestError("Email is already exists");
+	}
+
 	const user = await User.create({ fullname, username, email, password });
 	sendToken(user, 200, res, "Successfully registered");
 };
